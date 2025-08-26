@@ -60,7 +60,7 @@ class QuantumEssenceMultimodalOptimized:
         # 🏆 CONFIGURACIÓN OPTIMIZADA POR DEFAULT
         self.api_key = "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"
         self.openrouter_url = "https://openrouter.ai/api/v1/chat/completions"
-        self.ollama_url = "http://localhost:11434/api/generate"
+        # self.ollama_url = "http://localhost:11434/api/generate"  # Deshabilitado - no necesario
         
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -81,11 +81,11 @@ class QuantumEssenceMultimodalOptimized:
                 "multimodal": "openai/gpt-4o",
                 "quantum": "google/gemini-2.5-pro"
             },
-            "ollama": {
-                "text": "llama3.2:latest",
-                "multimodal": "llava:latest",
-                "quantum": "qwen2.5:latest"
-            }
+            # "ollama": {
+            #     "text": "llama3.2:latest",
+            #     "multimodal": "llava:latest",
+            #     "quantum": "qwen2.5:latest"
+            # }
         }
         
         # ⚛️ ESTADO DE ESENCIA CUÁNTICA
