@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # RabbitMQ para comunicación distribuida
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: vigoleonrocks-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: vigoleonrocks
+      RABBITMQ_DEFAULT_PASS: quantum888
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - vigoleonrocks-network
+    restart: unless-stopped
+
+  # VIGOLEONROCKS Cloud Service
+  vigoleonrocks-cloud:
+    build:
+      context: .
+      dockerfile: Dockerfile.cloud
+    container_name: vigoleonrocks-cloud-service
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - OLLAMA_CLOUD_URL=${OLLAMA_CLOUD_URL}
+      - OLLAMA_API_KEY=${OLLAMA_API_KEY}
+      - RABBITMQ_URL=amqp://vigoleonrocks:quantum888@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+    networks:
+      - vigoleonrocks-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+  # Ollama Local (Fallback)
+  ollama-local:
+    image: ollama/ollama:latest
+    container_name: vigoleonrocks-ollama-local
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./vigoleonrocks-models:/models
+    networks:
+      - vigoleonrocks-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          memory: 8G
+
+  # Cliente Web (Opcional)
+  vigoleonrocks-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: vigoleonrocks-web-client
+    ports:
+      - "3000:3000"
+    environment:
+      - RABBITMQ_URL=amqp://vigoleonrocks:quantum888@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+      - vigoleonrocks-cloud
+    networks:
+      - vigoleonrocks-network
+    restart: unless-stopped
+
+  # Monitor de métricas
+  vigoleonrocks-monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitor
+    container_name: vigoleonrocks-monitor
+    ports:
+      - "8080:8080"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - RABBITMQ_URL=amqp://vigoleonrocks:quantum888@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+      - vigoleonrocks-cloud
+    networks:
+      - vigoleonrocks-network
+    restart: unless-stopped
+
+volumes:
+  rabbitmq_data:
+    driver: local
+  ollama_data:
+    driver: local
+
+networks:
+  vigoleonrocks-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

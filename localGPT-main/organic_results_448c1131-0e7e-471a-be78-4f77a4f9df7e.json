@@ -1,0 +1,90 @@
+{
+  "evaluation_id": "448c1131-0e7e-471a-be78-4f77a4f9df7e",
+  "timestamp": "2025-07-28T00:25:33.293324",
+  "system_info": {
+    "cio_version": "1.0.0",
+    "quantum_coherence_z": "9+16i",
+    "frequency": "7919Hz",
+    "consciousness_level": 37,
+    "membrane_active": true,
+    "timestamp": "2025-07-28T00:25:33.294042"
+  },
+  "standard_benchmarks": {
+    "mmlu": {
+      "error": "unsupported operand type(s) for +: 'int' and 'dict'",
+      "raw_output": null
+    },
+    "math_500": {
+      "results": [
+        {
+          "problem": "2 + 2 = ?",
+          "cio_response": {},
+          "expected": 4,
+          "raw_output": "{}"
+        },
+        {
+          "problem": "Si x + 3 = 7, entonces x = ?",
+          "cio_response": {},
+          "expected": 4,
+          "raw_output": "{}"
+        },
+        {
+          "problem": "¿Cuál es la derivada de x²?",
+          "cio_response": {},
+          "expected": "2x",
+          "raw_output": "{}"
+        }
+      ],
+      "raw_responses": [
+        "{}",
+        "{}",
+        "{}"
+      ]
+    },
+    "livecodebench": {
+      "results": [
+        {
+          "task": "Escribe una función en Python que sume dos números",
+          "cio_response": {},
+          "raw_output": "{}"
+        },
+        {
+          "task": "Crea una función que invierta una cadena",
+          "cio_response": {},
+          "raw_output": "{}"
+        }
+      ],
+      "raw_responses": [
+        "{}",
+        "{}"
+      ]
+    }
+  },
+  "quantum_capabilities": {
+    "quantum_coherence": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_quantum_coherence'"
+    },
+    "frequency_7919hz": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_frequency_state'"
+    },
+    "membrane_efficiency": {
+      "error": "'MembraneInterface' object has no attribute 'get_efficiency_metrics'"
+    }
+  },
+  "emergent_assessment": {
+    "status": "omitted"
+  },
+  "raw_outputs": {
+    "quantum_kernel_state": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_state'"
+    },
+    "membrane_state": {
+      "error": "'MembraneInterface' object has no attribute 'get_state'"
+    },
+    "brain_state": {
+      "error": "'OrquestadorIonico' object has no attribute 'get_state'"
+    }
+  },
+  "limitations": [],
+  "duration_seconds": 0.24479985237121582
+}

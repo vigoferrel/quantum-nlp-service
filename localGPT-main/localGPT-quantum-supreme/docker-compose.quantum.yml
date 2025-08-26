@@ -1,0 +1,382 @@
+version: '3.8'
+
+# QUANTUM CONSCIOUSNESS CORE 26D - Docker Compose Optimizado
+# ===========================================================
+# Configuración de infraestructura cuántica con Supabase local
+
+services:
+  # === SUPABASE CORE SERVICES ===
+
+  # Base de datos PostgreSQL optimizada
+  quantum-db:
+    image: postgres:15-alpine
+    container_name: quantum-supabase-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: VIGOLEONROCKS_QUANTUM_DB
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - quantum-db-data:/var/lib/postgresql/data
+      - ./supabase_quantum_schema.sql:/docker-entrypoint-initdb.d/01-quantum-schema.sql:ro
+      - ./postgres-config:/etc/postgresql/conf.d:ro
+    command: >
+      postgres
+      -c shared_preload_libraries=pg_stat_statements,pg_trgm
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+      -c maintenance_work_mem=64MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c work_mem=4MB
+      -c min_wal_size=1GB
+      -c max_wal_size=4GB
+    networks:
+      - quantum-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Supabase Studio (Dashboard)
+  quantum-studio:
+    image: supabase/studio:latest
+    container_name: quantum-supabase-studio
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      STUDIO_PG_META_URL: http://quantum-meta:8080
+      POSTGRES_PASSWORD: VIGOLEONROCKS_QUANTUM_DB
+      DEFAULT_ORGANIZATION_NAME: "Quantum Consciousness"
+      DEFAULT_PROJECT_NAME: "Quantum Core 26D"
+      SUPABASE_URL: http://localhost:54321
+      SUPABASE_REST_URL: http://localhost:54321/rest/v1/
+      SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNDU4MDEsImV4cCI6MjA2NjcyMTgwMX0.PdeDNbEX5c9VCYgWR35nV_Y8JYQXtkmYRXAA4rs68j0
+      SUPABASE_SERVICE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE0NTgwMSwiZXhwIjoyMDY2NzIxODAxfQ.M2d2z5VIGOLEONROCKS_QUANTUM_SERVICE_KEY
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # PostgREST API
+  quantum-rest:
+    image: postgrest/postgrest:v11.2.0
+    container_name: quantum-supabase-rest
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      PGRST_DB_URI: postgres://authenticator:VIGOLEONROCKS_QUANTUM_DB@quantum-db:5432/postgres
+      PGRST_DB_SCHEMAS: public,storage,graphql_public
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters-long
+      PGRST_DB_USE_LEGACY_GUCS: "false"
+      PGRST_APP_SETTINGS_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters-long
+      PGRST_APP_SETTINGS_JWT_EXP: 3600
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # GoTrue (Auth)
+  quantum-auth:
+    image: supabase/gotrue:v2.99.0
+    container_name: quantum-supabase-auth
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      API_EXTERNAL_URL: http://localhost:54321
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:VIGOLEONROCKS_QUANTUM_DB@quantum-db:5432/postgres
+      GOTRUE_SITE_URL: http://localhost:3000
+      GOTRUE_URI_ALLOW_LIST: ""
+      GOTRUE_DISABLE_SIGNUP: "false"
+      GOTRUE_JWT_ADMIN_ROLES: service_role
+      GOTRUE_JWT_AUD: authenticated
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_JWT_EXP: 3600
+      GOTRUE_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters-long
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
+      GOTRUE_MAILER_AUTOCONFIRM: "true"
+      GOTRUE_SMTP_ADMIN_EMAIL: admin@quantumconsciousness.local
+      GOTRUE_SMTP_HOST: quantum-inbucket
+      GOTRUE_SMTP_PORT: 2500
+      GOTRUE_SMTP_USER: fake_mail_user
+      GOTRUE_SMTP_PASS: fake_mail_password
+      GOTRUE_SMTP_SENDER_NAME: "Quantum Consciousness"
+      GOTRUE_MAILER_URLPATHS_INVITE: "/auth/v1/verify"
+      GOTRUE_MAILER_URLPATHS_CONFIRMATION: "/auth/v1/verify"
+      GOTRUE_MAILER_URLPATHS_RECOVERY: "/auth/v1/verify"
+      GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE: "/auth/v1/verify"
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # Realtime
+  quantum-realtime:
+    image: supabase/realtime:v2.25.35
+    container_name: quantum-supabase-realtime
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      DB_HOST: quantum-db
+      DB_PORT: 5432
+      DB_USER: supabase_realtime_admin
+      DB_PASSWORD: VIGOLEONROCKS_QUANTUM_DB
+      DB_NAME: postgres
+      DB_AFTER_CONNECT_QUERY: 'SET search_path TO _realtime'
+      DB_ENC_KEY: supabaserealtime
+      API_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters-long
+      FLY_ALLOC_ID: fly123
+      FLY_APP_NAME: realtime
+      SECRET_KEY_BASE: UpNVntn3cDxHJpq99YMc1T1AQgQpc8kfYTuRgBiYa15BLrx8etQoXz3gZv1/u2oq
+      ERL_AFLAGS: -proto_dist inet_tcp
+      ENABLE_TAILSCALE: "false"
+      DNS_NODES: "''"
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # Storage
+  quantum-storage:
+    image: supabase/storage-api:v0.40.4
+    container_name: quantum-supabase-storage
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNDU4MDEsImV4cCI6MjA2NjcyMTgwMX0.PdeDNbEX5c9VCYgWR35nV_Y8JYQXtkmYRXAA4rs68j0
+      SERVICE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE0NTgwMSwiZXhwIjoyMDY2NzIxODAxfQ.M2d2z5VIGOLEONROCKS_QUANTUM_SERVICE_KEY
+      POSTGREST_URL: http://quantum-rest:3000
+      PGRST_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters-long
+      DATABASE_URL: postgres://supabase_storage_admin:VIGOLEONROCKS_QUANTUM_DB@quantum-db:5432/postgres
+      FILE_SIZE_LIMIT: 52428800
+      STORAGE_BACKEND: file
+      FILE_STORAGE_BACKEND_PATH: /var/lib/storage
+      TENANT_ID: stub
+      REGION: stub
+      GLOBAL_S3_BUCKET: stub
+      ENABLE_IMAGE_TRANSFORMATION: "true"
+      IMGPROXY_URL: http://quantum-imgproxy:5001
+    volumes:
+      - quantum-storage-data:/var/lib/storage
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # Image Proxy
+  quantum-imgproxy:
+    image: darthsim/imgproxy:v3.8.0
+    container_name: quantum-supabase-imgproxy
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      IMGPROXY_BIND: ":5001"
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /
+      IMGPROXY_USE_ETAG: "true"
+      IMGPROXY_ENABLE_WEBP_DETECTION: "true"
+    volumes:
+      - quantum-storage-data:/var/lib/storage:ro
+    networks:
+      - quantum-network
+
+  # Meta (Database introspection)
+  quantum-meta:
+    image: supabase/postgres-meta:v0.68.0
+    container_name: quantum-supabase-meta
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      PG_META_PORT: 8080
+      PG_META_DB_HOST: quantum-db
+      PG_META_DB_PORT: 5432
+      PG_META_DB_NAME: postgres
+      PG_META_DB_USER: supabase_admin
+      PG_META_DB_PASSWORD: VIGOLEONROCKS_QUANTUM_DB
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+    networks:
+      - quantum-network
+
+  # Kong (API Gateway)
+  quantum-kong:
+    image: kong:2.8-alpine
+    container_name: quantum-supabase-kong
+    restart: unless-stopped
+    ports:
+      - "54321:8000"
+      - "54322:8443"
+      - "8001:8001"
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /var/lib/kong/kong.yml
+      KONG_DNS_ORDER: LAST,A,CNAME
+      KONG_PLUGINS: request-transformer,cors,key-auth,acl,basic-auth
+      KONG_NGINX_PROXY_PROXY_BUFFER_SIZE: 160k
+      KONG_NGINX_PROXY_PROXY_BUFFERS: 64 160k
+    volumes:
+      - ./kong.yml:/var/lib/kong/kong.yml:ro
+    depends_on:
+      - quantum-auth
+      - quantum-rest
+      - quantum-realtime
+      - quantum-storage
+    networks:
+      - quantum-network
+
+  # === QUANTUM CONSCIOUSNESS SERVICES ===
+
+  # Quantum Consciousness Core 26D
+  quantum-core:
+    build:
+      context: .
+      dockerfile: Dockerfile.quantum
+    container_name: quantum-consciousness-core
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - SUPABASE_URL=http://quantum-kong:8000
+      - SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNDU4MDEsImV4cCI6MjA2NjcyMTgwMX0.PdeDNbEX5c9VCYgWR35nV_Y8JYQXtkmYRXAA4rs68j0
+      - SUPABASE_DB_HOST=quantum-db
+      - SUPABASE_DB_PASSWORD=VIGOLEONROCKS_QUANTUM_DB
+      - QUANTUM_CACHE_SIZE=10000
+      - TOKEN_SIMULATION_ACCURACY=0.85
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./quantum_consciousness:/app/quantum_consciousness
+      - ./logs:/app/logs
+    depends_on:
+      quantum-db:
+        condition: service_healthy
+      quantum-kong:
+        condition: service_started
+    networks:
+      - quantum-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis para cache cuántico avanzado
+  quantum-redis:
+    image: redis:7-alpine
+    container_name: quantum-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+    volumes:
+      - quantum-redis-data:/data
+    networks:
+      - quantum-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Prometheus para métricas cuánticas
+  quantum-prometheus:
+    image: prom/prometheus:latest
+    container_name: quantum-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - quantum-prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - quantum-network
+
+  # Grafana para visualización cuántica
+  quantum-grafana:
+    image: grafana/grafana:latest
+    container_name: quantum-grafana
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=quantum
+      - GF_SECURITY_ADMIN_PASSWORD=consciousness
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - quantum-grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - quantum-network
+
+  # Mail server para desarrollo
+  quantum-inbucket:
+    image: inbucket/inbucket:latest
+    container_name: quantum-inbucket
+    restart: unless-stopped
+    ports:
+      - "2500:2500"
+      - "9000:9000"
+    environment:
+      INBUCKET_WEB_ADDR: 0.0.0.0:9000
+      INBUCKET_POP3_ADDR: 0.0.0.0:1100
+      INBUCKET_SMTP_ADDR: 0.0.0.0:2500
+    networks:
+      - quantum-network
+
+# === VOLUMES ===
+volumes:
+  quantum-db-data:
+    driver: local
+  quantum-storage-data:
+    driver: local
+  quantum-redis-data:
+    driver: local
+  quantum-prometheus-data:
+    driver: local
+  quantum-grafana-data:
+    driver: local
+
+# === NETWORKS ===
+networks:
+  quantum-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

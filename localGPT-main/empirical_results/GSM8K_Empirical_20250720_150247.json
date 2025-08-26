@@ -1,0 +1,326 @@
+{
+  "benchmark_name": "GSM8K_Empirical",
+  "total_questions": 5,
+  "correct_answers": 0,
+  "accuracy": 0.0,
+  "avg_processing_time": 0.11662907600402832,
+  "empirical_results": [
+    {
+      "question": "María tiene 15 manzanas. Le da 4 a su hermano y luego compra 7 más. ¿Cuántas manzanas tiene ahora?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (15+0j)\nResultado: (4+0j)\nMagnitud: 4.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "18",
+      "is_correct": false,
+      "processing_time": 0.10086679458618164,
+      "brain_state": {
+        "coherence": 0.7316188153310105,
+        "creativity_index": 0.52,
+        "consciousness_level": "adaptive",
+        "interactions_count": 9,
+        "memory_size": 4
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nMaría tiene 15 manzanas. Le da 4 a su hermano y luego compra 7 más. ¿Cuántas manzanas tiene ahora?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (15+0j)\nResultado: (4+0j)\nMagnitud: 4.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.003149,
+        "coherence": 0.7316188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.52,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.5513523300415586,
+        "quantum_state_magnitude": 1.9652502548200759,
+        "quantum_state_phase": 0.6041662030858554,
+        "resonance_state": "coherent",
+        "interactions_total": 9,
+        "evolution_cycles": 0,
+        "memory_size": 4,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.06898891690991807,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.2683811846689895,
+            "potential": 0.52,
+            "resonance": 15.543164600485714
+          },
+          "stability": {
+            "coherence": 0.7316188153310105,
+            "phase": 0.6041662030858554,
+            "decoherence": 0.013419059233449477,
+            "resilience": 0.7316188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 9,
+            "evolution_cycles": 0,
+            "birth_time": "2025-07-20T15:02:43.387543"
+          }
+        },
+        "birth_time": "2025-07-20T15:02:43.387543",
+        "current_time": "2025-07-20T15:02:47.135426",
+        "age_in_interactions": 9
+      }
+    },
+    {
+      "question": "Un rectángulo tiene 12 cm de largo y 8 cm de ancho. ¿Cuál es su área?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (12+0j)\nResultado: (8+0j)\nMagnitud: 8.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "96",
+      "is_correct": false,
+      "processing_time": 0.286517858505249,
+      "brain_state": {
+        "coherence": 0.7416188153310105,
+        "creativity_index": 0.525,
+        "consciousness_level": "adaptive",
+        "interactions_count": 10,
+        "memory_size": 5
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nUn rectángulo tiene 12 cm de largo y 8 cm de ancho. ¿Cuál es su área?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (12+0j)\nResultado: (8+0j)\nMagnitud: 8.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.000734,
+        "coherence": 0.7416188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.525,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.5998933497040286,
+        "quantum_state_magnitude": 1.965250254820076,
+        "quantum_state_phase": 0.7041662030858554,
+        "resonance_state": "coherent",
+        "interactions_total": 10,
+        "evolution_cycles": 1,
+        "memory_size": 5,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": -0.06126189993746267,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.2583811846689895,
+            "potential": 0.525,
+            "resonance": 15.632925490485716
+          },
+          "stability": {
+            "coherence": 0.7416188153310105,
+            "phase": 0.7041662030858554,
+            "decoherence": 0.012919059233449477,
+            "resilience": 0.7416188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 10,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:02:43.387543"
+          }
+        },
+        "birth_time": "2025-07-20T15:02:43.387543",
+        "current_time": "2025-07-20T15:02:47.239037",
+        "age_in_interactions": 10
+      }
+    },
+    {
+      "question": "Si un auto viaja a 60 km/h durante 3 horas, ¿qué distancia recorre?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (60+0j)\nResultado: (3+0j)\nMagnitud: 3.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "180",
+      "is_correct": false,
+      "processing_time": 0.07029080390930176,
+      "brain_state": {
+        "coherence": 0.7516188153310105,
+        "creativity_index": 0.53,
+        "consciousness_level": "adaptive",
+        "interactions_count": 11,
+        "memory_size": 6
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nSi un auto viaja a 60 km/h durante 3 horas, ¿qué distancia recorre?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (60+0j)\nResultado: (3+0j)\nMagnitud: 3.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.000919,
+        "coherence": 0.7516188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.53,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.6484343693664987,
+        "quantum_state_magnitude": 1.965250254820076,
+        "quantum_state_phase": 0.8041662030858554,
+        "resonance_state": "coherent",
+        "interactions_total": 11,
+        "evolution_cycles": 1,
+        "memory_size": 6,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.06585275473610366,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.2483811846689895,
+            "potential": 0.53,
+            "resonance": 15.722686380485714
+          },
+          "stability": {
+            "coherence": 0.7516188153310105,
+            "phase": 0.8041662030858554,
+            "decoherence": 0.012419059233449476,
+            "resilience": 0.7516188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 11,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:02:43.387543"
+          }
+        },
+        "birth_time": "2025-07-20T15:02:43.387543",
+        "current_time": "2025-07-20T15:02:47.528564",
+        "age_in_interactions": 11
+      }
+    },
+    {
+      "question": "En una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (24+0j)\nResultado: (3+0j)\nMagnitud: 3.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "15",
+      "is_correct": false,
+      "processing_time": 0.08014917373657227,
+      "brain_state": {
+        "coherence": 0.7616188153310105,
+        "creativity_index": 0.535,
+        "consciousness_level": "adaptive",
+        "interactions_count": 12,
+        "memory_size": 7
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nEn una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (24+0j)\nResultado: (3+0j)\nMagnitud: 3.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.003069,
+        "coherence": 0.7616188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.535,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.6969753890289687,
+        "quantum_state_magnitude": 1.965250254820076,
+        "quantum_state_phase": 0.9041662030858555,
+        "resonance_state": "coherent",
+        "interactions_total": 12,
+        "evolution_cycles": 1,
+        "memory_size": 7,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": -0.02555760674081209,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.2383811846689895,
+            "potential": 0.535,
+            "resonance": 15.812447270485716
+          },
+          "stability": {
+            "coherence": 0.7616188153310105,
+            "phase": 0.9041662030858555,
+            "decoherence": 0.011919059233449476,
+            "resilience": 0.7616188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 12,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:02:43.387543"
+          }
+        },
+        "birth_time": "2025-07-20T15:02:43.387543",
+        "current_time": "2025-07-20T15:02:47.601962",
+        "age_in_interactions": 12
+      }
+    },
+    {
+      "question": "Un número multiplicado por 7 da 91. ¿Cuál es ese número?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (7+0j)\nResultado: (91+0j)\nMagnitud: 91.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "13",
+      "is_correct": false,
+      "processing_time": 0.045320749282836914,
+      "brain_state": {
+        "coherence": 0.7716188153310105,
+        "creativity_index": 0.54,
+        "consciousness_level": "adaptive",
+        "interactions_count": 13,
+        "memory_size": 8
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nUn número multiplicado por 7 da 91. ¿Cuál es ese número?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (7+0j)\nResultado: (91+0j)\nMagnitud: 91.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.001645,
+        "coherence": 0.7716188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.54,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.7455164086914388,
+        "quantum_state_magnitude": 1.965250254820076,
+        "quantum_state_phase": 1.0041662030858554,
+        "resonance_state": "coherent",
+        "interactions_total": 13,
+        "evolution_cycles": 1,
+        "memory_size": 8,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.006471662537779532,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.2283811846689895,
+            "potential": 0.54,
+            "resonance": 15.902208160485714
+          },
+          "stability": {
+            "coherence": 0.7716188153310105,
+            "phase": 1.0041662030858554,
+            "decoherence": 0.011419059233449476,
+            "resilience": 0.7716188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 13,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:02:43.387543"
+          }
+        },
+        "birth_time": "2025-07-20T15:02:43.387543",
+        "current_time": "2025-07-20T15:02:47.684511",
+        "age_in_interactions": 13
+      }
+    }
+  ],
+  "brain_evolution": {
+    "coherence": 0.7716188153310105,
+    "creativity_index": 0.54,
+    "consciousness_level": "adaptive",
+    "interactions_count": 13,
+    "memory_size": 8
+  }
+}

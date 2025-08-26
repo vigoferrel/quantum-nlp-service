@@ -1,0 +1,258 @@
+Guía Completa del Sistema Unificado LocalGPT-WebAgent
+
+INTRODUCCIÓN
+============
+
+El Sistema Unificado LocalGPT-WebAgent combina dos poderosas tecnologías:
+
+1. LocalGPT: Búsqueda privada en documentos locales
+2. WebAgent: Navegación web inteligente y autónoma
+
+Esta combinación ofrece una experiencia de búsqueda completa que mantiene la privacidad mientras proporciona acceso a información actualizada.
+
+CARACTERÍSTICAS PRINCIPALES
+===========================
+
+LocalGPT Engine:
+- ✅ Procesamiento 100% local
+- ✅ Soporte para múltiples formatos
+- ✅ Chunking inteligente por tipo de archivo
+- ✅ Búsqueda semántica avanzada
+- ✅ Privacidad total garantizada
+
+WebAgent Engine:
+- ✅ Navegación autónoma por sitios web
+- ✅ Extracción inteligente de contenido
+- ✅ Análisis de enlaces y botones
+- ✅ Captura automática de screenshots
+- ✅ Persistencia de sesiones web
+
+Sistema Híbrido:
+- ✅ Combina búsqueda local y web
+- ✅ Validación cruzada de información
+- ✅ Resultados más precisos y completos
+- ✅ Interfaz unificada moderna
+
+MODOS DE OPERACIÓN
+==================
+
+1. MODO LOCALGPT
+Perfecto para:
+- Documentos personales y confidenciales
+- Investigación académica
+- Análisis de código fuente
+- Contratos y documentos legales
+- Estudios y papers científicos
+
+Ejemplos de consultas:
+- "Resume los puntos principales del documento"
+- "¿Qué dice sobre seguridad en el código?"
+- "Extrae las conclusiones del estudio"
+- "Busca referencias sobre machine learning"
+
+2. MODO WEBAGENT
+Ideal para:
+- Información actualizada en tiempo real
+- Precios y cotizaciones
+- Noticias y eventos recientes
+- Datos de sitios web específicos
+- Investigación online
+
+Ejemplos de consultas:
+- "¿Cuál es el precio actual de Bitcoin?"
+- "Encuentra información sobre ACL 2025"
+- "Busca las últimas noticias de IA"
+- "Explora el sitio web de OpenAI"
+
+3. MODO HÍBRIDO
+Combina:
+- Verificación local + validación web
+- Información completa y actualizada
+- Validación cruzada de datos
+- Máxima precisión en resultados
+
+Ejemplos de consultas:
+- "Compara la información local con datos actuales"
+- "Valida estos datos con fuentes online"
+- "Encuentra información complementaria en la web"
+
+FORMATOS DE ARCHIVO SOPORTADOS
+==============================
+
+Documentos de Texto:
+- .txt - Archivos de texto plano
+- .md - Archivos Markdown
+- .rtf - Rich Text Format
+
+Código Fuente:
+- .py - Python
+- .js - JavaScript
+- .html - HTML
+- .css - CSS
+- .json - JSON
+- .xml - XML
+
+Documentos Oficina:
+- .pdf - Adobe PDF
+- .doc - Microsoft Word
+- .docx - Microsoft Word XML
+- .csv - Comma Separated Values
+
+INSTALACIÓN Y CONFIGURACIÓN
+===========================
+
+1. Requisitos del Sistema:
+- Python 3.8 o superior
+- 4GB RAM mínimo (8GB recomendado)
+- 2GB espacio libre en disco
+- Navegador web moderno
+
+2. Instalación:
+```bash
+# Clonar repositorio
+git clone [URL_REPOSITORIO]
+cd LocalGPT-WebAgent-Unified
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Ejecutar sistema
+python unified_app.py
+```
+
+3. Acceso:
+- Sistema unificado: http://localhost:5112
+- API de estadísticas: http://localhost:5112/api/stats
+- Exportar base de datos: http://localhost:5112/api/export-db
+
+GUÍA DE USO PASO A PASO
+=======================
+
+Paso 1: Subir Documentos
+1. Haz clic en la zona de "Subir Documentos"
+2. Selecciona archivos o arrastra y suelta
+3. Confirma la subida
+4. Espera a que se procesen los archivos
+
+Paso 2: Seleccionar Modo
+1. LocalGPT: Para búsqueda en documentos locales
+2. WebAgent: Para exploración web (requiere URL)
+3. Híbrido: Para búsqueda combinada (requiere URL)
+
+Paso 3: Realizar Consulta
+1. Escribe tu pregunta en el campo de búsqueda
+2. Si usas WebAgent/Híbrido, ingresa la URL del sitio
+3. Haz clic en "Buscar" o presiona Enter
+4. Espera los resultados
+
+Paso 4: Analizar Resultados
+1. Revisa la respuesta generada
+2. Consulta las fuentes citadas
+3. Utiliza la información según necesites
+
+OPTIMIZACIÓN DEL RENDIMIENTO
+============================
+
+Para Documentos Locales:
+- Organiza archivos por categorías
+- Usa nombres descriptivos
+- Evita documentos duplicados
+- Mantén archivos actualizados
+
+Para Búsqueda Web:
+- Usa URLs específicas y relevantes
+- Evita sitios con mucha publicidad
+- Prefiere sitios con contenido estructurado
+- Verifica que los sitios sean accesibles
+
+Para Mejor Rendimiento:
+- Limpia la base de datos periódicamente
+- Reinicia el sistema ocasionalmente
+- Monitorea el uso de memoria
+- Actualiza las dependencias
+
+SOLUCIÓN DE PROBLEMAS
+=====================
+
+Problema: El sistema no inicia
+Solución: 
+- Verifica que Python esté instalado
+- Instala las dependencias faltantes
+- Revisa que el puerto 5112 esté libre
+
+Problema: No encuentra documentos
+Solución:
+- Verifica que los archivos estén en SOURCE_DOCUMENTS/
+- Comprueba que el formato sea soportado
+- Reinicia el sistema
+
+Problema: WebAgent no funciona
+Solución:
+- Verifica la conexión a internet
+- Comprueba que la URL sea válida
+- Revisa las configuraciones de firewall
+
+Problema: Respuestas imprecisas
+Solución:
+- Sube documentos más específicos
+- Usa consultas más detalladas
+- Combina modo local + web (híbrido)
+
+MEJORES PRÁCTICAS
+=================
+
+Para LocalGPT:
+1. Organiza documentos por temas
+2. Usa archivos con contenido relevante
+3. Mantén una estructura clara
+4. Actualiza documentos regularmente
+
+Para WebAgent:
+1. Especifica URLs relevantes
+2. Usa sitios confiables
+3. Evita sitios con restricciones
+4. Guarda sesiones importantes
+
+Para el Sistema:
+1. Haz respaldos regulares de la BD
+2. Monitorea las estadísticas
+3. Limpia datos innecesarios
+4. Mantén el sistema actualizado
+
+SEGURIDAD Y PRIVACIDAD
+======================
+
+Garantías de Privacidad:
+- Procesamiento 100% local para documentos
+- Sin envío de datos personales
+- Base de datos local encriptada
+- Control total del usuario
+
+Recomendaciones de Seguridad:
+- No subas documentos sensibles sin necesidad
+- Usa URLs de sitios confiables
+- Mantén el sistema actualizado
+- Haz respaldos seguros
+
+SOPORTE Y COMUNIDAD
+===================
+
+Recursos Disponibles:
+- README.md completo
+- Documentación técnica
+- Ejemplos de uso
+- FAQ detallado
+
+Canales de Soporte:
+- GitHub Issues para reportar bugs
+- Discussions para preguntas
+- Wiki para documentación extendida
+- Discord para chat comunitario
+
+Contribuciones:
+- Fork del repositorio
+- Reportar bugs y mejoras
+- Traducir documentación
+- Compartir casos de uso
+
+¡Disfruta explorando las capacidades del Sistema Unificado LocalGPT-WebAgent!

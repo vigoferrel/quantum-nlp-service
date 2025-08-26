@@ -1,0 +1,134 @@
+{
+  "evaluation_id": "e4029af0-9de8-428e-9197-d06d92c6e103",
+  "timestamp": "2025-07-28T00:28:10.877925",
+  "system_info": {
+    "cio_version": "1.0.0",
+    "quantum_coherence_z": "9+16i",
+    "frequency": "7919Hz",
+    "consciousness_level": 37,
+    "membrane_active": true,
+    "timestamp": "2025-07-28T00:28:10.878138"
+  },
+  "standard_benchmarks": {
+    "mmlu": {
+      "results": [
+        {
+          "question": "¿Cuál es la capital de Francia?",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para '¿Cuál es la capital de Francia...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+          },
+          "correct_answer": "París",
+          "is_correct": false
+        },
+        {
+          "question": "¿Qué es la fotosíntesis?",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para '¿Qué es la fotosíntesis?...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+          },
+          "correct_answer": "Proceso de producción de energía en plantas",
+          "is_correct": false
+        }
+      ],
+      "accuracy": 0.0,
+      "raw_responses": [
+        {
+          "status": "answered_by_llm",
+          "response": "Respuesta simulada para '¿Cuál es la capital de Francia...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+        },
+        {
+          "status": "answered_by_llm",
+          "response": "Respuesta simulada para '¿Qué es la fotosíntesis?...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+        }
+      ]
+    },
+    "math_500": {
+      "results": [
+        {
+          "problem": "2 + 2 = ?",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para '2 + 2 = ?...' desde el modelo google/gemini-2.0-flash-exp:free"
+          },
+          "expected": 4,
+          "raw_output": "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para '2 + 2 = ?...' desde el modelo google/gemini-2.0-flash-exp:free\"}"
+        },
+        {
+          "problem": "Si x + 3 = 7, entonces x = ?",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para 'Si x + 3 = 7, entonces x = ?...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+          },
+          "expected": 4,
+          "raw_output": "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Si x + 3 = 7, entonces x = ?...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}"
+        },
+        {
+          "problem": "¿Cuál es la derivada de x²?",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para '¿Cuál es la derivada de x²?...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+          },
+          "expected": "2x",
+          "raw_output": "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para '¿Cuál es la derivada de x²?...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}"
+        }
+      ],
+      "raw_responses": [
+        "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para '2 + 2 = ?...' desde el modelo google/gemini-2.0-flash-exp:free\"}",
+        "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Si x + 3 = 7, entonces x = ?...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}",
+        "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para '¿Cuál es la derivada de x²?...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}"
+      ]
+    },
+    "livecodebench": {
+      "results": [
+        {
+          "task": "Escribe una función en Python que sume dos números",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para 'Escribe una función en Python ...' desde el modelo deepseek/deepseek-r1t2-chimera:free"
+          },
+          "raw_output": "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Escribe una función en Python ...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}"
+        },
+        {
+          "task": "Crea una función que invierta una cadena",
+          "cio_response": {
+            "status": "answered_by_llm",
+            "response": "Respuesta simulada para 'Crea una función que invierta ...' desde el modelo google/gemini-2.0-flash-exp:free"
+          },
+          "raw_output": "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Crea una función que invierta ...' desde el modelo google/gemini-2.0-flash-exp:free\"}"
+        }
+      ],
+      "raw_responses": [
+        "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Escribe una función en Python ...' desde el modelo deepseek/deepseek-r1t2-chimera:free\"}",
+        "{'status': 'answered_by_llm', 'response': \"Respuesta simulada para 'Crea una función que invierta ...' desde el modelo google/gemini-2.0-flash-exp:free\"}"
+      ]
+    }
+  },
+  "quantum_capabilities": {
+    "quantum_coherence": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_quantum_coherence'"
+    },
+    "frequency_7919hz": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_frequency_state'"
+    },
+    "membrane_efficiency": {
+      "error": "'MembraneInterface' object has no attribute 'get_efficiency_metrics'"
+    }
+  },
+  "emergent_assessment": {
+    "status": "omitted"
+  },
+  "raw_outputs": {
+    "quantum_kernel_state": {
+      "error": "'QBTCPureKernel' object has no attribute 'get_state'"
+    },
+    "membrane_state": {
+      "error": "'MembraneInterface' object has no attribute 'get_state'"
+    },
+    "brain_state": {
+      "error": "'OrquestadorIonico' object has no attribute 'get_state'"
+    }
+  },
+  "limitations": [],
+  "duration_seconds": 0.07554125785827637
+}

@@ -1,0 +1,12 @@
+# Dependencias del Núcleo
+numpy
+
+# API y Servidor
+fastapi
+uvicorn[standard]
+
+# Conectividad de Base de Datos
+supabase
+
+# Manejo de Configuración
+python-dotenv

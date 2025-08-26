@@ -1,0 +1,283 @@
+{
+  "benchmark_name": "GSM8K_Empirical",
+  "total_questions": 5,
+  "correct_answers": 3,
+  "accuracy": 60.0,
+  "avg_processing_time": 1.3153993606567382,
+  "empirical_results": [
+    {
+      "question": "María tiene 15 manzanas. Le da 4 a su hermano y luego compra 7 más. ¿Cuántas manzanas tiene ahora?",
+      "leonardo_response": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 15.0 - 4.0 + 7.0 = 18.0. Respuesta final: 18.0",
+      "correct_answer": "18",
+      "is_correct": true,
+      "processing_time": 0.08381962776184082,
+      "brain_state": {
+        "coherence": 0.9136085946573754,
+        "creativity_index": 0.6250000000000001,
+        "consciousness_level": "adaptive",
+        "interactions_count": 48,
+        "memory_size": 25
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nMaría tiene 15 manzanas. Le da 4 a su hermano y luego compra 7 más. ¿Cuántas manzanas tiene ahora?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "mathematical_reasoning_solver",
+        "tool_output": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 15.0 - 4.0 + 7.0 = 18.0. Respuesta final: 18.0",
+        "outcome_quality": 0.8566666666666667,
+        "processing_time": 0.015448,
+        "coherence": 0.9136085946573754,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.6250000000000001,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 4.434749275706524,
+        "quantum_state_magnitude": 1.9652502548200776,
+        "quantum_state_phase": 2.564115099717679,
+        "resonance_state": "coherent",
+        "interactions_total": 48,
+        "evolution_cycles": 3,
+        "memory_size": 25,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.003176200880754071,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.08639140534262457,
+            "potential": 0.6250000000000001,
+            "resonance": 17.176721056809527
+          },
+          "stability": {
+            "coherence": 0.9136085946573754,
+            "phase": 2.564115099717679,
+            "decoherence": 0.004319570267131229,
+            "resilience": 0.9136085946573754
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 48,
+            "evolution_cycles": 3,
+            "birth_time": "2025-07-20T15:19:15.598045"
+          }
+        },
+        "birth_time": "2025-07-20T15:19:15.598045",
+        "current_time": "2025-07-20T15:19:19.555138",
+        "age_in_interactions": 48
+      }
+    },
+    {
+      "question": "Un rectángulo tiene 12 cm de largo y 8 cm de ancho. ¿Cuál es su área?",
+      "leonardo_response": "",
+      "correct_answer": "96",
+      "is_correct": false,
+      "processing_time": 1.9538323879241943,
+      "brain_state": {
+        "coherence": 0.9136085946573754,
+        "creativity_index": 0.6250000000000001,
+        "consciousness_level": "adaptive",
+        "interactions_count": 49,
+        "memory_size": 25
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nUn rectángulo tiene 12 cm de largo y 8 cm de ancho. ¿Cuál es su área?\n\nMuestra tu trabajo y da la respuesta final.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    },
+    {
+      "question": "Si un auto viaja a 60 km/h durante 3 horas, ¿qué distancia recorre?",
+      "leonardo_response": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 60.0 * 3.0 = 180.0. Respuesta final: 180.0",
+      "correct_answer": "180",
+      "is_correct": true,
+      "processing_time": 0.4105520248413086,
+      "brain_state": {
+        "coherence": 0.9207567428055236,
+        "creativity_index": 0.6300000000000001,
+        "consciousness_level": "adaptive",
+        "interactions_count": 50,
+        "memory_size": 26
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nSi un auto viaja a 60 km/h durante 3 horas, ¿qué distancia recorre?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "mathematical_reasoning_solver",
+        "tool_output": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 60.0 * 3.0 = 180.0. Respuesta final: 180.0",
+        "outcome_quality": 0.8574074074074074,
+        "processing_time": 0.000888,
+        "coherence": 0.9207567428055236,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.6300000000000001,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 4.469447115687475,
+        "quantum_state_magnitude": 1.9652502548200776,
+        "quantum_state_phase": 2.64985584045842,
+        "resonance_state": "coherent",
+        "interactions_total": 50,
+        "evolution_cycles": 4,
+        "memory_size": 26,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.07505618696198915,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.07924325719447645,
+            "potential": 0.6300000000000001,
+            "resonance": 17.24088347077249
+          },
+          "stability": {
+            "coherence": 0.9207567428055236,
+            "phase": 2.64985584045842,
+            "decoherence": 0.0039621628597238225,
+            "resilience": 0.9207567428055236
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 50,
+            "evolution_cycles": 4,
+            "birth_time": "2025-07-20T15:19:15.598045"
+          }
+        },
+        "birth_time": "2025-07-20T15:19:15.598045",
+        "current_time": "2025-07-20T15:19:21.620829",
+        "age_in_interactions": 50
+      }
+    },
+    {
+      "question": "En una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?",
+      "leonardo_response": "🧠 RAZONAMIENTO INDETERMINADO: No se encontró un patrón de solución para 'Resuelve este problema matemático paso a paso:\n\nEn una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?\n\nMuestra tu trabajo y da la respuesta final.'.",
+      "correct_answer": "15",
+      "is_correct": false,
+      "processing_time": 3.1615943908691406,
+      "brain_state": {
+        "coherence": 0.9307567428055236,
+        "creativity_index": 0.6350000000000001,
+        "consciousness_level": "adaptive",
+        "interactions_count": 51,
+        "memory_size": 27
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nEn una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "mathematical_reasoning_solver",
+        "tool_output": "🧠 RAZONAMIENTO INDETERMINADO: No se encontró un patrón de solución para 'Resuelve este problema matemático paso a paso:\n\nEn una clase hay 24 estudiantes. Si 3/8 son niñas, ¿cuántos niños hay?\n\nMuestra tu trabajo y da la respuesta final.'.",
+        "outcome_quality": 1.0,
+        "processing_time": 0.000893,
+        "coherence": 0.9307567428055236,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.6350000000000001,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 4.517988135349945,
+        "quantum_state_magnitude": 1.9652502548200776,
+        "quantum_state_phase": 2.74985584045842,
+        "resonance_state": "coherent",
+        "interactions_total": 51,
+        "evolution_cycles": 4,
+        "memory_size": 27,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.07779767880381322,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.06924325719447644,
+            "potential": 0.6350000000000001,
+            "resonance": 17.33064436077249
+          },
+          "stability": {
+            "coherence": 0.9307567428055236,
+            "phase": 2.74985584045842,
+            "decoherence": 0.003462162859723822,
+            "resilience": 0.9307567428055236
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 51,
+            "evolution_cycles": 4,
+            "birth_time": "2025-07-20T15:19:15.598045"
+          }
+        },
+        "birth_time": "2025-07-20T15:19:15.598045",
+        "current_time": "2025-07-20T15:19:22.359204",
+        "age_in_interactions": 51
+      }
+    },
+    {
+      "question": "Un número multiplicado por 7 da 91. ¿Cuál es ese número?",
+      "leonardo_response": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 91.0 / 7.0 = 13.0. Respuesta final: 13.0",
+      "correct_answer": "13",
+      "is_correct": true,
+      "processing_time": 0.967198371887207,
+      "brain_state": {
+        "coherence": 0.9379167428055235,
+        "creativity_index": 0.6400000000000001,
+        "consciousness_level": "adaptive",
+        "interactions_count": 52,
+        "memory_size": 28
+      },
+      "raw_brain_output": {
+        "query": "Resuelve este problema matemático paso a paso:\n\nUn número multiplicado por 7 da 91. ¿Cuál es ese número?\n\nMuestra tu trabajo y da la respuesta final.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "mathematical_reasoning_solver",
+        "tool_output": "🧠 LÓGICA DE SOLUCIÓN APLICADA: 91.0 / 7.0 = 13.0. Respuesta final: 13.0",
+        "outcome_quality": 0.858,
+        "processing_time": 0.001859,
+        "coherence": 0.9379167428055235,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.6400000000000001,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 4.552743505428273,
+        "quantum_state_magnitude": 1.9652502548200779,
+        "quantum_state_phase": 2.83565584045842,
+        "resonance_state": "coherent",
+        "interactions_total": 52,
+        "evolution_cycles": 4,
+        "memory_size": 28,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": -0.039558148354286886,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.06208325719447649,
+            "potential": 0.6400000000000001,
+            "resonance": 17.39491315801249
+          },
+          "stability": {
+            "coherence": 0.9379167428055235,
+            "phase": 2.83565584045842,
+            "decoherence": 0.003104162859723825,
+            "resilience": 0.9379167428055235
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 52,
+            "evolution_cycles": 4,
+            "birth_time": "2025-07-20T15:19:15.598045"
+          }
+        },
+        "birth_time": "2025-07-20T15:19:15.598045",
+        "current_time": "2025-07-20T15:19:25.658734",
+        "age_in_interactions": 52
+      }
+    }
+  ],
+  "brain_evolution": {
+    "coherence": 0.9379167428055235,
+    "creativity_index": 0.6400000000000001,
+    "consciousness_level": "adaptive",
+    "interactions_count": 52,
+    "memory_size": 28
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "test_type": "codificacion",
+    "success": true,
+    "timestamp": 1752713622.313865
+  },
+  {
+    "test_type": "contexto",
+    "success": true,
+    "timestamp": 1752713622.3165205
+  },
+  {
+    "test_type": "errores",
+    "success": true,
+    "timestamp": 1752713622.3398175
+  },
+  {
+    "test_type": "matematicas",
+    "success": true,
+    "timestamp": 1752713622.3725216
+  }
+]

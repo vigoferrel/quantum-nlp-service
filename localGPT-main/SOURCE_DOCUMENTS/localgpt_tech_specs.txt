@@ -1,0 +1,171 @@
+LocalGPT - Tecnologías y Características Avanzadas
+
+Arquitectura del Sistema:
+- Backend Flask con API RESTful
+- Frontend HTML5 con JavaScript vanilla
+- Base de datos SQLite para almacenamiento local
+- Interfaz drag-and-drop para subida de archivos
+- Sistema de notificaciones en tiempo real
+
+Características de Privacidad:
+✓ Procesamiento 100% local
+✓ Sin conexión a internet requerida
+✓ Datos nunca salen de tu computadora
+✓ Encriptación local de documentos
+✓ Sin telemetría ni tracking
+
+Formatos de Archivo Soportados:
+• PDF - Documentos Adobe Acrobat
+• TXT - Archivos de texto plano
+• DOC/DOCX - Documentos Microsoft Word
+• CSV - Hojas de cálculo y datos
+• MD - Archivos Markdown
+• PY - Código fuente Python
+• JS - Código JavaScript
+• HTML - Páginas web
+• CSS - Hojas de estilo
+
+Capacidades de Búsqueda:
+• Búsqueda por palabras clave
+• Búsqueda semántica (con IA)
+• Filtrado por tipo de documento
+• Ranking por relevancia
+• Extracción de contexto
+• Resumen automático
+
+Interfaz de Usuario:
+• Diseño responsive (móvil y escritorio)
+• Tema oscuro/claro automático
+• Animaciones fluidas CSS3
+• Atajos de teclado personalizables
+• Drag & drop para archivos
+• Notificaciones toast
+
+Funcionalidades Avanzadas:
+1. Modo Fallback Automático
+   - Detección automática de conexión API
+   - Cambio transparente a modo offline
+   - Búsqueda básica sin dependencias
+
+2. Sistema de Estadísticas
+   - Conteo de documentos procesados
+   - Métricas de fragmentos de texto
+   - Historial de búsquedas
+   - Tamaño de base de datos
+
+3. Gestión de Archivos
+   - Visualización de archivos cargados
+   - Iconos por tipo de archivo
+   - Información de tamaño
+   - Exportación de base de datos
+
+4. APIs REST Disponibles:
+   - GET /api/stats - Estadísticas del sistema
+   - POST /api/clear-db - Limpiar base de datos
+   - GET /api/export-db - Exportar datos
+   - GET /favicon.ico - Icono del sitio
+
+Seguridad:
+• Validación de tipos de archivo
+• Sanitización de nombres de archivo
+• Protección contra inyección SQL
+• Manejo seguro de uploads
+• Timeouts en requests
+
+Optimizaciones de Rendimiento:
+• Carga lazy de componentes
+• Compresión de respuestas
+• Cache de estadísticas
+• Índices de base de datos
+• Chunking inteligente de documentos
+
+Compatibilidad:
+• Python 3.8+
+• Navegadores modernos (Chrome, Firefox, Safari, Edge)
+• Windows, macOS, Linux
+• Arquitecturas x64 y ARM
+
+Ejemplos de Casos de Uso:
+
+1. Investigación Académica:
+   - Cargar papers y artículos científicos
+   - Hacer preguntas específicas sobre metodologías
+   - Extraer citas y referencias
+   - Comparar enfoques entre estudios
+
+2. Análisis Legal:
+   - Procesar contratos y documentos legales
+   - Buscar cláusulas específicas
+   - Identificar inconsistencias
+   - Generar resúmenes ejecutivos
+
+3. Desarrollo de Software:
+   - Analizar código fuente
+   - Buscar patrones y mejores prácticas
+   - Documentar APIs y funciones
+   - Detectar bugs potenciales
+
+4. Gestión Empresarial:
+   - Procesar reportes financieros
+   - Analizar propuestas comerciales
+   - Extraer KPIs y métricas
+   - Generar insights de negocio
+
+Comandos y Atajos:
+• Ctrl + U: Subir archivos
+• Ctrl + R: Actualizar página
+• Escape: Enfocar búsqueda
+• Enter: Enviar pregunta
+• F1: Mostrar ayuda
+
+Solución de Problemas:
+
+Problema: La interfaz no carga
+Solución: Verificar que el puerto 5111 esté libre
+
+Problema: No encuentra documentos
+Solución: Asegurar que los archivos se subieron correctamente
+
+Problema: Respuestas vacías
+Solución: Verificar que los documentos contienen texto
+
+Problema: Error de API
+Solución: El sistema cambiará automáticamente a modo offline
+
+Roadmap Futuro:
+□ Soporte para más formatos (EPUB, RTF)
+□ Integración con servicios de nube
+□ Plugin para navegadores
+□ App móvil nativa
+□ Colaboración en tiempo real
+□ Análisis de sentimientos
+□ Traducción automática
+□ Reconocimiento de voz
+
+Contribución al Proyecto:
+LocalGPT es open source. Las contribuciones son bienvenidas en:
+- Mejoras de UI/UX
+- Nuevos formatos de archivo
+- Optimizaciones de rendimiento
+- Corrección de bugs
+- Documentación
+- Traducciones
+
+Comunidad:
+• GitHub Issues para reportar bugs
+• Discussions para ideas y mejoras
+• Wiki para documentación
+• Discord para chat en tiempo real
+
+Recursos Adicionales:
+• Documentación técnica completa
+• Video tutoriales
+• Ejemplos de código
+• FAQ extenso
+• Guías de instalación
+• Best practices
+
+Créditos:
+Desarrollado con ❤️ por la comunidad LocalGPT
+Basado en tecnologías open source
+Contribuciones de desarrolladores worldwide

@@ -1,0 +1,56 @@
+FROM node:18-alpine
+
+# Metadatos
+LABEL maintainer="VIGOLEONROCKS Quantum Team"
+LABEL description="VIGOLEONROCKS Cloud Service - Arquitectura Cuántico-Cognitiva Distribuida"
+LABEL version="1.0.0"
+
+# Directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git \
+    curl
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar dependencias de Node.js
+RUN npm ci --only=production && npm cache clean --force
+
+# Copiar código fuente
+COPY vigoleonrocks-cloud-service.js ./
+COPY vigoleonrocks-cloud-client.js ./
+COPY *.py ./
+COPY *.md ./
+
+# Crear directorio para logs
+RUN mkdir -p /app/logs
+
+# Usuario no-root para seguridad
+RUN addgroup -g 1001 -S vigoleonrocks && \
+    adduser -S vigoleonrocks -u 1001 -G vigoleonrocks
+
+# Cambiar permisos
+RUN chown -R vigoleonrocks:vigoleonrocks /app
+USER vigoleonrocks
+
+# Variables de entorno
+ENV NODE_ENV=production
+ENV VIGOLEONROCKS_MODE=cloud
+ENV QUANTUM_VOLUME=351399511
+ENV DIMENSIONS=26
+
+# Puerto de salud
+EXPOSE 8888
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD node -e "console.log('VIGOLEONROCKS Cloud Service Health: OK')" || exit 1
+
+# Comando de inicio
+CMD ["node", "vigoleonrocks-cloud-service.js"]

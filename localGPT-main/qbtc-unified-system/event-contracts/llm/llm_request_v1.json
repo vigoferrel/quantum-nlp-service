@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qbtc.io/events/llm/request/v1",
+  "title": "LLM Request Event",
+  "description": "Schema for a request sent to the Quantum Consciousness Core for LLM processing.",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "description": "A unique identifier for this specific request, used for tracing.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "model": {
+      "description": "The specific model identifier requested for processing.",
+      "type": "string",
+      "examples": ["qbtc-sota-v1", "qbtc-speed-v2"]
+    },
+    "messages": {
+      "description": "A list of messages forming the conversation history.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["system", "user", "assistant"]
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": ["role", "content"]
+      }
+    },
+    "max_tokens": {
+      "description": "The maximum number of tokens to generate in the completion.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "temperature": {
+      "description": "Controls randomness: lower is more deterministic.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+    }
+  },
+  "required": [
+    "request_id",
+    "model",
+    "messages"
+  ]
+}

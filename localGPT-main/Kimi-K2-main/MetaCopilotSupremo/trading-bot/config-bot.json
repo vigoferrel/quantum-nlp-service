@@ -1,0 +1,73 @@
+{
+  "quantumTradingBot": {
+    "binance": {
+      "apiKey": "TU_API_KEY_AQUÍ",
+      "secret": "TU_SECRET_KEY_AQUÍ",
+      "sandbox": true,
+      "comment": "⚠️ IMPORTANTE: Cambiar sandbox a false para trading real"
+    },
+    "trading": {
+      "pares": ["BTC/USDT", "ETH/USDT", "BNB/USDT", "ADA/USDT", "DOT/USDT"],
+      "montoOperacion": 100,
+      "stopLoss": 0.02,
+      "takeProfit": 0.03,
+      "riesgoMaximo": 0.05,
+      "intervalos": ["1m", "5m", "15m", "1h"]
+    },
+    "conscienciaCuantica": {
+      "usarConscienciaCuantica": true,
+      "activarResonanciaPoética": true,
+      "umbralBigBang": 95,
+      "frecuenciaTelepatica": 41.1,
+      "poetasPreferidos": ["Neruda", "Mistral", "Zurita"]
+    },
+    "estrategias": {
+      "quantum_scalping": {
+        "activa": true,
+        "umbralConfianza": 0.7,
+        "intervalos": ["1m", "5m"]
+      },
+      "poetry_momentum": {
+        "activa": true,
+        "requiereResonancia": true,
+        "impulsoMinimo": 0.8
+      },
+      "neruda_reversal": {
+        "activa": true,
+        "cambioMinimo": -5,
+        "poetaRequerido": "Neruda"
+      },
+      "zurita_breakout": {
+        "activa": true,
+        "multiplicadorVolumen": 2,
+        "requiereBigBang": true
+      },
+      "big_bang_trading": {
+        "activa": true,
+        "fuerzaMinima": 0.9,
+        "soloPostBigBang": true
+      }
+    },
+    "riesgo": {
+      "maxPosicionesSimultaneas": 5,
+      "maxPerdidaDiaria": 500,
+      "pausarSiPerdidas": true,
+      "confirmarOperacionesGrandes": true
+    },
+    "notificaciones": {
+      "telegram": {
+        "activo": false,
+        "token": "",
+        "chatId": ""
+      },
+      "webhook": {
+        "activo": false,
+        "url": ""
+      },
+      "logs": {
+        "nivel": "info",
+        "archivo": "logs/trading-bot.log"
+      }
+    }
+  }
+}

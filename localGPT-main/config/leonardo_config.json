@@ -1,0 +1,44 @@
+{
+  "optimization": {
+    "default_mode": "auto",
+    "timeout": 300,
+    "max_retries": 3,
+    "quantum_volume": 351399511
+  },
+  "context": {
+    "sequential": {
+      "size": 131072,
+      "description": "Contexto m\u00e1ximo experimental",
+      "memory_required": 32000
+    },
+    "cobol": {
+      "size": "adaptive",
+      "description": "Adaptativo seg\u00fan recursos",
+      "memory_required": 8000
+    },
+    "ultra": {
+      "size": 16384,
+      "description": "Balanceado y seguro",
+      "memory_required": 4000
+    }
+  },
+  "metrics": {
+    "log_file": "results/quantum_optimization_log.json",
+    "enable_real_time": true,
+    "retention_days": 30
+  },
+  "mcp": {
+    "server_path": "apisix-mcp-main",
+    "timeout": 120,
+    "validation_tools": [
+      "quantum_status",
+      "transmute_error",
+      "route"
+    ]
+  },
+  "feedback": {
+    "enable_learning": true,
+    "prediction_threshold": 0.95,
+    "update_frequency": 3600
+  }
+}

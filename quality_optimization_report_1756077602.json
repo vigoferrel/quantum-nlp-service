@@ -1,0 +1,63 @@
+{
+  "timestamp": 1756077602.6453521,
+  "premium_patterns": {
+    "gpt4o": {
+      "prompt_structure": "Clear instructions with specific requirements",
+      "response_format": "Structured with headers, code blocks, and examples",
+      "reasoning_style": "Step-by-step logical progression",
+      "completeness": "Address all aspects comprehensively"
+    },
+    "claude35": {
+      "prompt_structure": "Context-rich with detailed specifications",
+      "response_format": "Well-organized with clear sections",
+      "reasoning_style": "Analytical with examples",
+      "completeness": "Thorough coverage of requirements"
+    }
+  },
+  "current_results": [
+    {
+      "test_name": "Advanced Code Generation",
+      "quality": 0.665,
+      "response_preview": "Here's a Python implementation of a quantum neural network with the requested features:\n\n```python\nimport numpy as np\nimport random\nfrom typing import..."
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "quality": 0.7,
+      "response_preview": "I'll solve this step by step to find the train's average speed in m/s.\n\n**Given Information:**\n- Distance traveled = 120 km\n- Time taken = 2 hours\n\n**..."
+    }
+  ],
+  "optimized_results": [
+    {
+      "test_name": "Advanced Code Generation",
+      "quality": 0.6900000000000001,
+      "response_preview": "# Clase de Red Neuronal Cuántica en Python\n\nA continuación, se presenta una implementación de una clase de red neuronal cuántica en Python. Esta clase..."
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "quality": 0.6233333333333333,
+      "response_preview": "# Cálculo de la Velocidad Promedio de un Tren\n\n## Introducción\n\nPara resolver el problema de calcular la velocidad promedio de un tren que viaja 120 k..."
+    }
+  ],
+  "improvements": [
+    {
+      "test_name": "Advanced Code Generation",
+      "current_quality": 0.665,
+      "optimized_quality": 0.6900000000000001,
+      "improvement": 0.025000000000000022,
+      "improvement_factor": 1.037593984962406
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "current_quality": 0.7,
+      "optimized_quality": 0.6233333333333333,
+      "improvement": -0.07666666666666666,
+      "improvement_factor": 0.8904761904761905
+    }
+  ],
+  "summary": {
+    "total_tests": 2,
+    "avg_improvement": -0.02583333333333332,
+    "max_improvement": 0.025000000000000022,
+    "success_rate": 0.5
+  }
+}

@@ -1,0 +1,86 @@
+# #################################################################
+# # QBTC Unified System - Apache APISIX Configuration
+# # Version: 1.0
+# # Author: Roo
+# # Description: This file defines the routes, upstreams, and plugins
+# #              for the API Gateway, which acts as the single entry
+# #              point for the entire QBTC system.
+# #################################################################
+
+# List of upstreams (backend services)
+upstreams:
+  - id: api_server_upstream
+    nodes:
+      # The api_server is expected to run on port 8000.
+      # 'host.docker.internal' is used to allow the APISIX container
+      # to communicate with services running on the host machine.
+      # For production, this would be a service name like 'api-server'.
+      "api-server:8000": 1
+    type: roundrobin
+    scheme: http
+
+  - id: quantum_core_upstream
+    nodes:
+      "quantum-core-service:8001": 1
+    type: roundrobin
+    scheme: http
+
+  - id: trading_hft_upstream
+    nodes:
+      "trading-hft-service:8002": 1
+    type: roundrobin
+    scheme: http
+
+# List of routes that map incoming requests to upstreams
+routes:
+  - id: api_server_route
+    uri: /api/v1/interact
+    methods:
+      - POST
+    upstream_id: api_server_upstream
+    plugins:
+      # Example: Secure the endpoint with an API key.
+      # A consumer must have a key-auth plugin configured with
+      # a valid key to access this route.
+      key-auth: {}
+      # Example: Limit the rate of requests to prevent abuse.
+      # Allows 100 requests every 60 seconds.
+      limit-req:
+        count: 100
+        time_window: 60
+        rejected_code: 429
+
+  - id: quantum_core_health_route
+    uri: /quantum-core/health
+    methods:
+      - GET
+    upstream_id: quantum_core_upstream
+
+  - id: trading_hft_health_route
+    uri: /trading-hft/health
+    methods:
+      - GET
+    upstream_id: trading_hft_upstream
+
+# List of consumers for authentication plugins
+consumers:
+  - username: qbtc_frontend_client
+    plugins:
+      key-auth:
+        # In a real setup, this key would be securely generated and stored.
+        # DO NOT hardcode sensitive keys in production configurations.
+        key: "super-secret-frontend-key"
+
+  - username: internal_monitoring_service
+    plugins:
+      key-auth:
+        key: "monitoring-service-internal-key"
+
+# Global plugins that apply to all requests
+global_rules:
+  - id: global_logging
+    plugins:
+      # Logs request/response details to a file or remote server.
+      # This is essential for observability.
+      file-logger:
+        path: "logs/apisix_access.log"

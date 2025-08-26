@@ -1,0 +1,13 @@
+{
+  "name": "ollama-worker",
+  "version": "1.0.0",
+  "description": "Worker que consume tareas de RabbitMQ y ejecuta inferencias en Ollama.",
+  "main": "worker.js",
+  "scripts": {
+    "start": "node worker.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "node-fetch": "^2.6.7"
+  }
+}

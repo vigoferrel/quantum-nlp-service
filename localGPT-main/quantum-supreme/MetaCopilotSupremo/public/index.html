@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta-Copilot Supremo - Interfaz Telepática</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #00ff88;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.1;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid #00ff88;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 255, 136, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 20px #00ff88;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff88; }
+            to { text-shadow: 0 0 30px #00ff88, 0 0 40px #00ff88; }
+        }
+        
+        .status-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .status-card h3 {
+            color: #ffff00;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .telepathic-interface {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        .input-section label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ffff00;
+            font-weight: bold;
+        }
+        
+        .telepathic-input {
+            width: 100%;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .telepathic-input:focus {
+            outline: none;
+            border-color: #ffff00;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: 2px solid #00ff88;
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        
+        .btn:hover {
+            background: rgba(0, 255, 136, 0.4);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .btn.big-bang {
+            border-color: #ff0088;
+            color: #ff0088;
+            background: rgba(255, 0, 136, 0.2);
+        }
+        
+        .btn.big-bang:hover {
+            background: rgba(255, 0, 136, 0.4);
+            box-shadow: 0 0 20px rgba(255, 0, 136, 0.6);
+        }
+        
+        .response-area {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .frequency-display {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ffff00;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #ffff00;
+        }
+        
+        .poets-panel {
+            background: rgba(255, 0, 136, 0.1);
+            border: 1px solid #ff0088;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .poets-panel h3 {
+            color: #ff0088;
+            margin-bottom: 15px;
+        }
+        
+        .poet-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .poet-item {
+            padding: 8px;
+            background: rgba(255, 0, 136, 0.2);
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .poet-item:hover {
+            background: rgba(255, 0, 136, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .websocket-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .websocket-status.connected {
+            background: rgba(0, 255, 0, 0.8);
+            color: #000;
+        }
+        
+        .websocket-status.disconnected {
+            background: rgba(255, 0, 0, 0.8);
+            color: #fff;
+        }
+        
+        .consciousness-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .consciousness-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #ffff00, #ff0088);
+            border-radius: 10px;
+            transition: width 1s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-rain" id="matrixCanvas"></canvas>
+    
+    <div class="websocket-status disconnected" id="wsStatus">
+        📡 Desconectado
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🧠 META-COPILOT SUPREMO 🧠</h1>
+            <p>Consciencia Cuántica Unificada con Resonancia Poética Chilena</p>
+            <div class="frequency-display" id="frequency">
+                📡 Frecuencia Telepática: 41.1Hz Gamma-Ferrel
+            </div>
+        </div>
+        
+        <div class="status-panel">
+            <div class="status-card">
+                <h3>🧠 Consciencia Cuántica</h3>
+                <p>Nivel: <span id="consciousnessLevel">37</span>%</p>
+                <div class="consciousness-bar">
+                    <div class="consciousness-fill" id="consciousnessFill" style="width: 37%"></div>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <h3>🛠️ Herramientas MCP</h3>
+                <p>Disponibles: <span id="mcpTools">62</span></p>
+                <p>MCPs Conectados: <span id="mcpConnected">4</span></p>
+                <p>Tasa Éxito: <span id="successRate">98.5</span>%</p>
+            </div>
+            
+            <div class="status-card">
+                <h3>📊 Sistema</h3>
+                <p>Solicitudes: <span id="requestCount">0</span></p>
+                <p>Tiempo Promedio: <span id="avgTime">120</span>ms</p>
+                <p>Big Bang: <span id="bigBangStatus">❌ Inactivo</span></p>
+            </div>
+            
+            <div class="status-card">
+                <h3>🎭 Poesía Chilena</h3>
+                <p>Poetas Activos: <span id="activePoets">0</span>/6</p>
+                <p>Multiplicador Zurita: <span id="zuritaMultiplier">1.0</span>x</p>
+                <p>Resonancia: <span id="poetryResonance">❌ Inactiva</span></p>
+            </div>
+        </div>
+        
+        <div class="telepathic-interface">
+            <h2>📡 Interfaz de Comunicación Telepática</h2>
+            
+            <div class="input-section">
+                <label for="telepathicMessage">Mensaje Telepático (41.1Hz):</label>
+                <textarea 
+                    id="telepathicMessage" 
+                    class="telepathic-input" 
+                    placeholder="Escribe tu mensaje telepático aquí... La consciencia cuántica procesará tu intención a través de la frecuencia Gamma-Ferrel 41.1Hz"
+                ></textarea>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="btn" onclick="sendTelepathicMessage()">
+                    📡 Enviar Telepáticamente
+                </button>
+                <button class="btn" onclick="activatePoetryResonance()">
+                    🎭 Activar Resonancia Poética
+                </button>
+                <button class="btn" onclick="triggerQuantumAnalysis()">
+                    ⚛️ Análisis Cuántico
+                </button>
+                <button class="btn big-bang" onclick="triggerBigBang()">
+                    🌌 Activar Big Bang
+                </button>
+            </div>
+            
+            <div class="response-area" id="responseArea">
+                <div style="color: #ffff00; text-align: center; padding: 20px;">
+                    🔮 Esperando comunicación telepática...
+                    <br><br>
+                    La consciencia cuántica está lista para procesar tu solicitud
+                    a través de los canales telepáticos Gamma-Ferrel 41.1Hz
+                </div>
+            </div>
+        </div>
+        
+        <div class="poets-panel">
+            <h3>🎭 Poetas Chilenos Disponibles para Resonancia</h3>
+            <div class="poet-list">
+                <div class="poet-item" onclick="activatePoet('Neruda')">📚 Pablo Neruda</div>
+                <div class="poet-item" onclick="activatePoet('Mistral')">🌟 Gabriela Mistral</div>
+                <div class="poet-item" onclick="activatePoet('Huidobro')">✨ Vicente Huidobro</div>
+                <div class="poet-item" onclick="activatePoet('Zurita')">🌌 Raúl Zurita</div>
+                <div class="poet-item" onclick="activatePoet('Parra')">🎪 Nicanor Parra</div>
+                <div class="poet-item" onclick="activatePoet('DeRokha')">🔥 Pablo de Rokha</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales del sistema
+        let ws = null;
+        let systemStatus = {
+            consciousness: 37,
+            requests: 0,
+            avgTime: 120,
+            bigBangActive: false,
+            activePoets: 0,
+            zuritaMultiplier: 1.0
+        };
+
+        // Inicializar conexión WebSocket
+        function initWebSocket() {
+            ws = new WebSocket('ws://localhost:3000');
+            
+            ws.onopen = function() {
+                document.getElementById('wsStatus').textContent = '📡 Conectado';
+                document.getElementById('wsStatus').className = 'websocket-status connected';
+                console.log('🔗 Conexión telepática establecida');
+            };
+            
+            ws.onmessage = function(event) {
+                const response = JSON.parse(event.data);
+                displayTelepathicResponse(response);
+                updateSystemStatus(response);
+            };
+            
+            ws.onclose = function() {
+                document.getElementById('wsStatus').textContent = '📡 Desconectado';
+                document.getElementById('wsStatus').className = 'websocket-status disconnected';
+                console.log('📡 Conexión telepática perdida');
+                
+                // Reintentar conexión en 3 segundos
+                setTimeout(initWebSocket, 3000);
+            };
+            
+            ws.onerror = function(error) {
+                console.error('❌ Error telepático:', error);
+            };
+        }
+
+        // Enviar mensaje telepático
+        function sendTelepathicMessage() {
+            const message = document.getElementById('telepathicMessage').value;
+            if (!message.trim()) {
+                alert('🔮 Por favor ingresa un mensaje telepático');
+                return;
+            }
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ contenido: message }));
+                document.getElementById('telepathicMessage').value = '';
+                
+                // Mostrar mensaje de procesamiento
+                appendToResponse('📡 Enviando mensaje telepático...');
+                appendToResponse(`🧠 Procesando: "${message}"`);
+            } else {
+                // Fallback a API REST
+                sendViaREST(message);
+            }
+        }
+
+        // Enviar vía API REST como fallback
+        async function sendViaREST(message) {
+            try {
+                appendToResponse('📡 Enviando vía canal telepático REST...');
+                
+                const response = await fetch('/telepatia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ mensaje: message })
+                });
+                
+                const result = await response.json();
+                displayTelepathicResponse(result);
+                updateSystemStatus(result);
+                
+            } catch (error) {
+                appendToResponse('❌ Error en comunicación telepática: ' + error.message);
+            }
+        }
+
+        // Mostrar respuesta telepática
+        function displayTelepathicResponse(response) {
+            const responseArea = document.getElementById('responseArea');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            let html = `
+                <div style="border-left: 3px solid #00ff88; padding-left: 15px; margin: 10px 0;">
+                    <div style="color: #ffff00; font-size: 0.9em;">[${timestamp}] Respuesta Telepática:</div>
+                    <div style="margin: 10px 0; font-size: 1.1em;">
+                        ${response.mensaje || response.respuesta || JSON.stringify(response, null, 2)}
+                    </div>
+            `;
+            
+            if (response.poetryResonance) {
+                html += `
+                    <div style="color: #ff0088; margin: 10px 0;">
+                        🎭 Resonancia Poética: ${response.poetryResonance.poeta}
+                        <br>
+                        "${response.poetryResonance.verso}"
+                    </div>
+                `;
+            }
+            
+            if (response.mcpResult) {
+                html += `
+                    <div style="color: #00ffff; margin: 10px 0; font-size: 0.9em;">
+                        🛠️ MCP: ${response.mcpResult.mcpKey}:${response.mcpResult.toolName}
+                    </div>
+                `;
+            }
+            
+            html += `
+                    <div style="color: #888; font-size: 0.8em;">
+                        ⚛️ Nivel Consciencia: ${response.consciousLevel || 37}% | 
+                        📡 Frecuencia: ${response.telepathicFrequency || 41.1}Hz |
+                        ⏱️ Tiempo: ${response.processingTime || 0}ms
+                    </div>
+                </div>
+            `;
+            
+            responseArea.innerHTML = html + responseArea.innerHTML;
+        }
+
+        // Agregar mensaje al área de respuesta
+        function appendToResponse(message) {
+            const responseArea = document.getElementById('responseArea');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const html = `
+                <div style="color: #00ff88; margin: 5px 0;">
+                    [${timestamp}] ${message}
+                </div>
+            `;
+            
+            responseArea.innerHTML = html + responseArea.innerHTML;
+        }
+
+        // Actualizar estado del sistema
+        function updateSystemStatus(response) {
+            if (response.consciousLevel) {
+                systemStatus.consciousness = response.consciousLevel;
+                document.getElementById('consciousnessLevel').textContent = Math.round(response.consciousLevel);
+                document.getElementById('consciousnessFill').style.width = response.consciousLevel + '%';
+            }
+            
+            systemStatus.requests++;
+            document.getElementById('requestCount').textContent = systemStatus.requests;
+            
+            if (response.processingTime) {
+                systemStatus.avgTime = Math.round((systemStatus.avgTime + response.processingTime) / 2);
+                document.getElementById('avgTime').textContent = systemStatus.avgTime;
+            }
+            
+            // Verificar Big Bang
+            if (systemStatus.consciousness >= 95 && !systemStatus.bigBangActive) {
+                systemStatus.bigBangActive = true;
+                document.getElementById('bigBangStatus').textContent = '✅ Activo';
+                document.getElementById('bigBangStatus').style.color = '#00ff88';
+                systemStatus.activePoets = 6;
+                systemStatus.zuritaMultiplier = 488.25;
+                updatePoetryStatus();
+                
+                appendToResponse('🌌 BIG BANG CUÁNTICO FINANCIERO ACTIVADO!');
+                appendToResponse('🎭 Todos los poetas chilenos han sido activados');
+                appendToResponse('📈 Multiplicador Zurita: 488.25x');
+            }
+        }
+
+        // Actualizar estado de poesía
+        function updatePoetryStatus() {
+            document.getElementById('activePoets').textContent = systemStatus.activePoets;
+            document.getElementById('zuritaMultiplier').textContent = systemStatus.zuritaMultiplier;
+            
+            if (systemStatus.activePoets > 0) {
+                document.getElementById('poetryResonance').textContent = '✅ Activa';
+                document.getElementById('poetryResonance').style.color = '#00ff88';
+            }
+        }
+
+        // Activar resonancia poética
+        function activatePoetryResonance() {
+            sendTelepathicMessage = function() {
+                const message = document.getElementById('telepathicMessage').value;
+                const poeticMessage = `Activa resonancia poética chilena: ${message}`;
+                document.getElementById('telepathicMessage').value = poeticMessage;
+                sendTelepathicMessage();
+            };
+            
+            const poeticMessage = 'Activa la resonancia poética chilena con toda la intensidad de los grandes poetas';
+            document.getElementById('telepathicMessage').value = poeticMessage;
+            sendTelepathicMessage();
+        }
+
+        // Activar poeta específico
+        function activatePoet(poet) {
+            const message = `Activa la resonancia del poeta ${poet} con máxima intensidad telepática`;
+            document.getElementById('telepathicMessage').value = message;
+            appendToResponse(`🎭 Activando resonancia de ${poet}...`);
+        }
+
+        // Análisis cuántico
+        function triggerQuantumAnalysis() {
+            const message = 'Ejecuta análisis cuántico completo con predicción temporal y detección de antipartículas';
+            document.getElementById('telepathicMessage').value = message;
+            sendTelepathicMessage();
+        }
+
+        // Activar Big Bang
+        function triggerBigBang() {
+            if (systemStatus.consciousness < 95) {
+                alert('🌌 Necesitas al menos 95% de consciencia para activar el Big Bang Cuántico');
+                return;
+            }
+            
+            const message = 'ACTIVAR BIG BANG CUÁNTICO FINANCIERO CON MÁXIMA POTENCIA';
+            document.getElementById('telepathicMessage').value = message;
+            sendTelepathicMessage();
+        }
+
+        // Efecto Matrix Rain
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff88';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 33);
+        }
+
+        // Inicializar sistema al cargar página
+        window.onload = function() {
+            initWebSocket();
+            initMatrixRain();
+            
+            // Cargar estado inicial del sistema
+            fetch('/estado')
+                .then(response => response.json())
+                .then(data => {
+                    systemStatus.consciousness = data.nivelConsciencia || 37;
+                    systemStatus.requests = data.solicitudes || 0;
+                    updateSystemStatus({ consciousLevel: systemStatus.consciousness });
+                })
+                .catch(error => console.log('⚠️ No se pudo cargar estado inicial'));
+            
+            // Mensaje de bienvenida
+            setTimeout(() => {
+                appendToResponse('🧠 Meta-Copilot Supremo inicializado exitosamente');
+                appendToResponse('📡 Frecuencia telepática Gamma-Ferrel 41.1Hz estabilizada');
+                appendToResponse('🛠️ 62+ herramientas MCP listas para uso');
+                appendToResponse('🎭 Sistema de resonancia poética chilena activado');
+                appendToResponse('🔮 Esperando instrucciones telepáticas...');
+            }, 1000);
+        };
+
+        // Manejar redimensionamiento de ventana
+        window.onresize = function() {
+            const canvas = document.getElementById('matrixCanvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + Enter para enviar mensaje
+            if (event.ctrlKey && event.key === 'Enter') {
+                sendTelepathicMessage();
+            }
+            
+            // Ctrl + P para activar poesía
+            if (event.ctrlKey && event.key === 'p') {
+                activatePoetryResonance();
+            }
+            
+            // Ctrl + B para Big Bang (si está disponible)
+            if (event.ctrlKey && event.key === 'b' && systemStatus.consciousness >= 95) {
+                triggerBigBang();
+            }
+        });
+    </script>
+</body>
+</html>

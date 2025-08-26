@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qbtc.io/events/trading/request/v1",
+  "title": "Trading Analysis Request Event",
+  "description": "Schema for a request sent to the Quantum Consciousness Core for market analysis.",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "description": "A unique identifier for this specific request.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "market": {
+      "description": "The market to be analyzed, e.g., BTC/USD.",
+      "type": "string"
+    },
+    "indicators": {
+      "description": "A list of technical indicators to compute.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["RSI", "MACD", "BollingerBands", "Stochastic"]
+      }
+    },
+    "timestamp": {
+      "description": "The UTC timestamp of when the analysis was requested.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "request_id",
+    "market",
+    "indicators",
+    "timestamp"
+  ]
+}

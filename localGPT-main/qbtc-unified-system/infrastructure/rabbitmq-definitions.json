@@ -1,0 +1,116 @@
+{
+  "rabbit_version": "3.12",
+  "users": [
+    {
+      "name": "guest",
+      "password": "guest",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "quantum_vhost"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "quantum_vhost",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "q_llm_requests",
+      "vhost": "quantum_vhost",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "q_trading_requests",
+      "vhost": "quantum_vhost",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "q_llm_responses",
+      "vhost": "quantum_vhost",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "q_trading_signals",
+      "vhost": "quantum_vhost",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "quorum"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "requests_exchange",
+      "vhost": "quantum_vhost",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "responses_exchange",
+      "vhost": "quantum_vhost",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "requests_exchange",
+      "vhost": "quantum_vhost",
+      "destination": "q_llm_requests",
+      "destination_type": "queue",
+      "routing_key": "llm.request",
+      "arguments": {}
+    },
+    {
+      "source": "requests_exchange",
+      "vhost": "quantum_vhost",
+      "destination": "q_trading_requests",
+      "destination_type": "queue",
+      "routing_key": "trading.request",
+      "arguments": {}
+    },
+    {
+      "source": "responses_exchange",
+      "vhost": "quantum_vhost",
+      "destination": "q_llm_responses",
+      "destination_type": "queue",
+      "routing_key": "llm.response.*",
+      "arguments": {}
+    },
+    {
+      "source": "responses_exchange",
+      "vhost": "quantum_vhost",
+      "destination": "q_trading_signals",
+      "destination_type": "queue",
+      "routing_key": "trading.signal.*",
+      "arguments": {}
+    }
+  ]
+}

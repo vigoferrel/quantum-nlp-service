@@ -1,0 +1,33 @@
+# LocalGPT Quantum Supreme - Core Dependencies
+# Solo dependencias esenciales para evitar conflictos
+
+# Core web framework
+flask>=2.3.0
+werkzeug>=2.3.0
+
+# Data processing
+numpy>=1.24.0
+
+# HTTP requests
+requests>=2.28.0
+
+# Type hints
+typing-extensions>=4.5.0
+
+# YAML support
+pyyaml>=6.0
+
+# Web framework extras
+flask-cors>=4.0.0
+
+# WSGI server
+gunicorn>=21.2.0
+
+# For unified_assistant logging and display
+rich>=13.0.0
+
+# For loading environment variables from .env files
+python-dotenv>=1.0.0
+
+# For interactive prompts in unified_assistant
+prompt-toolkit>=3.0.0

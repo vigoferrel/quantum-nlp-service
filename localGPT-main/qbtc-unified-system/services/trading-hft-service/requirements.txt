@@ -1,0 +1,9 @@
+# ==============================================================================
+# || QBTC UNIFIED SYSTEM - REQUIREMENTS: Trading HFT Service                  ||
+# ==============================================================================
+#
+# Dependencias para el servicio de High-Frequency Trading.
+#
+
+pika==1.3.2
+python-dotenv==1.0.1

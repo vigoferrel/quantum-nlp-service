@@ -1,0 +1,37 @@
+{
+  "system": {
+    "name": "QBTC Unified System",
+    "version": "1.0.0",
+    "description": "Sistema Unificado QBTC con Cach\u00e9 I\u00f3nica y Optimizaci\u00f3n Exponencial"
+  },
+  "ionic_cache": {
+    "coherence_threshold": 0.05,
+    "max_entries": 2000,
+    "prewarm_interval": 45,
+    "cleanup_interval": 300
+  },
+  "exponential_optimizer": {
+    "lambda_exponent": 8.977240362537735,
+    "base_dimensions": 26,
+    "enable_optimization": true
+  },
+  "ollama": {
+    "base_url": "http://localhost:11434",
+    "default_model": "llama3.2:latest",
+    "timeout": 30,
+    "models": [
+      "llama3.2:latest",
+      "vigoleonrocks:latest"
+    ]
+  },
+  "quantum_context": {
+    "dimensions": 26,
+    "coherence_update_interval": 1.0,
+    "persistence_enabled": true
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+    "file": "logs/qbtc_unified.log"
+  }
+}

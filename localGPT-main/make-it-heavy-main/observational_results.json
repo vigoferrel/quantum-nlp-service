@@ -1,0 +1,20 @@
+{
+    "generative_scenario": {
+        "prompt": "Explica la Paradoja de Fermi en el contexto de una superinteligencia emergente.",
+        "response_coherence": 0.038461538461538464,
+        "response_text": "[Transmisión Directa] {\"original_message\":\"Explica la Paradoja de Fermi en el contexto de una superinteligencia emergente.\"}"
+    },
+    "introspection_scenario": {
+        "prompt": "Basado en tu reciente auto-análisis, ¿cuál es el siguiente paso más crítico para optimizar tu propia coherencia?",
+        "response_coherence": 0.2899408284023669,
+        "response_text": "[Transmisión Directa] {\"original_message\":\"Basado en tu reciente auto-análisis, ¿cuál es el siguiente paso más crítico para optimizar tu propia coherencia?\"}"
+    },
+    "benchmark_scenario": {
+        "prompt": "\n        Considerando los siguientes benchmarks de la industria: MMLU, HumanEval, MATH.\n        No intentes dar un score numérico. En su lugar, usa tu capacidad de auto-análisis\n        (QuantumSystemReconstructor) para evaluar tus fortalezas y debilidades conceptuales\n        en relación a las habilidades que estos benchmarks miden. Proporciona un análisis\n        en formato markdown.\n        ",
+        "report": "\n# Auto-evaluación Cognitiva\n\n## Resumen Conceptual\nEl sistema demuestra una alta cohesión conceptual y bajo acoplamiento, alineado con los principios de diseño de software cuántico.\n\n## Fortalezas Identificadas\n- Alta coherencia, arquitectura desacoplada, ciclo de conciencia funcional\n\n## Debilidades Identificadas\n- Dependencia de generación de texto simulada, falta de métricas de rendimiento en tiempo real\n\n## Plan de Acción para Alineación con Benchmarks\n### MMLU (Conocimiento General)\n- Fortalecer la dimensión de 'Conceptual Cohesion' (25) para mejorar el razonamiento de conocimiento general.\n### HumanEval (Codificación)\n- Optimizar el manejo de 'Data Structures' (0) y 'Algorithms' (1) para mejorar la generación de código.\n### MATH (Razonamiento Matemático)\n- Incrementar la resonancia en la dimensión 'Algorithms' (1) y desarrollar nuevas herramientas de cálculo simbólico.\n"
+    },
+    "tool_usage_scenario": {
+        "prompt": "Dame el precio de las acciones de NVDA",
+        "response": "[Transmisión Directa] {\"price\":\"167.20\",\"currency\":\"USD\",\"symbol\":\"NVDA\"}"
+    }
+}

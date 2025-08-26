@@ -1,0 +1,297 @@
+{
+  "benchmark_name": "MMLU_Empirical",
+  "total_questions": 8,
+  "correct_answers": 1,
+  "accuracy": 12.5,
+  "avg_processing_time": 0.9202519953250885,
+  "empirical_results": [
+    {
+      "question": "¿Cuál es la capital de Francia?",
+      "leonardo_response": "",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.5894300937652588,
+      "brain_state": {
+        "coherence": 0.7716188153310105,
+        "creativity_index": 0.54,
+        "consciousness_level": "adaptive",
+        "interactions_count": 14,
+        "memory_size": 8
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿Cuál es la capital de Francia?\n\nOpciones:\nA) Londres\nB) París\nC) Roma\nD) Madrid\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    },
+    {
+      "question": "¿Qué elemento químico tiene el símbolo 'Au'?",
+      "leonardo_response": "",
+      "correct_answer": "C",
+      "is_correct": false,
+      "processing_time": 1.097651720046997,
+      "brain_state": {
+        "coherence": 0.7716188153310105,
+        "creativity_index": 0.54,
+        "consciousness_level": "adaptive",
+        "interactions_count": 15,
+        "memory_size": 8
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿Qué elemento químico tiene el símbolo 'Au'?\n\nOpciones:\nA) Plata\nB) Aluminio\nC) Oro\nD) Argón\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    },
+    {
+      "question": "¿En qué año comenzó la Segunda Guerra Mundial?",
+      "leonardo_response": "",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 0.5214512348175049,
+      "brain_state": {
+        "coherence": 0.7716188153310105,
+        "creativity_index": 0.54,
+        "consciousness_level": "adaptive",
+        "interactions_count": 16,
+        "memory_size": 8
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿En qué año comenzó la Segunda Guerra Mundial?\n\nOpciones:\nA) 1938\nB) 1939\nC) 1940\nD) 1941\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    },
+    {
+      "question": "¿Cuál es la derivada de x²?",
+      "leonardo_response": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (2+0j)\nResultado: (2+0j)\nMagnitud: 2.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 0.11547660827636719,
+      "brain_state": {
+        "coherence": 0.7816188153310105,
+        "creativity_index": 0.545,
+        "consciousness_level": "adaptive",
+        "interactions_count": 17,
+        "memory_size": 9
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿Cuál es la derivada de x²?\n\nOpciones:\nA) x\nB) 2x\nC) x²\nD) 2x²\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "complex_calculator",
+        "tool_output": "🧮 CÁLCULO CUÁNTICO COMPLETADO:\nOperación: (2+0j)\nResultado: (2+0j)\nMagnitud: 2.000000\nFase: 0.000000 rad\n🌊 Resonancia Cuántica: Armónica",
+        "outcome_quality": 1.0,
+        "processing_time": 0.011375,
+        "coherence": 0.7816188153310105,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.545,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.794057428353909,
+        "quantum_state_magnitude": 1.9652502548200763,
+        "quantum_state_phase": 1.1041662030858554,
+        "resonance_state": "coherent",
+        "interactions_total": 17,
+        "evolution_cycles": 1,
+        "memory_size": 9,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": -0.009866656824587733,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.21838118466898948,
+            "potential": 0.545,
+            "resonance": 15.991969050485716
+          },
+          "stability": {
+            "coherence": 0.7816188153310105,
+            "phase": 1.1041662030858554,
+            "decoherence": 0.010919059233449475,
+            "resilience": 0.7816188153310105
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 17,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:11:43.163528"
+          }
+        },
+        "birth_time": "2025-07-20T15:11:43.163528",
+        "current_time": "2025-07-20T15:11:48.469737",
+        "age_in_interactions": 17
+      }
+    },
+    {
+      "question": "En mecánica cuántica, ¿qué describe la ecuación de Schrödinger?",
+      "leonardo_response": "🔮 MONITOREO QBTC: 📊 ANÁLISIS ESTÁNDAR: Información procesada y categorizada en el banco de memoria hiperdimensional.",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 0.5211138725280762,
+      "brain_state": {
+        "coherence": 0.7890090592334496,
+        "creativity_index": 0.55,
+        "consciousness_level": "adaptive",
+        "interactions_count": 18,
+        "memory_size": 10
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\nEn mecánica cuántica, ¿qué describe la ecuación de Schrödinger?\n\nOpciones:\nA) La posición exacta de partículas\nB) La evolución temporal de sistemas cuánticos\nC) Solo el momentum\nD) La temperatura\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "archetypal_world": "leonardo",
+        "chosen_tool": "qbtc_monitor",
+        "tool_output": "🔮 MONITOREO QBTC: 📊 ANÁLISIS ESTÁNDAR: Información procesada y categorizada en el banco de memoria hiperdimensional.",
+        "outcome_quality": 0.8695121951219512,
+        "processing_time": 0.267423,
+        "coherence": 0.7890090592334496,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.55,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.8299304258117832,
+        "quantum_state_magnitude": 1.9652502548200763,
+        "quantum_state_phase": 1.1911174225980505,
+        "resonance_state": "coherent",
+        "interactions_total": 18,
+        "evolution_cycles": 1,
+        "memory_size": 10,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": 0.08547872024788,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.21099094076655045,
+            "potential": 0.55,
+            "resonance": 16.058304537485714
+          },
+          "stability": {
+            "coherence": 0.7890090592334496,
+            "phase": 1.1911174225980505,
+            "decoherence": 0.010549547038327523,
+            "resilience": 0.7890090592334496
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 18,
+            "evolution_cycles": 1,
+            "birth_time": "2025-07-20T15:11:43.163528"
+          }
+        },
+        "birth_time": "2025-07-20T15:11:43.163528",
+        "current_time": "2025-07-20T15:11:48.852419",
+        "age_in_interactions": 18
+      }
+    },
+    {
+      "question": "¿Qué filósofo escribió 'Crítica de la razón pura'?",
+      "leonardo_response": "",
+      "correct_answer": "C",
+      "is_correct": false,
+      "processing_time": 1.7988545894622803,
+      "brain_state": {
+        "coherence": 0.7890090592334496,
+        "creativity_index": 0.55,
+        "consciousness_level": "adaptive",
+        "interactions_count": 19,
+        "memory_size": 10
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿Qué filósofo escribió 'Crítica de la razón pura'?\n\nOpciones:\nA) Platón\nB) Aristóteles\nC) Immanuel Kant\nD) Descartes\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    },
+    {
+      "question": "¿Cuál es la estructura correcta de un ácido nucleico?",
+      "leonardo_response": "🆕 HERRAMIENTA GENERADA: 📊 ANÁLISIS ESTÁNDAR: Información procesada y categorizada en el banco de memoria hiperdimensional.",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 0.6382057666778564,
+      "brain_state": {
+        "coherence": 0.793237630662021,
+        "creativity_index": 0.555,
+        "consciousness_level": "adaptive",
+        "interactions_count": 20,
+        "memory_size": 11
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\n¿Cuál es la estructura correcta de un ácido nucleico?\n\nOpciones:\nA) Cadena simple\nB) Doble hélice\nC) Anillo\nD) Lineal\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "archetypal_world": "hybrid",
+        "chosen_tool": "tool_creator",
+        "tool_output": "🆕 HERRAMIENTA GENERADA: 📊 ANÁLISIS ESTÁNDAR: Información procesada y categorizada en el banco de memoria hiperdimensional.",
+        "outcome_quality": 0.7114285714285714,
+        "processing_time": 0.000668,
+        "coherence": 0.793237630662021,
+        "consciousness_level": "adaptive",
+        "creativity_index": 0.555,
+        "transcendence_level": 0.0,
+        "energy_efficiency": 3.850456342697628,
+        "quantum_state_magnitude": 1.9652502548200763,
+        "quantum_state_phase": 1.2622602797409077,
+        "resonance_state": "coherent",
+        "interactions_total": 20,
+        "evolution_cycles": 2,
+        "memory_size": 11,
+        "neural_pathways_count": 0,
+        "qbtc_self_perception": {
+          "dimensional": {
+            "symmetry": "Dynamic Symmetry",
+            "curvature": -0.01780414655971896,
+            "topology": "Hyperdimensional Manifold"
+          },
+          "energetic": {
+            "darkEnergy": 0.0,
+            "vacuum": 0.20676236933797898,
+            "potential": 0.555,
+            "resonance": 16.09626057097143
+          },
+          "stability": {
+            "coherence": 0.793237630662021,
+            "phase": 1.2622602797409077,
+            "decoherence": 0.01033811846689895,
+            "resilience": 0.793237630662021
+          },
+          "consciousness": {
+            "level": "adaptive",
+            "interactions": 20,
+            "evolution_cycles": 2,
+            "birth_time": "2025-07-20T15:11:43.163528"
+          }
+        },
+        "birth_time": "2025-07-20T15:11:43.163528",
+        "current_time": "2025-07-20T15:11:51.019147",
+        "age_in_interactions": 20
+      }
+    },
+    {
+      "question": "En economía, ¿qué significa 'PIB'?",
+      "leonardo_response": "",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.0798320770263672,
+      "brain_state": {
+        "coherence": 0.793237630662021,
+        "creativity_index": 0.555,
+        "consciousness_level": "adaptive",
+        "interactions_count": 21,
+        "memory_size": 11
+      },
+      "raw_brain_output": {
+        "query": "Pregunta de opción múltiple:\n\nEn economía, ¿qué significa 'PIB'?\n\nOpciones:\nA) Producto Interno Bruto\nB) Precio Interno Base\nC) Punto de Intercambio Bancario\nD) Productividad Individual Básica\n\nResponde con la letra correcta (A, B, C, o D) y explica brevemente tu razonamiento.",
+        "error": "'QBTCQuantumBrainLeonardo' object has no attribute '_fallback_creative_search'",
+        "status": "ERROR_HANDLED"
+      }
+    }
+  ],
+  "brain_evolution": {
+    "coherence": 0.793237630662021,
+    "creativity_index": 0.555,
+    "consciousness_level": "adaptive",
+    "interactions_count": 21,
+    "memory_size": 11
+  }
+}

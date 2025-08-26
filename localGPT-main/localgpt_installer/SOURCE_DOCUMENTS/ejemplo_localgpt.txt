@@ -1,0 +1,23 @@
+LocalGPT - Documento de Ejemplo
+
+¿Qué es LocalGPT?
+LocalGPT es una herramienta de chat local diseñada para permitir conversaciones privadas con tus documentos. A diferencia de los servicios en la nube, todo el procesamiento ocurre en tu máquina local.
+
+Características Principales:
+- 100% Privado
+- Sin conexiones externas
+- Funciona completamente offline
+- Soporta múltiples formatos de documento
+
+Cómo Funciona:
+1. Añade tus documentos a SOURCE_DOCUMENTS
+2. Ejecuta ingest_adaptive.py para procesar
+3. Usa run_adaptive.py para chatear con tus documentos
+
+Beneficios:
+- Seguridad total de la información
+- Sin límites de uso
+- Personalizable
+- Adaptable a diferentes sistemas
+
+¡Bienvenido a LocalGPT, tu asistente de documentos 100% local!

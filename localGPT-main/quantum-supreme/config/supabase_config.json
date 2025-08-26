@@ -1,0 +1,20 @@
+{
+    "supabase": {
+        "url": "{{SUPABASE_URL}}",
+        "key": "{{SUPABASE_KEY}}",
+        "storage": {
+            "buckets": {
+                "model_weights": "model-weights",
+                "checkpoints": "checkpoints",
+                "configs": "config",
+                "metadata": "metadata"
+            }
+        },
+        "tables": {
+            "model_artifacts": "model_artifacts",
+            "model_checkpoints": "model_checkpoints",
+            "model_configs": "model_configs",
+            "training_logs": "training_logs"
+        }
+    }
+}

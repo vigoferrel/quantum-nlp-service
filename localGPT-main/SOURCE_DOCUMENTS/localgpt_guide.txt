@@ -1,0 +1,57 @@
+LocalGPT - Sistema de Chat Local con Documentos
+
+¿Qué es LocalGPT?
+LocalGPT es un sistema que permite hacer preguntas sobre documentos de forma completamente local y privada.
+
+Características principales:
+- Funciona 100% offline (sin internet)
+- Privacidad total - tus documentos nunca salen de tu computadora
+- Soporta archivos TXT, PDF, DOC, CSV
+- Búsqueda inteligente en tus documentos
+- Interfaz web fácil de usar
+
+Cómo usar LocalGPT:
+
+1. Subir documentos:
+   - Haz clic en la zona de upload
+   - Selecciona archivos TXT, PDF, DOC o CSV
+   - Elige "Add" para agregar a la base existente o "Reset" para crear nueva base
+
+2. Hacer preguntas:
+   - Escribe tu pregunta en la barra de búsqueda
+   - Presiona Enter o haz clic en Buscar
+   - LocalGPT buscará en tus documentos y te dará una respuesta
+
+3. Tipos de preguntas que puedes hacer:
+   - "¿Qué dice sobre [tema específico]?"
+   - "Resume el contenido de [documento]"
+   - "¿Cuáles son los puntos principales?"
+   - "Explica [concepto] según los documentos"
+
+Ejemplos de uso:
+- Análisis de contratos y documentos legales
+- Búsqueda en manuales técnicos
+- Investigación en papers académicos
+- Análisis de reportes de negocio
+- Estudio de libros y textos
+
+Ventajas de LocalGPT:
+✓ Privacidad total - sin envío de datos a terceros
+✓ Funciona sin internet
+✓ Procesa múltiples formatos de archivo
+✓ Búsqueda rápida y precisa
+✓ Interfaz simple y moderna
+✓ Gratis y open source
+
+Requisitos del sistema:
+- Python 3.8 o superior
+- Al menos 4GB de RAM
+- 2GB de espacio libre en disco
+- Navegador web moderno
+
+Troubleshooting:
+- Si la interfaz no carga: verifica que el puerto 5111 esté libre
+- Si no encuentra documentos: asegúrate de haberlos subido correctamente
+- Si hay errores de procesamiento: verifica que los archivos sean de texto válido
+
+Para soporte técnico, consulta la documentación en GitHub o los foros de la comunidad.
