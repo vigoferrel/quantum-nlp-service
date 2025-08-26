@@ -9,6 +9,7 @@ import base64
 import io
 import json
 import logging
+import time
 from datetime import datetime
 from typing import Dict, Any, Optional
 from flask import Flask, request, jsonify, render_template_string
@@ -371,17 +372,169 @@ HTML_TEMPLATE = """
             margin-top: 10px;
         }
         
-        .clear-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
-        }
+                 .clear-btn:hover {
+             background: rgba(255, 0, 0, 0.3);
+         }
+         
+         .monitor-status {
+             margin-top: 15px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 15px;
+         }
+         
+         .status-indicator {
+             background: rgba(0, 255, 65, 0.2);
+             padding: 8px 15px;
+             border-radius: 20px;
+             border: 1px solid #00ff41;
+             font-weight: bold;
+         }
+         
+         .refresh-btn {
+             background: rgba(0, 255, 65, 0.2);
+             color: #00ff41;
+             border: 1px solid #00ff41;
+             padding: 8px 15px;
+             border-radius: 5px;
+             cursor: pointer;
+             font-weight: bold;
+         }
+         
+         .refresh-btn:hover {
+             background: rgba(0, 255, 65, 0.3);
+         }
+         
+         .monitor-dashboard {
+             background: rgba(0, 0, 0, 0.8);
+             border: 2px solid #00ff41;
+             border-radius: 15px;
+             padding: 20px;
+             margin-bottom: 30px;
+         }
+         
+         .monitor-dashboard h2 {
+             text-align: center;
+             color: #00ff41;
+             margin-bottom: 20px;
+         }
+         
+         .monitor-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 20px;
+         }
+         
+         .monitor-card {
+             background: rgba(0, 255, 65, 0.1);
+             border: 1px solid #00ff41;
+             border-radius: 10px;
+             padding: 15px;
+         }
+         
+         .monitor-card h3 {
+             color: #00ff41;
+             margin-bottom: 15px;
+             text-align: center;
+         }
+         
+         .metric-row {
+             display: flex;
+             justify-content: space-between;
+             margin-bottom: 8px;
+             padding: 5px 0;
+             border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+         }
+         
+         .metric-row:last-child {
+             border-bottom: none;
+         }
+         
+         .user-stats, .connections-list {
+             max-height: 200px;
+             overflow-y: auto;
+         }
+         
+         .connection-item {
+             background: rgba(0, 0, 0, 0.5);
+             border: 1px solid #00ff41;
+             border-radius: 5px;
+             padding: 8px;
+             margin-bottom: 8px;
+             font-size: 0.9em;
+         }
+         
+         .connection-item.success {
+             border-color: #00ff41;
+         }
+         
+         .connection-item.error {
+             border-color: #ff4444;
+         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🏆 VIGOLEONROCKS</h1>
-            <p>Sistema Elite Mundial de Inteligencia Artificial - Dominio Mundial Confirmado</p>
-        </div>
+                 <div class="header">
+             <h1>🏆 VIGOLEONROCKS</h1>
+             <p>Sistema Elite Mundial de Inteligencia Artificial - Dominio Mundial Confirmado</p>
+             <div class="monitor-status">
+                 <span class="status-indicator" id="monitorStatus">🟢 MONITOR ACTIVO</span>
+                 <button onclick="refreshMonitor()" class="refresh-btn">🔄 Actualizar</button>
+             </div>
+         </div>
+         
+         <div class="monitor-dashboard" id="monitorDashboard" style="display: none;">
+             <h2>📊 MONITOR DE CONEXIONES EN TIEMPO REAL</h2>
+             <div class="monitor-grid">
+                 <div class="monitor-card">
+                     <h3>📈 Resumen del Sistema</h3>
+                     <div class="metric-row">
+                         <span>Total Requests:</span>
+                         <span id="totalRequests">0</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Éxito:</span>
+                         <span id="successRate">0%</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Error:</span>
+                         <span id="errorRate">0%</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Tiempo Promedio:</span>
+                         <span id="avgResponseTime">0s</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Usuarios Activos:</span>
+                         <span id="currentUsers">0</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Pico de Usuarios:</span>
+                         <span id="peakUsers">0</span>
+                     </div>
+                     <div class="metric-row">
+                         <span>Uptime:</span>
+                         <span id="uptime">0:00:00</span>
+                     </div>
+                 </div>
+                 
+                 <div class="monitor-card">
+                     <h3>👥 Usuarios Activos</h3>
+                     <div id="userStats" class="user-stats">
+                         <p>No hay usuarios activos</p>
+                     </div>
+                 </div>
+                 
+                 <div class="monitor-card">
+                     <h3>🕒 Conexiones Recientes</h3>
+                     <div id="recentConnections" class="connections-list">
+                         <p>No hay conexiones recientes</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
         
         <div class="benchmark-results">
             <h2>🏆 RESULTADOS BENCHMARK ELITE MUNDIAL</h2>
@@ -705,12 +858,109 @@ HTML_TEMPLATE = """
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }
         
-        function clearHistory() {
-            document.getElementById('chatHistory').innerHTML = '';
-        }
-        
-        // Preview de imagen
-        document.getElementById('imageFile').addEventListener('change', function(e) {
+                 function clearHistory() {
+             document.getElementById('chatHistory').innerHTML = '';
+         }
+         
+         // Funciones del monitor
+         async function refreshMonitor() {
+             try {
+                 const response = await fetch('/api/monitor');
+                 const data = await response.json();
+                 
+                 if (data.system_overview) {
+                     updateMonitorDashboard(data);
+                 }
+             } catch (error) {
+                 console.error('Error actualizando monitor:', error);
+                 document.getElementById('monitorStatus').textContent = '🔴 ERROR MONITOR';
+             }
+         }
+         
+         function updateMonitorDashboard(data) {
+             const overview = data.system_overview;
+             
+             // Actualizar métricas del sistema
+             document.getElementById('totalRequests').textContent = overview.total_requests;
+             document.getElementById('successRate').textContent = overview.success_rate + '%';
+             document.getElementById('errorRate').textContent = overview.error_rate + '%';
+             document.getElementById('avgResponseTime').textContent = overview.avg_response_time + 's';
+             document.getElementById('currentUsers').textContent = overview.current_users;
+             document.getElementById('peakUsers').textContent = overview.peak_users;
+             document.getElementById('uptime').textContent = overview.uptime;
+             
+             // Actualizar estadísticas de usuarios
+             updateUserStats(data.user_stats);
+             
+             // Actualizar conexiones recientes
+             updateRecentConnections(data.recent_connections);
+             
+             // Mostrar dashboard
+             document.getElementById('monitorDashboard').style.display = 'block';
+             document.getElementById('monitorStatus').textContent = '🟢 MONITOR ACTIVO';
+         }
+         
+         function updateUserStats(userStats) {
+             const container = document.getElementById('userStats');
+             
+             if (Object.keys(userStats).length === 0) {
+                 container.innerHTML = '<p>No hay usuarios activos</p>';
+                 return;
+             }
+             
+             let html = '';
+             for (const [apiKey, stats] of Object.entries(userStats)) {
+                 const successRate = stats.total_requests > 0 ? 
+                     ((stats.successful_requests / stats.total_requests) * 100).toFixed(1) : 0;
+                 
+                 html += `
+                     <div class="connection-item success">
+                         <strong>${stats.user_name}</strong><br>
+                         Requests: ${stats.total_requests} | Éxito: ${successRate}%<br>
+                         Tiempo Promedio: ${(stats.total_response_time / stats.total_requests).toFixed(3)}s
+                     </div>
+                 `;
+             }
+             
+             container.innerHTML = html;
+         }
+         
+         function updateRecentConnections(connections) {
+             const container = document.getElementById('recentConnections');
+             
+             if (connections.length === 0) {
+                 container.innerHTML = '<p>No hay conexiones recientes</p>';
+                 return;
+             }
+             
+             let html = '';
+             connections.slice(-10).reverse().forEach(conn => {
+                 const timestamp = new Date(conn.timestamp).toLocaleTimeString();
+                 const statusClass = conn.success ? 'success' : 'error';
+                 const statusIcon = conn.success ? '✅' : '❌';
+                 
+                 html += `
+                     <div class="connection-item ${statusClass}">
+                         ${statusIcon} <strong>${conn.user_name}</strong> - ${conn.query_type}<br>
+                         ${timestamp} | ${conn.response_time.toFixed(3)}s
+                         ${conn.error ? `<br><small>Error: ${conn.error}</small>` : ''}
+                     </div>
+                 `;
+             });
+             
+             container.innerHTML = html;
+         }
+         
+         // Auto-refresh del monitor cada 30 segundos
+         setInterval(refreshMonitor, 30000);
+         
+         // Cargar monitor al iniciar
+         document.addEventListener('DOMContentLoaded', function() {
+             refreshMonitor();
+         });
+         
+         // Preview de imagen
+         document.getElementById('imageFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -740,16 +990,94 @@ def get_status():
         openrouter_status = "Conectado" if cio_multimodal else "Desconectado"
         multimodal_status = "Activas" if cio_multimodal else "Inactivas"
         
+        # Obtener estadísticas del monitor
+        monitor_stats = connection_monitor.get_stats()
+        
         return jsonify({
             "status": "ok",
             "cio_status": cio_status,
             "openrouter_status": openrouter_status,
             "multimodal_status": multimodal_status,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "monitor_stats": monitor_stats
         })
     except Exception as e:
         logger.error(f"Error obteniendo estado: {e}")
         return jsonify({"error": str(e)}), 500
+
+# Sistema de monitoreo de conexiones
+class ConnectionMonitor:
+    def __init__(self):
+        self.connections = []
+        self.user_stats = {}
+        self.system_stats = {
+            "total_requests": 0,
+            "successful_requests": 0,
+            "failed_requests": 0,
+            "avg_response_time": 0.0,
+            "current_users": 0,
+            "peak_users": 0,
+            "start_time": datetime.now()
+        }
+    
+    def record_connection(self, api_key, user_name, query_type, response_time, success, error=None):
+        """Registrar conexión"""
+        connection = {
+            "timestamp": datetime.now(),
+            "api_key": api_key,
+            "user_name": user_name,
+            "query_type": query_type,
+            "response_time": response_time,
+            "success": success,
+            "error": error
+        }
+        
+        self.connections.append(connection)
+        
+        # Actualizar estadísticas del usuario
+        if api_key not in self.user_stats:
+            self.user_stats[api_key] = {
+                "user_name": user_name,
+                "total_requests": 0,
+                "successful_requests": 0,
+                "failed_requests": 0,
+                "total_response_time": 0.0,
+                "last_request": None
+            }
+        
+        user_stat = self.user_stats[api_key]
+        user_stat["total_requests"] += 1
+        user_stat["total_response_time"] += response_time
+        user_stat["last_request"] = datetime.now()
+        
+        if success:
+            user_stat["successful_requests"] += 1
+            self.system_stats["successful_requests"] += 1
+        else:
+            user_stat["failed_requests"] += 1
+            self.system_stats["failed_requests"] += 1
+        
+        # Actualizar estadísticas del sistema
+        self.system_stats["total_requests"] += 1
+        total_time = self.system_stats["avg_response_time"] * (self.system_stats["total_requests"] - 1)
+        self.system_stats["avg_response_time"] = (total_time + response_time) / self.system_stats["total_requests"]
+        
+        # Usuarios activos
+        active_users = len(set(conn["api_key"] for conn in self.connections[-100:]))  # Últimos 100 requests
+        self.system_stats["current_users"] = active_users
+        if active_users > self.system_stats["peak_users"]:
+            self.system_stats["peak_users"] = active_users
+    
+    def get_stats(self):
+        """Obtener estadísticas"""
+        return {
+            "system": self.system_stats,
+            "users": self.user_stats,
+            "recent_connections": self.connections[-50:]  # Últimas 50 conexiones
+        }
+
+# Instancia global del monitor
+connection_monitor = ConnectionMonitor()
 
 # Sistema de autenticación API simple
 API_KEYS = {
@@ -814,6 +1142,10 @@ def process_query():
         
         logger.info(f"🧠 Procesando consulta {query_type}: {query[:50]}...")
         
+        # Registrar inicio de conexión
+        start_time = time.time()
+        user_name = API_KEYS[api_key]["user_name"]
+        
         # Ejecutar de forma asíncrona
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -832,6 +1164,20 @@ def process_query():
                 }
         finally:
             loop.close()
+        
+        # Calcular tiempo de respuesta y registrar conexión
+        response_time = time.time() - start_time
+        success = "error" not in result
+        error_msg = result.get("error") if not success else None
+        
+        connection_monitor.record_connection(
+            api_key=api_key,
+            user_name=user_name,
+            query_type=query_type,
+            response_time=response_time,
+            success=success,
+            error=error_msg
+        )
         
         # Verificar que el resultado sea válido
         if not isinstance(result, dict):
@@ -858,6 +1204,48 @@ def process_query():
         
     except Exception as e:
         logger.error(f"Error procesando consulta {query_type}: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/monitor', methods=['GET'])
+def get_monitor_dashboard():
+    """Dashboard del monitor de conexiones"""
+    try:
+        stats = connection_monitor.get_stats()
+        
+        # Calcular métricas adicionales
+        system_stats = stats["system"]
+        if system_stats["total_requests"] > 0:
+            success_rate = (system_stats["successful_requests"] / system_stats["total_requests"]) * 100
+            error_rate = (system_stats["failed_requests"] / system_stats["total_requests"]) * 100
+        else:
+            success_rate = 0
+            error_rate = 0
+        
+        # Calcular uptime
+        uptime = datetime.now() - system_stats["start_time"]
+        uptime_str = str(uptime).split('.')[0]
+        
+        dashboard_data = {
+            "system_overview": {
+                "total_requests": system_stats["total_requests"],
+                "successful_requests": system_stats["successful_requests"],
+                "failed_requests": system_stats["failed_requests"],
+                "success_rate": round(success_rate, 2),
+                "error_rate": round(error_rate, 2),
+                "avg_response_time": round(system_stats["avg_response_time"], 3),
+                "current_users": system_stats["current_users"],
+                "peak_users": system_stats["peak_users"],
+                "uptime": uptime_str
+            },
+            "user_stats": stats["users"],
+            "recent_connections": stats["recent_connections"][-20:],  # Últimas 20 conexiones
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        return jsonify(dashboard_data)
+        
+    except Exception as e:
+        logger.error(f"Error obteniendo dashboard: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/generate_key', methods=['POST'])
