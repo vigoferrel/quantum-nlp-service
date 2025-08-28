@@ -33,7 +33,9 @@ class AICSService:
         self.zeta_potential = 79.19
         try:
             with open(validation_file_path, 'r') as f:
-                self.validation_profiles = json.load(f)
+                validation_data = json.load(f)
+                # Extraer los perfiles de la estructura correcta
+                self.validation_profiles = validation_data.get("profiles", {})
             logger.info(f"Perfiles de validación cargados desde {validation_file_path}")
         except FileNotFoundError:
             logger.error(f"Archivo de validación no encontrado en {validation_file_path}. Usando perfiles por defecto.")

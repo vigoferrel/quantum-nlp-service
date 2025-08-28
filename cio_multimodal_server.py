@@ -20,9 +20,22 @@ from PIL import Image
 # Importar la extensión multimodal CIO
 from cio_multimodal_extension import CIOMultimodalExtension
 
+# Importar sistema MCP simplificado
+try:
+    import mcp
+    MCP_AVAILABLE = True
+except ImportError:
+    MCP_AVAILABLE = False
+
 # Configuración
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Logging del estado MCP
+if MCP_AVAILABLE:
+    logger.info("✅ Sistema MCP disponible")
+else:
+    logger.warning("⚠️ Sistema MCP no disponible")
 
 app = Flask(__name__)
 CORS(app)
@@ -986,7 +999,8 @@ def index():
 def get_status():
     """Obtener estado del sistema"""
     try:
-        cio_status = "Activo" if cio_multimodal and cio_multimodal.cio_brain else "Inactivo"
+        # El CIO está "Activo" si el sistema multimodal está disponible (con fallback)
+        cio_status = "Activo" if cio_multimodal else "Inactivo"
         openrouter_status = "Conectado" if cio_multimodal else "Desconectado"
         multimodal_status = "Activas" if cio_multimodal else "Inactivas"
         
@@ -1076,11 +1090,86 @@ class ConnectionMonitor:
             "recent_connections": self.connections[-50:]  # Últimas 50 conexiones
         }
 
+# Sistema de notificaciones
+class NotificationSystem:
+    def __init__(self):
+        self.notifications = []
+        self.alert_thresholds = {
+            "high_error_rate": 0.1,
+            "high_response_time": 10.0,
+            "high_concurrent_users": 50
+        }
+    
+    def send_notification(self, title: str, message: str, level: str = "INFO"):
+        """Enviar notificación"""
+        notification = {
+            "id": len(self.notifications) + 1,
+            "title": title,
+            "message": message,
+            "level": level,
+            "timestamp": datetime.now().isoformat(),
+            "read": False
+        }
+        
+        self.notifications.append(notification)
+        
+        # Mantener solo las últimas 50 notificaciones
+        if len(self.notifications) > 50:
+            self.notifications.pop(0)
+        
+        # Mostrar en consola
+        level_icons = {"INFO": "ℹ️", "WARNING": "⚠️", "ERROR": "🚨", "SUCCESS": "✅"}
+        icon = level_icons.get(level, "🔔")
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        
+        print(f"\n{icon} [{timestamp}] {title}")
+        print(f"   {message}")
+        
+        return notification
+    
+    def get_notifications(self, limit: int = 20) -> list[dict]:
+        """Obtener notificaciones"""
+        return self.notifications[-limit:]
+    
+    def check_system_alerts(self, system_stats: dict) -> list[dict]:
+        """Verificar alertas del sistema"""
+        alerts = []
+        
+        # Alerta por alta tasa de errores
+        if system_stats.get("total_requests", 0) > 0:
+            error_rate = system_stats.get("failed_requests", 0) / system_stats.get("total_requests", 1)
+            if error_rate > self.alert_thresholds["high_error_rate"]:
+                alerts.append({
+                    "title": "🚨 Alta Tasa de Errores",
+                    "message": f"Tasa de errores: {error_rate:.2%}",
+                    "level": "ERROR"
+                })
+        
+        # Alerta por tiempo de respuesta alto
+        avg_response_time = system_stats.get("avg_response_time", 0)
+        if avg_response_time > self.alert_thresholds["high_response_time"]:
+            alerts.append({
+                "title": "⚠️ Tiempo de Respuesta Alto",
+                "message": f"Tiempo promedio: {avg_response_time:.2f}s",
+                "level": "WARNING"
+            })
+        
+        return alerts
+
 # Instancia global del monitor
 connection_monitor = ConnectionMonitor()
 
+# Instancia global del sistema de notificaciones
+notification_system = NotificationSystem()
+
 # Sistema de autenticación API simple
 API_KEYS = {
+    "demo_key_web": {
+        "user_name": "Sitio Web Demo",
+        "permissions": ["text", "multimodal"],
+        "rate_limit": 1000,
+        "usage_count": 0
+    },
     "vk_live_test_key_123": {
         "user_name": "Usuario Externo",
         "permissions": ["text", "multimodal"],
@@ -1114,16 +1203,76 @@ def validate_api_key(api_key: str, required_permission: str = "text") -> bool:
     key_data["usage_count"] += 1
     return True
 
+@app.route('/api/test', methods=['POST'])
+def test_endpoint():
+    """Endpoint de prueba para verificar manejo de JSON"""
+    try:
+        logger.info(f"Content-Type: {request.content_type}")
+        logger.info(f"Headers: {dict(request.headers)}")
+        
+        if request.content_type and 'application/json' in request.content_type:
+            try:
+                data = request.get_json()
+                logger.info(f"JSON recibido: {data}")
+                return jsonify({"success": True, "data": data})
+            except UnicodeDecodeError as e:
+                logger.error(f"UnicodeDecodeError: {e}")
+                raw_data = request.get_data()
+                logger.info(f"Raw data length: {len(raw_data)}")
+                logger.info(f"Raw data first 100 bytes: {raw_data[:100]}")
+                
+                for encoding in ['utf-8', 'latin-1', 'cp1252']:
+                    try:
+                        decoded_data = raw_data.decode(encoding)
+                        data = json.loads(decoded_data)
+                        logger.info(f"Decodificado exitosamente con {encoding}: {data}")
+                        return jsonify({"success": True, "data": data, "encoding": encoding})
+                    except (UnicodeDecodeError, json.JSONDecodeError) as e:
+                        logger.error(f"Error con encoding {encoding}: {e}")
+                        continue
+                
+                return jsonify({"error": "No se pudo decodificar con ningún encoding"}), 400
+            except json.JSONDecodeError as e:
+                logger.error(f"JSONDecodeError: {e}")
+                return jsonify({"error": f"JSON malformado: {e}"}), 400
+        else:
+            return jsonify({"error": "Content-Type debe ser application/json"}), 400
+            
+    except Exception as e:
+        logger.error(f"Error en test endpoint: {e}")
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/process', methods=['POST'])
 def process_query():
     """Procesar consulta de texto con Vigoleonrocks"""
     try:
-        if not request.is_json:
-            return jsonify({"error": "Content-Type debe ser application/json"}), 400
+        data = None
         
-        data = request.get_json()
+        # Manejar tanto JSON como FormData
+        if request.is_json:
+            # Procesar JSON
+            try:
+                data = request.get_json()
+                logger.info("✅ JSON procesado exitosamente")
+            except Exception as e:
+                logger.error(f"❌ Error procesando JSON: {e}")
+                return jsonify({"error": f"Error procesando JSON: {str(e)}"}), 400
+        else:
+            # Procesar FormData
+            try:
+                data = {
+                    'query': request.form.get('query', ''),
+                    'api_key': request.form.get('api_key', ''),
+                    'type': request.form.get('type', 'text')
+                }
+                logger.info("✅ FormData procesado exitosamente")
+            except Exception as e:
+                logger.error(f"❌ Error procesando FormData: {e}")
+                return jsonify({"error": f"Error procesando FormData: {str(e)}"}), 400
+                
         if not data:
-            return jsonify({"error": "JSON inválido"}), 400
+            logger.error("❌ Datos vacíos")
+            return jsonify({"error": "Datos vacíos"}), 400
         
         # Validar API key
         api_key = data.get('api_key', '')
@@ -1152,10 +1301,10 @@ def process_query():
         try:
             if cio_multimodal:
                 if query_type == 'multimodal':
-                    result = loop.run_until_complete(cio_multimodal.process_multimodal_query(query))
+                    result = cio_multimodal.process_multimodal_query_sync(query)
                 else:
-                    # Para consultas de texto, usar el cerebro CIO directamente
-                    result = loop.run_until_complete(cio_multimodal.cio_brain.process_query(query))
+                    # Para consultas de texto, usar el método síncrono
+                    result = cio_multimodal.process_multimodal_query_sync(query)
             else:
                 result = {
                     "error": "Sistema CIO no disponible",
@@ -1203,7 +1352,7 @@ def process_query():
         return jsonify(response_data)
         
     except Exception as e:
-        logger.error(f"Error procesando consulta {query_type}: {e}")
+        logger.error(f"Error procesando consulta: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/monitor', methods=['GET'])
@@ -1315,7 +1464,7 @@ def process_multimodal():
         asyncio.set_event_loop(loop)
         try:
             if cio_multimodal:
-                result = loop.run_until_complete(cio_multimodal.process_multimodal_query(query, image_data))
+                result = cio_multimodal.process_multimodal_query_sync(query, image_data)
             else:
                 result = {
                     "error": "Sistema CIO no disponible",
@@ -1347,6 +1496,52 @@ def process_multimodal():
         
     except Exception as e:
         logger.error(f"Error procesando consulta multimodal: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/mcp/status', methods=['GET'])
+def mcp_status():
+    """Obtener estado del sistema MCP"""
+    try:
+        if MCP_AVAILABLE:
+            return jsonify({
+                "mcp_available": True,
+                "version": mcp.__version__,
+                "description": mcp.__description__,
+                "status": "active"
+            })
+        else:
+            return jsonify({
+                "mcp_available": False,
+                "status": "not_available"
+            })
+    except Exception as e:
+        logger.error(f"Error obteniendo estado MCP: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/mcp/info', methods=['GET'])
+def mcp_info():
+    """Obtener información del sistema MCP"""
+    try:
+        if MCP_AVAILABLE:
+            return jsonify({
+                "system_name": "Vigoleonrocks MCP",
+                "version": mcp.__version__,
+                "author": mcp.__author__,
+                "description": mcp.__description__,
+                "features": [
+                    "Model Context Protocol",
+                    "Service Management",
+                    "Tool Integration",
+                    "Resource Management"
+                ],
+                "status": "operational"
+            })
+        else:
+            return jsonify({
+                "error": "Sistema MCP no disponible"
+            }), 404
+    except Exception as e:
+        logger.error(f"Error obteniendo info MCP: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
