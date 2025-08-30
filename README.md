@@ -290,6 +290,19 @@ python predict_improvements.py
 # Mantener compatibilidad con versiones anteriores
 ```
 
+## 📚 **Documentación Adicional**
+
+- **[📦 INSTALLATION.md](./INSTALLATION.md)** - Guía completa de instalación y configuración de VIGOLEONROCKS
+- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - Arquitectura detallada del sistema cuántico
+- **[🚀 API.md](./API.md)** - Documentación completa de la API (próximamente)
+- **[🏆 BENCHMARKS.md](./BENCHMARKS.md)** - Resultados de benchmarks y comparaciones (próximamente)
+
+### 📖 **Guías de Desarrollo**
+
+- **Instalación**: Consulta `INSTALLATION.md` para setup completo
+- **Arquitectura**: Revisa `ARCHITECTURE.md` para comprender el diseño del sistema
+- **Contribución**: Sigue las guías en ambos documentos para contribuir efectivamente
+
 ## 📄 **Licencia**
 
 Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.

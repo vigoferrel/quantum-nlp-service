@@ -283,12 +283,12 @@ class SupremacyProcessor:
 
 Hola desde el sistema de supremacía cuántica de vigoleonrocks.com!
 
-**Tu mensaje**: {text}
+**Tu mensaje**: {{text}}
 
 **Análisis Cuántico**:
-- Estados cuánticos procesados: {self.quantum_states}
-- Energía total: {total_energy:.2f}
-- Estado dominante: {dominant_state['state_id']}
+- Estados cuánticos procesados: {{self.quantum_states}}
+- Energía total: {{total_energy:.2f}}
+- Estado dominante: {{dominant_state['state_id']}}
 - Coherencia cuántica: 98%
 
 **Capacidades Únicas**:

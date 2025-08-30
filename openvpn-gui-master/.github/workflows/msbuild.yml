@@ -1,0 +1,102 @@
+# The name of our workflow
+name: Build
+on: [push, pull_request]
+
+jobs:
+  checkformat:
+    name: "Check code style with clang-format"
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install pre-commit
+        run: pip3 install pre-commit
+      - name: Checkout OpenVPN-GUI
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Run pre-commit
+        run: pre-commit run -a || true
+      - name: Check for changes
+        run: git diff --output=cf-changes.patch
+      - name: Show changes on standard output
+        run: git diff
+      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
+        with:
+          name: cf-changes.patch
+          path: cf-changes.patch
+      - name: Set job status
+        run: test ! -s cf-changes.patch
+
+  msvc:
+    strategy:
+      matrix:
+        arch: [x86, x64, arm64]
+        conf:
+          - name: ""
+            value: "release"
+        ovpn3:
+          - preset: ""
+            name: ""
+            upload_name: ""
+          - preset: -ovpn3
+            name: "- ovpn3"
+            upload_name: "_ovpn3"
+        include:
+          - conf:
+              name: " ASAN"
+              value: "asan"
+            arch: x64
+
+    name: 'msvc - ${{matrix.arch}} ${{ matrix.ovpn3.name }}${{ matrix.conf.name }}'
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+    - uses: lukka/get-cmake@latest
+
+    - name: Restore artifacts, or setup vcpkg (do not install any package)
+      uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+        vcpkgGitCommitId: d5ec528843d29e3a52d745a64b469f810b2cedbf
+
+    - name: Run CMake consuming CMakePreset.json and vcpkg.json by mean of vcpkg.
+      uses: lukka/run-cmake@v10
+      with:
+        configurePreset: '${{ matrix.arch }}${{ matrix.ovpn3.preset }}'
+        buildPreset: '${{ matrix.arch }}-${{ matrix.conf.value }}${{ matrix.ovpn3.preset }}'
+
+    - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
+      with:
+        name: openvpn-gui_${{ matrix.arch }}_${{ matrix.conf.value }}${{ matrix.ovpn3.upload_name }}
+        path: |
+          out/build/${{ matrix.arch }}${{ matrix.ovpn3.preset }}/${{ matrix.conf.value }}/*.dll
+          out/build/${{ matrix.arch }}${{ matrix.ovpn3.preset }}/${{ matrix.conf.value }}/*.exe
+
+  mingw:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [mingw64, mingw]
+        include:
+          - target: mingw64
+            chost: x86_64-w64-mingw32
+          - target: mingw
+            chost: i686-w64-mingw32
+
+    name: "gcc-mingw - ${{matrix.target}}"
+    runs-on: ubuntu-24.04
+
+    env:
+      MAKEFLAGS: -j3
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y mingw-w64 libtool automake autoconf
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: autoconf
+        run: autoreconf -fvi
+
+      - name: configure
+        run: ./configure --host=${{ matrix.chost }}
+
+      - name: make
+        run: make

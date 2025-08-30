@@ -1,0 +1,346 @@
+{
+  "timestamp": "2025-08-29T17:42:27.896436",
+  "tests_executed": 10,
+  "tests_passed": 7,
+  "success_rate": 70.0,
+  "avg_quality_score": 0.9800000000000001,
+  "avg_quantum_score": 0.9549999999999998,
+  "avg_processing_time": 2.6214109897613525,
+  "total_testing_time": 26.27594017982483,
+  "target_benchmark": 0.889,
+  "performance_vs_target": "SUPERIOR",
+  "strategy_analysis": {
+    "hybrid_enhanced": {
+      "count": 8,
+      "avg_score": 0.9775
+    },
+    "step_by_step_enhanced": {
+      "count": 1,
+      "avg_score": 0.9800000000000001
+    },
+    "code_first": {
+      "count": 1,
+      "avg_score": 1.0
+    }
+  },
+  "multimodal_tests": 2,
+  "multimodal_score": 0.9700000000000001,
+  "detailed_results": [
+    {
+      "test_name": "Algoritmo Quicksort Optimizado",
+      "category": "PROGRAMMING_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.538914442062378,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 0.905,
+      "passed": true,
+      "response_length": 1134,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "código funcional",
+          "análisis complejidad",
+          "optimizaciones memoria",
+          "casos edge"
+        ],
+        "found_aspects": [
+          "código funcional",
+          "análisis complejidad",
+          "optimizaciones",
+          "testing"
+        ],
+        "coverage_score": 1.0,
+        "has_code": true,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "HIGH"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Response\n\n## Análisis de la consulta: Implementa un algoritmo de ordenamiento quicksort optimizado en Python con análisis de complejidad O...\n\n### Implementación optimizada:\n\n```python\ndef optimized_algorithm(data):\n    # Implementación híbrida con análisis de complej..."
+    },
+    {
+      "test_name": "Grafo Bipartito BFS",
+      "category": "PROGRAMMING_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.243382692337036,
+      "quality_score": 0.9800000000000001,
+      "quantum_score": 0.95,
+      "strategy": "step_by_step_enhanced",
+      "target_score": 0.905,
+      "passed": true,
+      "response_length": 1303,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "algoritmo BFS",
+          "validación entrada",
+          "manejo errores",
+          "casos edge"
+        ],
+        "found_aspects": [
+          "optimizaciones"
+        ],
+        "coverage_score": 0.25,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Step-by-Step Enhanced Response\n\n## Consulta: Crea una función que detecte si un grafo es bipartito usando BFS con validación de entrada y manejo de errores\n\n### Análisis paso a paso:\n\n#### Paso 1: Comprensión del problema\n- Identificación de elementos clave en la consulta\n- Análisis ..."
+    },
+    {
+      "test_name": "Sistema Caché LRU O(1)",
+      "category": "PROGRAMMING_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.2164230346679688,
+      "quality_score": 1.0,
+      "quantum_score": 0.95,
+      "strategy": "code_first",
+      "target_score": 0.905,
+      "passed": true,
+      "response_length": 2059,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "complejidad O(1)",
+          "LRU implementation",
+          "HashMap + LinkedList",
+          "testing"
+        ],
+        "found_aspects": [
+          "código funcional",
+          "análisis complejidad",
+          "optimizaciones"
+        ],
+        "coverage_score": 0.75,
+        "has_code": true,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "HIGH"
+      },
+      "response_sample": "```python\n# Vigoleonrocks Code-First Response (Score: 0.933)\n# Consulta: Desarrolla un sistema de caché LRU con complejidad O(1) para todas las operacion...\n\ndef vigoleonrocks_solution():\n    '''\n    Implementación Code-First optimizada\n    - Estrategia: Código primero, explicación después\n    - Sco..."
+    },
+    {
+      "test_name": "Problema Lógico Tribal",
+      "category": "REASONING_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.544816493988037,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 1.0,
+      "passed": false,
+      "response_length": 1273,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "lógica formal",
+          "análisis casos",
+          "demostración",
+          "conclusión"
+        ],
+        "found_aspects": [
+          "análisis detallado",
+          "conclusión"
+        ],
+        "coverage_score": 0.5,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: En una isla hay 3 tribus: Veraces (siempre dicen verdad), Mentirosos (siempre mienten), y Aleatorios (responden al azar). Un explorador encuentra 3 habitantes: X dice 'Y es Veraz', Y dice 'Z es Aleatorio', Z dice 'X es Mentiroso'. Si s..."
+    },
+    {
+      "test_name": "Serie Infinita Convergente",
+      "category": "MATHEMATICS_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.841378927230835,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 1.0,
+      "passed": false,
+      "response_length": 1183,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "convergencia",
+          "criterio raíz",
+          "manipulación series",
+          "cálculo exacto"
+        ],
+        "found_aspects": [
+          "análisis matemático",
+          "métodos específicos",
+          "cálculo exacto"
+        ],
+        "coverage_score": 0.75,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Calcula la suma de la serie infinita: Σ(n=1 to ∞) n³/3ⁿ. Demuestra la convergencia usando el criterio de la raíz y encuentra el valor exacto mediante manipulación de series de potencias.\n\n### Análisis híbrido detallado:\n\nLa consulta ha..."
+    },
+    {
+      "test_name": "Arquitecturas Distribuidas",
+      "category": "ANALYSIS_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.528369665145874,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 1.0,
+      "passed": false,
+      "response_length": 1098,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "análisis comparativo",
+          "pros y contras",
+          "casos de uso",
+          "recomendaciones"
+        ],
+        "found_aspects": [],
+        "coverage_score": 0.0,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Analiza las ventajas y desventajas de diferentes arquitecturas de software para sistemas distribuidos\n\n### Análisis híbrido detallado:\n\nLa consulta ha sido procesada usando la estrategia Hybrid Enhanced, que combina múltiples enfoques ..."
+    },
+    {
+      "test_name": "Integración Tecnológica",
+      "category": "SYNTHESIS_ELITE",
+      "difficulty": "EXPERT",
+      "processing_time": 2.3771538734436035,
+      "quality_score": 1.0,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 1.0,
+      "passed": true,
+      "response_length": 1110,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "integración conceptual",
+          "ejemplos prácticos",
+          "síntesis coherente",
+          "aplicación"
+        ],
+        "found_aspects": [],
+        "coverage_score": 0.0,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Sintetiza los principios fundamentales de la programación orientada a objetos con patrones de diseño\n\n### Análisis híbrido detallado:\n\nLa consulta ha sido procesada usando la estrategia Hybrid Enhanced, que combina múltiples enfoques p..."
+    },
+    {
+      "test_name": "Procesamiento Imagen + Texto",
+      "category": "MULTIMODAL_TEST",
+      "difficulty": "ADVANCED",
+      "processing_time": 3.3800690174102783,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.98,
+      "strategy": "hybrid_enhanced",
+      "target_score": 0.95,
+      "passed": true,
+      "response_length": 1078,
+      "multimodal_features": {
+        "image": {
+          "processed": true,
+          "confidence": 0.94641,
+          "features_detected": [
+            "object",
+            "text",
+            "face",
+            "scene"
+          ],
+          "resolution": "optimized",
+          "processing_time": 1.0
+        }
+      },
+      "quality_analysis": {
+        "expected_aspects": [
+          "análisis visual",
+          "identificación elementos",
+          "descripción técnica"
+        ],
+        "found_aspects": [],
+        "coverage_score": 0.0,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Analiza esta imagen y describe los elementos de programación que ves\n\n### Análisis híbrido detallado:\n\nLa consulta ha sido procesada usando la estrategia Hybrid Enhanced, que combina múltiples enfoques para obtener el mejor resultado p..."
+    },
+    {
+      "test_name": "Audio + Texto Combinado",
+      "category": "MULTIMODAL_TEST",
+      "difficulty": "ADVANCED",
+      "processing_time": 3.331285238265991,
+      "quality_score": 0.9700000000000001,
+      "quantum_score": 0.97,
+      "strategy": "hybrid_enhanced",
+      "target_score": 0.95,
+      "passed": true,
+      "response_length": 1065,
+      "multimodal_features": {
+        "audio": {
+          "processed": true,
+          "duration": 2.9809,
+          "format": "detected",
+          "confidence": 0.89126,
+          "processing_time": 0.5
+        }
+      },
+      "quality_analysis": {
+        "expected_aspects": [
+          "procesamiento audio",
+          "extracción características",
+          "análisis técnico"
+        ],
+        "found_aspects": [],
+        "coverage_score": 0.0,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": false,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Procesa este audio y extrae las características técnicas principales\n\n### Análisis híbrido detallado:\n\nLa consulta ha sido procesada usando la estrategia Hybrid Enhanced, que combina múltiples enfoques para obtener el mejor resultado p..."
+    },
+    {
+      "test_name": "Test Velocidad vs Competidores",
+      "category": "PERFORMANCE_TEST",
+      "difficulty": "INTERMEDIATE",
+      "processing_time": 2.2123165130615234,
+      "quality_score": 1.0,
+      "quantum_score": 0.95,
+      "strategy": "hybrid_enhanced",
+      "target_score": 0.89,
+      "passed": true,
+      "response_length": 1107,
+      "multimodal_features": {},
+      "quality_analysis": {
+        "expected_aspects": [
+          "comparación detallada",
+          "ejemplos código",
+          "casos uso"
+        ],
+        "found_aspects": [],
+        "coverage_score": 0.0,
+        "has_code": false,
+        "has_analysis": true,
+        "has_examples": true,
+        "technical_depth": "MEDIUM"
+      },
+      "response_sample": "# Vigoleonrocks Hybrid Enhanced Analysis\n\n## Consulta procesada: Explica las diferencias entre programación funcional y orientada a objetos con ejemplos prácticos\n\n### Análisis híbrido detallado:\n\nLa consulta ha sido procesada usando la estrategia Hybrid Enhanced, que combina múltiples enfoques para..."
+    }
+  ]
+}

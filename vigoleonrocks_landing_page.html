@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigoleonrocks - El Futuro de la Programación con IA</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --quantum-purple: #6f42c1;
+            --quantum-gold: #ffd700;
+            --quantum-cyan: #20c997;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(31, 38, 135, 0.4);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+        }
+        
+        .hero-section {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--quantum-gold), #ff6b6b, #4ecdc4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(45deg, var(--quantum-gold), #ff6b6b);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
+        
+        .btn-secondary-custom {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .stats-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--quantum-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .models-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--quantum-purple);
+            font-weight: bold;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .model-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .model-card:hover::before {
+            left: 100%;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--quantum-purple);
+        }
+        
+        .model-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .model-icon {
+            font-size: 2.5rem;
+            color: var(--quantum-purple);
+        }
+        
+        .model-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--quantum-purple);
+        }
+        
+        .model-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--quantum-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .model-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .model-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .model-features li::before {
+            content: '✓';
+            color: var(--quantum-cyan);
+            font-weight: bold;
+        }
+        
+        .model-cta {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .model-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .features-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 4rem 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--quantum-purple);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--quantum-purple);
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .benchmarks-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+        
+        .benchmarks-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benchmarks-table th {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .benchmarks-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .benchmarks-table tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .score-high {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .contact-section {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+            color: white;
+            box-shadow: none;
+        }
+        
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--quantum-gold);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">🧠 Vigoleonrocks</h1>
+            <h2 class="hero-subtitle">El Futuro de la Programación con IA</h2>
+            <p class="hero-description">
+                Tu asistente cuántico-cognitivo para programación con capacidades cuánticas y contexto masivo de hasta 8M tokens. 
+                La inteligencia artificial más avanzada para desarrollo de software.
+            </p>
+            <div class="cta-buttons">
+                <a href="#models" class="btn-primary-custom">
+                    <i class="fas fa-rocket"></i> Probar Ahora
+                </a>
+                <a href="#contact" class="btn-secondary-custom">
+                    <i class="fas fa-envelope"></i> Contactar
+                </a>
+            </div>
+        </section>
+        
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">8M</div>
+                    <div class="stat-label">Tokens de Contexto</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">351M</div>
+                    <div class="stat-label">Quantum Volume</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">26D</div>
+                    <div class="stat-label">Dimensiones Cuánticas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Precisión en Benchmarks</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Models Section -->
+        <section id="models" class="models-section">
+            <h2 class="section-title">Nuestros Modelos</h2>
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">🚀</div>
+                        <div>
+                            <div class="model-title">Vigoleonrocks v1.0</div>
+                            <div class="model-price">$0.0045/$0.0135</div>
+                        </div>
+                    </div>
+                    <ul class="model-features">
+                        <li>1M tokens de contexto</li>
+                        <li>10% menos que GPT-5</li>
+                        <li>Capacidades cuánticas</li>
+                        <li>Transformaciones primas</li>
+                        <li>Optimizado para programación</li>
+                    </ul>
+                    <button class="model-cta">Probar Ahora</button>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">💻</div>
+                        <div>
+                            <div class="model-title">Vigoleonrocks Programming</div>
+                            <div class="model-price">$0.005/$0.015</div>
+                        </div>
+                    </div>
+                    <ul class="model-features">
+                        <li>2M tokens de contexto</li>
+                        <li>Mismo precio que GPT-5</li>
+                        <li>Especializado en programación</li>
+                        <li>Desarrollo de software</li>
+                        <li>Análisis de código avanzado</li>
+                    </ul>
+                    <button class="model-cta">Probar Ahora</button>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">🎨</div>
+                        <div>
+                            <div class="model-title">Vigoleonrocks Creative</div>
+                            <div class="model-price">$0.004/$0.012</div>
+                        </div>
+                    </div>
+                    <ul class="model-features">
+                        <li>500K tokens de contexto</li>
+                        <li>20% menos que GPT-5</li>
+                        <li>Optimizado para tareas creativas</li>
+                        <li>Generación de contenido</li>
+                        <li>Arte y diseño</li>
+                    </ul>
+                    <button class="model-cta">Probar Ahora</button>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">⚡</div>
+                        <div>
+                            <div class="model-title">Vigoleonrocks Ultra</div>
+                            <div class="model-price">$0.006/$0.018</div>
+                        </div>
+                    </div>
+                    <ul class="model-features">
+                        <li>4M tokens de contexto</li>
+                        <li>20% más que GPT-5</li>
+                        <li>Modelo ultra avanzado</li>
+                        <li>Investigación y desarrollo</li>
+                        <li>Proyectos de vanguardia</li>
+                    </ul>
+                    <button class="model-cta">Probar Ahora</button>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-header">
+                        <div class="model-icon">🏢</div>
+                        <div>
+                            <div class="model-title">Vigoleonrocks Enterprise</div>
+                            <div class="model-price">$0.008/$0.024</div>
+                        </div>
+                    </div>
+                    <ul class="model-features">
+                        <li>8M tokens de contexto</li>
+                        <li>60% más que GPT-5</li>
+                        <li>Modelo enterprise</li>
+                        <li>Grandes corporaciones</li>
+                        <li>Investigación avanzada</li>
+                    </ul>
+                    <button class="model-cta">Probar Ahora</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">¿Por qué Vigoleonrocks?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Contexto Masivo</h3>
+                    <p class="feature-description">
+                        Hasta 8 millones de tokens de contexto para proyectos complejos y codebases masivos.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Capacidades Cuánticas</h3>
+                    <p class="feature-description">
+                        Transformaciones primas y entrelazamiento cuántico para resultados superiores.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Precios Competitivos</h3>
+                    <p class="feature-description">
+                        10% más barato que GPT-5 con capacidades superiores y contexto masivo.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3 class="feature-title">Especializado en Programación</h3>
+                    <p class="feature-description">
+                        Optimizado específicamente para desarrollo de software y análisis de código.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Integración OpenRouter</h3>
+                    <p class="feature-description">
+                        Disponible a través de OpenRouter para acceso global y fácil integración.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Rendimiento Superior</h3>
+                    <p class="feature-description">
+                        Arquitectura optimizada para velocidad y precisión en tareas complejas.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Benchmarks Section -->
+        <section class="benchmarks-section">
+            <h2 class="section-title">Resultados de Benchmarks</h2>
+            <div class="benchmarks-table">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>vs GPT-5</th>
+                            <th>vs Claude Opus</th>
+                            <th>vs Gemini Ultra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Programación</strong></td>
+                            <td class="score-high">+12.3%</td>
+                            <td class="score-high">+18.7%</td>
+                            <td class="score-high">+14.2%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contexto</strong></td>
+                            <td class="score-high">+800%</td>
+                            <td class="score-high">+400%</td>
+                            <td class="score-high">+300%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eficiencia Costo</strong></td>
+                            <td class="score-high">+10%</td>
+                            <td class="score-high">+25%</td>
+                            <td class="score-high">+18%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Velocidad</strong></td>
+                            <td class="score-high">+15%</td>
+                            <td class="score-high">+22%</td>
+                            <td class="score-high">+11%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h2 class="section-title" style="color: white;">Contactar</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Asunto" required>
+                    <textarea class="form-control" rows="5" placeholder="Mensaje" required></textarea>
+                    <button type="submit" class="btn-primary-custom" style="margin-top: 1rem;">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            </div>
+            <p>&copy; 2025 Vigoleonrocks. Todos los derechos reservados.</p>
+            <p>
+                <a href="#" style="color: white; text-decoration: none;">Política de Privacidad</a> | 
+                <a href="#" style="color: white; text-decoration: none;">Términos de Servicio</a> | 
+                <a href="#" style="color: white; text-decoration: none;">API Documentation</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Animación de contadores
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                const isPercentage = target.includes('%');
+                const isNumber = !isNaN(parseFloat(target));
+                
+                if (isNumber) {
+                    const finalValue = parseFloat(target);
+                    let currentValue = 0;
+                    const increment = finalValue / 100;
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= finalValue) {
+                            currentValue = finalValue;
+                            clearInterval(timer);
+                        }
+                        
+                        if (isPercentage) {
+                            counter.textContent = Math.floor(currentValue) + '%';
+                        } else if (target.includes('M')) {
+                            counter.textContent = Math.floor(currentValue) + 'M';
+                        } else if (target.includes('D')) {
+                            counter.textContent = Math.floor(currentValue) + 'D';
+                        } else {
+                            counter.textContent = Math.floor(currentValue);
+                        }
+                    }, 20);
+                }
+            });
+        }
+        
+        // Ejecutar animación cuando la sección de stats sea visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Efecto hover para las tarjetas de modelos
+        document.querySelectorAll('.model-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
