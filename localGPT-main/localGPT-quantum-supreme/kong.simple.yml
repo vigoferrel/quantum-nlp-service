@@ -1,8 +1,0 @@
-_format_version: "2.1"
-services:
-- name: quantum-core-service
-  url: http://quantum-core:8000
-  routes:
-  - name: quantum-core-route
-    paths:
-    - /

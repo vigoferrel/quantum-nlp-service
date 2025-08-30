@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 🧠 Vigoleonrocks Conversational UI Fixed - Interfaz con Motor Conversacional Especializado
-Versión corregida con puerto 8081, encoding UTF-8 y motor QBTC integrado
+Versión corregida que integra el QBTC Conversational Agent con resonancia cuántica y Kimi core
+Corrige problemas de encoding, puerto ocupado y motor conversacional
 """
 
 import os
@@ -17,7 +18,7 @@ import uuid
 import sys
 from pathlib import Path
 
-# Configurar encoding UTF-8 para evitar errores de caracteres
+# Configurar encoding para evitar problemas de Unicode
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 sys.stderr.reconfigure(encoding='utf-8')
@@ -27,15 +28,7 @@ KIMI_DIR = Path("localGPT-main/Kimi-K2-main")
 if KIMI_DIR.exists():
     sys.path.append(str(KIMI_DIR))
 
-try:
-    from qbtc_conversational_agent import QBTCConversationalAgent
-    CONVERSATIONAL_AGENT_AVAILABLE = True
-    print("✅ QBTC Conversational Agent disponible")
-except ImportError as e:
-    CONVERSATIONAL_AGENT_AVAILABLE = False
-    print(f"⚠️ QBTC Conversational Agent no disponible: {e}")
-
-# Configuración de logging sin emojis para evitar errores de encoding
+# Configuración de logging corregida
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -45,8 +38,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Intentar importar el motor conversacional especializado
+try:
+    from qbtc_conversational_agent import QBTCConversationalAgent
+    CONVERSATIONAL_AGENT_AVAILABLE = True
+    logger.info("QBTC Conversational Agent disponible")
+except ImportError as e:
+    CONVERSATIONAL_AGENT_AVAILABLE = False
+    logger.warning(f"QBTC Conversational Agent no disponible: {e}")
+
 class VigoleonrocksConversationalUIFixed:
-    """Interfaz web con motor conversacional especializado - Versión corregida"""
+    """Interfaz web con motor conversacional especializado corregida"""
     
     def __init__(self):
         self.app = web.Application()
@@ -59,7 +61,6 @@ class VigoleonrocksConversationalUIFixed:
                 self.conversational_agent = QBTCConversationalAgent()
                 self.active_sessions = {}
                 logger.info("Motor conversacional QBTC inicializado")
-                print("🧠 Motor conversacional QBTC inicializado")
             except Exception as e:
                 logger.error(f"Error inicializando motor conversacional: {e}")
                 self.conversational_agent = None
@@ -259,7 +260,6 @@ class VigoleonrocksConversationalUIFixed:
             # Usar motor conversacional especializado si está disponible
             if self.conversational_agent and session_id:
                 logger.info(f"Procesando con QBTC Conversational Agent: {message[:50]}...")
-                print(f"🧠 Procesando con QBTC Conversational Agent: {message[:50]}...")
                 
                 # Procesar mensaje con el agente conversacional
                 response = await self.conversational_agent.process_message(session_id, message)
@@ -277,7 +277,6 @@ class VigoleonrocksConversationalUIFixed:
             # Fallback al sistema principal si no hay agente conversacional
             else:
                 logger.info(f"Usando sistema principal como fallback: {message[:50]}...")
-                print(f"🔄 Usando sistema principal como fallback: {message[:50]}...")
                 
                 # Llamar al sistema principal (puerto 5000)
                 async with aiohttp.ClientSession() as session:
@@ -303,7 +302,7 @@ class VigoleonrocksConversationalUIFixed:
                             # Respuesta de emergencia
                             processing_time = (datetime.now() - start_time).total_seconds()
                             return {
-                                "response": f"🧠 **{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado.",
+                                "response": f"**{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado.",
                                 "agent_type": "Emergency System",
                                 "quantum_enhanced": False,
                                 "processing_time": processing_time,
@@ -315,7 +314,7 @@ class VigoleonrocksConversationalUIFixed:
             processing_time = (datetime.now() - start_time).total_seconds()
             
             return {
-                "response": f"🧠 **{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado. (Error: {e})",
+                "response": f"**{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado. (Error: {e})",
                 "agent_type": "Error System",
                 "quantum_enhanced": False,
                 "processing_time": processing_time,
@@ -1024,15 +1023,12 @@ class VigoleonrocksConversationalUIFixed:
         """
         
     def run(self, host: str = '0.0.0.0', port: int = 8081):
-        """Ejecutar la aplicación web en puerto 8081"""
-        logger.info(f"Iniciando Vigoleonrocks Conversational UI en http://{host}:{port}")
-        print(f"🚀 Iniciando Vigoleonrocks Conversational UI en http://{host}:{port}")
+        """Ejecutar la aplicación web en puerto 8081 para evitar conflictos"""
+        logger.info(f"Iniciando Vigoleonrocks Conversational UI Fixed en http://{host}:{port}")
         if CONVERSATIONAL_AGENT_AVAILABLE:
             logger.info("Motor conversacional QBTC disponible")
-            print("🧠 Motor conversacional QBTC disponible")
         else:
             logger.warning("Motor conversacional no disponible, usando sistema básico")
-            print("⚠️ Motor conversacional no disponible, usando sistema básico")
         web.run_app(self.app, host=host, port=port)
 
 def main():

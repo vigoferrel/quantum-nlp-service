@@ -1,5 +1,0 @@
-include pyproject.toml
-include *.md
-include LICENSE
-recursive-include certificates *
-recursive-include tests test*.py
