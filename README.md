@@ -338,9 +338,9 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detal
 ## 📞 **Contacto**
 
 - **Desarrollador**: Vigoleonrocks
-- **Email**: vigoleonrocks@quantum-nlp.com
-- **GitHub**: [@vigoleonrocks](https://github.com/vigoleonrocks)
-- **Documentación**: [Wiki del Proyecto](https://github.com/vigoleonrocks/quantum-nlp-service/wiki)
+- **Website**: [vigoleonrocks.com](https://vigoleonrocks.com)
+- **GitHub**: [@vigoferrel](https://github.com/vigoferrel)
+- **Documentación**: [Wiki del Proyecto](https://github.com/vigoferrel/quantum-nlp-service/wiki)
 
 ## 🙏 **Agradecimientos**
 
