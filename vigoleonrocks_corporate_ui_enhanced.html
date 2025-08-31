@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIGOLEONROCKS - Quantum AI Platform Enhanced</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='none' stroke='%23ff6b35' stroke-width='3'/><circle cx='8' cy='12' r='1.5' fill='%23ff6b35'/><circle cx='24' cy='12' r='1.5' fill='%23ff6b35'/><circle cx='16' cy='20' r='1.5' fill='%23ff6b35'/></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #4ecdc4;
+            --success-color: #00d084;
+            --warning-color: #ffb800;
+            --error-color: #ff4757;
+            
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --bg-card: #1e1e1e;
+            --bg-hover: #2d2d2d;
+            
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #808080;
+            
+            --border-color: #333333;
+            --border-hover: #4a4a4a;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 320px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar.collapsed {
+            width: 64px;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ===== PANEL DE CONTROL DE IDIOMAS ===== */
+        .language-control-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .language-control-panel h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .language-selector select {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .language-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== PANEL DE CONFIGURACIÓN CUÁNTICA ===== */
+        .quantum-profile-selector {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .quantum-profile-selector h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .profile-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .profile-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .profile-option:hover {
+            background: var(--bg-hover);
+        }
+
+        .profile-option input[type="radio"] {
+            accent-color: var(--primary-color);
+        }
+
+        .profile-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .profile-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CONTROL DE ESTADOS CUÁNTICOS ===== */
+        .quantum-states-control {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .quantum-states-control h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .state-slider {
+            margin-bottom: 12px;
+        }
+
+        .state-slider label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .state-slider input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary-color);
+        }
+
+        .coherence-indicator {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .coherence-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .coherence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        /* ===== HERRAMIENTAS CUÁNTICAS ===== */
+        .archetypal-analyzer {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .archetypal-analyzer h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .analyzer-input textarea {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            resize: vertical;
+            min-height: 60px;
+            margin-bottom: 8px;
+        }
+
+        .analyzer-input button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .analyzer-input button:hover {
+            background: var(--secondary-color);
+        }
+
+        .archetypal-results {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== GENERADOR EMPÁTICO ===== */
+        .empathic-generator {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .empathic-generator h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .empathic-controls {
+            margin-bottom: 12px;
+        }
+
+        .empathic-controls label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empathic-controls input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .empathic-templates {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .empathic-templates button {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .empathic-templates button:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* ===== MÉTRICAS CUÁNTICAS ===== */
+        .quantum-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: center;
+        }
+
+        .metric-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .chat-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .chat-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+            color: white;
+        }
+
+        .message-content {
+            flex: 1;
+            max-width: 70%;
+        }
+
+        .message.user .message-content {
+            text-align: right;
+        }
+
+        .message-text {
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-text {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .message.user .message-meta {
+            justify-content: flex-end;
+        }
+
+        .input-container {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .message-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+            font-family: inherit;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            min-width: 80px;
+        }
+
+        .send-button:hover {
+            background: var(--secondary-color);
+        }
+
+        .send-button:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -320px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* ===== UTILITIES ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .text-success {
+            color: var(--success-color);
+        }
+
+        .text-warning {
+            color: var(--warning-color);
+        }
+
+        .text-error {
+            color: var(--error-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">V</div>
+                <div class="sidebar-title">VIGOLEONROCKS</div>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Panel de Control de Idiomas -->
+                <div class="language-control-panel">
+                    <h3>🌍 Control de Idiomas</h3>
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="auto">🔄 Detección Automática</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="en">🇺🇸 English</option>
+                            <option value="pt">🇧🇷 Português</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="it">🇮🇹 Italiano</option>
+                        </select>
+                    </div>
+                    <div class="language-status">
+                        <span id="detectedLanguage">Idioma: Auto-detectado</span>
+                        <span id="confidenceScore">Confianza: 95%</span>
+                    </div>
+                </div>
+
+                <!-- Panel de Configuración Cuántica -->
+                <div class="quantum-profile-selector">
+                    <h3>🧠 Perfil Cuántico</h3>
+                    <div class="profile-options">
+                        <label class="profile-option">
+                            <input type="radio" name="quantumProfile" value="leonardo" checked>
+                            <div>
+                                <div class="profile-name">Leonardo</div>
+                                <div class="profile-desc">Análisis creativo y artístico</div>
+                            </div>
+                        </label>
+                        <label class="profile-option">
+                            <input type="radio" name="quantumProfile" value="technical">
+                            <div>
+                                <div class="profile-name">Técnico</div>
+                                <div class="profile-desc">Precisión y lógica</div>
+                            </div>
+                        </label>
+                        <label class="profile-option">
+                            <input type="radio" name="quantumProfile" value="empathic">
+                            <div>
+                                <div class="profile-name">Empático</div>
+                                <div class="profile-desc">Comprensión emocional</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Control de Estados Cuánticos -->
+                <div class="quantum-states-control">
+                    <h3>⚛️ Estados Cuánticos</h3>
+                    <div class="state-slider">
+                        <label>Estados Simultáneos: <span id="statesValue">26</span></label>
+                        <input type="range" id="quantumStatesSlider" min="1" max="26" value="26">
+                    </div>
+                    <div class="coherence-indicator">
+                        <span>Coherencia: <span id="coherenceValue">98.7%</span></span>
+                        <div class="coherence-bar">
+                            <div class="coherence-fill" style="width: 98.7%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analizador Arquetipal -->
+                <div class="archetypal-analyzer">
+                    <h3>🎭 Análisis Arquetipal</h3>
+                    <div class="analyzer-input">
+                        <textarea id="archetypalText" placeholder="Ingresa texto para análisis arquetipal..."></textarea>
+                        <button onclick="analyzeArchetypal()">Analizar</button>
+                    </div>
+                    <div class="archetypal-results" id="archetypalResults">
+                        <!-- Resultados del análisis -->
+                    </div>
+                </div>
+
+                <!-- Generador Empático -->
+                <div class="empathic-generator">
+                    <h3>💝 Generador Empático</h3>
+                    <div class="empathic-controls">
+                        <label>Nivel de Empatía: <span id="empathyValue">7</span></label>
+                        <input type="range" id="empathyLevel" min="1" max="10" value="7">
+                    </div>
+                    <div class="empathic-templates">
+                        <button onclick="useEmpathicTemplate('greeting')">Saludo</button>
+                        <button onclick="useEmpathicTemplate('support')">Apoyo</button>
+                        <button onclick="useEmpathicTemplate('gratitude')">Agradecimiento</button>
+                    </div>
+                </div>
+
+                <!-- Métricas Cuánticas -->
+                <div class="quantum-metrics">
+                    <div class="metric-card">
+                        <div class="metric-icon">🌍</div>
+                        <span class="metric-label">Idiomas Procesados</span>
+                        <span class="metric-value" id="languagesProcessed">12</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">⚛️</div>
+                        <span class="metric-label">Estados Cuánticos</span>
+                        <span class="metric-value" id="activeQuantumStates">26</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">📡</div>
+                        <span class="metric-label">Frecuencia Resonancia</span>
+                        <span class="metric-value" id="resonanceFreq">888Hz</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🎯</div>
+                        <span class="metric-label">Supremacy Score</span>
+                        <span class="metric-value" id="supremacyScore">0.998</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="chat-header">
+                <h1 class="chat-title">VIGOLEONROCKS Quantum AI</h1>
+                <p class="chat-subtitle">Sistema de IA Cuántica con Joyas Internas Integradas</p>
+            </div>
+            
+            <div class="chat-container">
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Mensajes se agregarán aquí dinámicamente -->
+                </div>
+                
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea 
+                            class="message-input" 
+                            id="messageInput" 
+                            placeholder="Escribe tu mensaje aquí... (Presiona Enter para enviar, Shift+Enter para nueva línea)"
+                            rows="1"
+                        ></textarea>
+                        <button class="send-button" id="sendButton" onclick="sendMessage()">
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentLanguage = 'auto';
+        let currentProfile = 'leonardo';
+        let currentQuantumStates = 26;
+        let currentEmpathyLevel = 7;
+        let messageHistory = [];
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadQuantumMetrics();
+            setInterval(loadQuantumMetrics, 5000); // Actualizar métricas cada 5 segundos
+        });
+
+        // Inicializar aplicación
+        function initializeApp() {
+            // Configurar eventos
+            document.getElementById('messageInput').addEventListener('keydown', handleKeyPress);
+            document.getElementById('languageSelect').addEventListener('change', handleLanguageChange);
+            document.getElementById('quantumStatesSlider').addEventListener('input', handleQuantumStatesChange);
+            document.getElementById('empathyLevel').addEventListener('input', handleEmpathyLevelChange);
+            
+            // Configurar perfiles cuánticos
+            document.querySelectorAll('input[name="quantumProfile"]').forEach(radio => {
+                radio.addEventListener('change', handleProfileChange);
+            });
+
+            // Mensaje de bienvenida
+            addMessage('assistant', '¡Hola! 🌟 Soy VIGOLEONROCKS, tu asistente de IA cuántica con todas las joyas internas integradas. Puedo ayudarte con traducción automática, análisis arquetipal, respuestas empáticas y mucho más. ¿En qué puedo ayudarte hoy?', {
+                language: 'es',
+                quantum_states: 26,
+                processing_time: 0
+            });
+        }
+
+        // Manejar envío de mensajes
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Limpiar input
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // Agregar mensaje del usuario
+            addMessage('user', message);
+            
+            // Mostrar indicador de carga
+            const loadingId = addMessage('assistant', '⚡ Procesando con arquitectura cuántica...', { loading: true });
+            
+            try {
+                // Detectar idioma automáticamente
+                const languageDetection = await detectLanguage(message);
+                updateLanguageDisplay(languageDetection);
+                
+                // Si el usuario seleccionó un idioma específico, traducir
+                const selectedLang = document.getElementById('languageSelect').value;
+                let processedMessage = message;
+                
+                if (selectedLang !== 'auto' && languageDetection.language !== selectedLang) {
+                    const translation = await translateMessage(message, selectedLang);
+                    processedMessage = translation.translated_text;
+                }
+                
+                // Enviar mensaje al backend
+                const response = await fetch('/api/vigoleonrocks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: processedMessage,
+                        language: selectedLang !== 'auto' ? selectedLang : languageDetection.language,
+                        quantum_profile: currentProfile,
+                        quantum_states: currentQuantumStates,
+                        empathy_level: currentEmpathyLevel
+                    })
+                });
+                
+                const result = await response.json();
+                
+                // Remover mensaje de carga y agregar respuesta
+                removeMessage(loadingId);
+                addMessage('assistant', result.response, {
+                    language: result.lang,
+                    quantum_states: currentQuantumStates,
+                    processing_time: result.processing_time,
+                    processing_method: result.processing_method
+                });
+                
+                // Actualizar historial
+                messageHistory.push({
+                    timestamp: new Date().toISOString(),
+                    type: 'user',
+                    language: languageDetection.language,
+                    text: message,
+                    response: result.response
+                });
+                
+            } catch (error) {
+                console.error('Error enviando mensaje:', error);
+                removeMessage(loadingId);
+                addMessage('assistant', '❌ Error en el procesamiento. Por favor, intenta de nuevo.', { error: true });
+            }
+        }
+
+        // Detectar idioma
+        async function detectLanguage(text) {
+            try {
+                const response = await fetch('/api/detect-language', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Error detectando idioma:', error);
+                return { language: 'unknown', confidence: 0.3 };
+            }
+        }
+
+        // Traducir mensaje
+        async function translateMessage(text, targetLanguage) {
+            try {
+                const response = await fetch('/api/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: text,
+                        target_language: targetLanguage,
+                        use_quantum_system: true
+                    })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Error traduciendo:', error);
+                return { translated_text: text };
+            }
+        }
+
+        // Analizar arquetipal
+        async function analyzeArchetypal() {
+            const text = document.getElementById('archetypalText').value;
+            if (!text) return;
+            
+            try {
+                const response = await fetch('/api/archetypal-analysis', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+                
+                const result = await response.json();
+                displayArchetypalResults(result);
+            } catch (error) {
+                console.error('Error en análisis arquetipal:', error);
+                document.getElementById('archetypalResults').innerHTML = '❌ Error en el análisis';
+            }
+        }
+
+        // Mostrar resultados arquetipales
+        function displayArchetypalResults(result) {
+            const resultsDiv = document.getElementById('archetypalResults');
+            
+            if (result.status === 'success') {
+                resultsDiv.innerHTML = `
+                    <div><strong>Arquetipo Dominante:</strong> ${result.dominant_archetype}</div>
+                    <div><strong>Patrones:</strong> ${result.archetypal_patterns.join(', ')}</div>
+                    <div><strong>Confianza:</strong> ${(result.confidence * 100).toFixed(1)}%</div>
+                    <div><strong>Método:</strong> ${result.analysis_method}</div>
+                `;
+            } else {
+                resultsDiv.innerHTML = '❌ Error en el análisis';
+            }
+        }
+
+        // Usar template empático
+        async function useEmpathicTemplate(templateType) {
+            try {
+                const response = await fetch('/api/empathic-generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        template_type: templateType,
+                        empathy_level: currentEmpathyLevel
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    addMessage('assistant', result.empathic_response, {
+                        empathy_level: currentEmpathyLevel,
+                        template_type: templateType
+                    });
+                }
+            } catch (error) {
+                console.error('Error generando respuesta empática:', error);
+            }
+        }
+
+        // Cargar métricas cuánticas
+        async function loadQuantumMetrics() {
+            try {
+                const response = await fetch('/api/quantum-metrics');
+                const metrics = await response.json();
+                
+                if (metrics.status === 'success') {
+                    document.getElementById('languagesProcessed').textContent = metrics.languages_processed;
+                    document.getElementById('activeQuantumStates').textContent = metrics.quantum_states_active;
+                    document.getElementById('resonanceFreq').textContent = '888Hz';
+                    document.getElementById('supremacyScore').textContent = metrics.supremacy_score.toFixed(3);
+                }
+            } catch (error) {
+                console.error('Error cargando métricas:', error);
+            }
+        }
+
+        // Event handlers
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function handleLanguageChange(event) {
+            currentLanguage = event.target.value;
+            updateLanguageDisplay({ language: currentLanguage, confidence: 1.0 });
+        }
+
+        function handleQuantumStatesChange(event) {
+            currentQuantumStates = parseInt(event.target.value);
+            document.getElementById('statesValue').textContent = currentQuantumStates;
+            
+            // Actualizar coherencia
+            const coherence = 98.7 - (26 - currentQuantumStates) * 0.5;
+            document.getElementById('coherenceValue').textContent = coherence.toFixed(1) + '%';
+            document.querySelector('.coherence-fill').style.width = coherence + '%';
+            
+            // Enviar configuración al backend
+            setQuantumStates(currentQuantumStates);
+        }
+
+        function handleEmpathyLevelChange(event) {
+            currentEmpathyLevel = parseInt(event.target.value);
+            document.getElementById('empathyValue').textContent = currentEmpathyLevel;
+        }
+
+        function handleProfileChange(event) {
+            currentProfile = event.target.value;
+            setQuantumProfile(currentProfile);
+        }
+
+        // Configurar perfil cuántico
+        async function setQuantumProfile(profile) {
+            try {
+                await fetch('/api/set-quantum-profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ profile: profile })
+                });
+            } catch (error) {
+                console.error('Error configurando perfil:', error);
+            }
+        }
+
+        // Configurar estados cuánticos
+        async function setQuantumStates(states) {
+            try {
+                await fetch('/api/set-quantum-states', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ states: states })
+                });
+            } catch (error) {
+                console.error('Error configurando estados:', error);
+            }
+        }
+
+        // Actualizar display de idioma
+        function updateLanguageDisplay(detection) {
+            const languageNames = {
+                'es': 'Español',
+                'en': 'English',
+                'pt': 'Português',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'it': 'Italiano'
+            };
+            
+            document.getElementById('detectedLanguage').textContent = 
+                `Idioma: ${languageNames[detection.language] || 'Desconocido'}`;
+            document.getElementById('confidenceScore').textContent = 
+                `Confianza: ${(detection.confidence * 100).toFixed(0)}%`;
+        }
+
+        // Agregar mensaje al chat
+        function addMessage(type, text, metadata = {}) {
+            const container = document.getElementById('messagesContainer');
+            const messageId = Date.now() + Math.random();
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = `message-${messageId}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = type === 'user' ? 'U' : 'V';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+            
+            const metaDiv = document.createElement('div');
+            metaDiv.className = 'message-meta';
+            
+            if (metadata.loading) {
+                textDiv.classList.add('loading');
+            }
+            
+            if (metadata.language) {
+                metaDiv.innerHTML += `<span>🌍 ${metadata.language.toUpperCase()}</span>`;
+            }
+            
+            if (metadata.quantum_states) {
+                metaDiv.innerHTML += `<span>⚛️ ${metadata.quantum_states}</span>`;
+            }
+            
+            if (metadata.processing_time) {
+                metaDiv.innerHTML += `<span>⏱️ ${metadata.processing_time}ms</span>`;
+            }
+            
+            if (metadata.processing_method) {
+                metaDiv.innerHTML += `<span>🔧 ${metadata.processing_method}</span>`;
+            }
+            
+            content.appendChild(textDiv);
+            if (metaDiv.innerHTML) {
+                content.appendChild(metaDiv);
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            
+            return messageId;
+        }
+
+        // Remover mensaje
+        function removeMessage(messageId) {
+            const message = document.getElementById(`message-${messageId}`);
+            if (message) {
+                message.remove();
+            }
+        }
+
+        // Auto-resize textarea
+        document.getElementById('messageInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+    </script>
+</body>
+</html>

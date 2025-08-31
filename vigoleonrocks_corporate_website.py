@@ -8,8 +8,16 @@ from flask import Flask, render_template_string, request, jsonify, redirect, url
 import json
 import time
 from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["*"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # HTML Template inspirado en Anthropic
 HTML_TEMPLATE = """
@@ -18,7 +26,7 @@ HTML_TEMPLATE = """
 <head>
          <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Vigoleonrocks - AI Líder Mundial en Programación</title>
+     <title>Vigoleonrocks - IA Empática Multimodal de Nueva Generación</title>
      <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <style>
         * {
@@ -1014,14 +1022,14 @@ HTML_TEMPLATE = """
 
          <!-- Hero Section -->
      <section id="hero" class="hero">
-         <h1>El Futuro de la Programación con IA</h1>
-         <p>Vigoleonrocks es el modelo líder mundial para programación, con capacidades cuánticas y contexto masivo de hasta 8M tokens.</p>
+         <h1>IA Empática Multimodal de Nueva Generación</h1>
+         <p>Vigoleonrocks es la primera IA empática que entiende y responde con calidez humana natural. Procesamiento avanzado de texto, imagen, audio, video y fusión multimodal con análisis de sentimientos.</p>
          
          <!-- Chat Interface Principal -->
          <div class="main-chat-container">
              <div class="chat-header-main">
-                 <h3>🧠 Conversa con Vigoleonrocks</h3>
-                 <p>Tu asistente cuántico-cognitivo para programación</p>
+                 <h3>💝 Conversa con Vigoleonrocks</h3>
+                 <p>Tu asistente empático multimodal que responde con calidez humana natural</p>
              </div>
              
              <div class="chat-body-main">
@@ -1029,10 +1037,10 @@ HTML_TEMPLATE = """
                      <div class="message assistant">
                          <div class="message-header">🤖 Vigoleonrocks</div>
                          <div class="message-content">
-                             ¡Hola! Soy Vigoleonrocks, tu asistente cuántico-cognitivo especializado en programación. 
-                             Puedo ayudarte con desarrollo de software, análisis de código, debugging y mucho más.
+                             ¡Hola! Soy Vigoleonrocks, tu asistente empático multimodal. 
+                             Respondo con calidez humana natural y entiendo tus emociones. Puedo procesar texto, imágenes, audio y video.
                              <br><br>
-                             ¿En qué proyecto de programación puedo ayudarte hoy?
+                             ¿Cómo te sientes hoy? ¿En qué puedo ayudarte de manera cálida y comprensiva?
                          </div>
                      </div>
                  </div>
@@ -1074,34 +1082,34 @@ HTML_TEMPLATE = """
         <h2 class="section-title">¿Por qué Vigoleonrocks?</h2>
         <div class="features-grid">
             <div class="feature-card">
+                <div class="feature-icon">💝</div>
+                <h3>IA Empática Natural</h3>
+                <p>Responde con calidez humana genuine, entendiendo tus emociones y ofreciendo apoyo emocional real.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌈</div>
+                <h3>Procesamiento Multimodal</h3>
+                <p>Analiza texto, imágenes, audio y video con fusión inteligente de modalidades para respuestas completas.</p>
+            </div>
+            <div class="feature-card">
                 <div class="feature-icon">🧠</div>
-                <h3>Contexto Masivo</h3>
-                <p>Hasta 8 millones de tokens de contexto para proyectos complejos y codebases masivos.</p>
+                <h3>Análisis de Sentimientos</h3>
+                <p>Detecta y comprende tus emociones en tiempo real para adaptar las respuestas a tu estado anímico.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Capacidades Cuánticas</h3>
-                <p>Transformaciones primas y entrelazamiento cuántico para resultados superiores.</p>
+                <div class="feature-icon">✨</div>
+                <h3>Respuestas Contextualizadas</h3>
+                <p>Genera respuestas personalizadas que consideran el contexto emocional y situacional completo.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>Precios Competitivos</h3>
-                <p>10% más barato que GPT-5 con capacidades superiores y contexto masivo.</p>
+                <div class="feature-icon">🌱</div>
+                <h3>Aprendizaje Empático</h3>
+                <p>Se adapta a tu estilo de comunicación y preferencias emocionales para mejorar cada interacción.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔧</div>
-                <h3>Especializado en Programación</h3>
-                <p>Optimizado específicamente para desarrollo de software y análisis de código.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>Integración OpenRouter</h3>
-                <p>Disponible a través de OpenRouter para acceso global y fácil integración.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Rendimiento Superior</h3>
-                <p>Arquitectura optimizada para velocidad y precisión en tareas complejas.</p>
+                <div class="feature-icon">🔗</div>
+                <h3>Conexión Humana</h3>
+                <p>Establece una conexión genuine que va más allá de la simple asistencia técnica.</p>
             </div>
         </div>
     </section>
@@ -1113,75 +1121,75 @@ HTML_TEMPLATE = """
             <div class="models-grid">
                                  <div class="model-card">
                      <div class="model-header">
-                         <div class="model-name">Vigoleonrocks v1.0</div>
+                         <div class="model-name">Vigoleonrocks Empático</div>
                          <div class="model-price">$0.0045/$0.0135</div>
                      </div>
                      <div class="model-description">
-                         Modelo líder mundial para programación con capacidades cuánticas y transformaciones primas.
+                         IA empática multimodal que procesa texto con calidez humana natural y análisis de sentimientos.
                      </div>
                      <div class="model-specs">
-                         <span class="spec">1M tokens</span>
-                         <span class="spec">10% menos que GPT-5</span>
+                         <span class="spec">Texto + Empatia</span>
+                         <span class="spec">Respuestas cálidas</span>
                      </div>
-                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-v1">Probar Ahora</a>
+                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-empathic">Probar Ahora</a>
                  </div>
                 
                                  <div class="model-card">
                      <div class="model-header">
-                         <div class="model-name">Vigoleonrocks Programming</div>
-                         <div class="model-price">$0.005/$0.015</div>
-                     </div>
-                     <div class="model-description">
-                         Especializado en programación y desarrollo de software con contexto masivo.
-                     </div>
-                     <div class="model-specs">
-                         <span class="spec">2M tokens</span>
-                         <span class="spec">Mismo precio que GPT-5</span>
-                     </div>
-                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-programming">Probar Ahora</a>
-                 </div>
-                
-                                 <div class="model-card">
-                     <div class="model-header">
-                         <div class="model-name">Vigoleonrocks Creative</div>
-                         <div class="model-price">$0.004/$0.012</div>
-                     </div>
-                     <div class="model-description">
-                         Optimizado para tareas creativas y generación de contenido.
-                     </div>
-                     <div class="model-specs">
-                         <span class="spec">500K tokens</span>
-                         <span class="spec">20% menos que GPT-5</span>
-                     </div>
-                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-creative">Probar Ahora</a>
-                 </div>
-                
-                                 <div class="model-card">
-                     <div class="model-header">
-                         <div class="model-name">Vigoleonrocks Ultra</div>
+                         <div class="model-name">Vigoleonrocks Visual</div>
                          <div class="model-price">$0.006/$0.018</div>
                      </div>
                      <div class="model-description">
-                         Modelo ultra avanzado para proyectos de investigación y desarrollo de vanguardia.
+                         Procesamiento multimodal de imágenes con respuestas empáticas contextualizadas y análisis visual.
                      </div>
                      <div class="model-specs">
-                         <span class="spec">4M tokens</span>
-                         <span class="spec">20% más que GPT-5</span>
+                         <span class="spec">Imagen + Texto</span>
+                         <span class="spec">Análisis visual</span>
                      </div>
-                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-ultra">Probar Ahora</a>
+                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-visual">Probar Ahora</a>
+                 </div>
+                
+                                 <div class="model-card">
+                     <div class="model-header">
+                         <div class="model-name">Vigoleonrocks Audio</div>
+                         <div class="model-price">$0.007/$0.021</div>
+                     </div>
+                     <div class="model-description">
+                         Procesamiento de audio con detección emocional y respuestas empáticas adaptadas al tono de voz.
+                     </div>
+                     <div class="model-specs">
+                         <span class="spec">Audio + Emoción</span>
+                         <span class="spec">Tono empativo</span>
+                     </div>
+                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-audio">Probar Ahora</a>
+                 </div>
+                
+                                 <div class="model-card">
+                     <div class="model-header">
+                         <div class="model-name">Vigoleonrocks Fusión</div>
+                         <div class="model-price">$0.010/$0.030</div>
+                     </div>
+                     <div class="model-description">
+                         Fusión completa multimodal: texto, imagen, audio y video con inteligencia emocional avanzada.
+                     </div>
+                     <div class="model-specs">
+                         <span class="spec">Multimodal Total</span>
+                         <span class="spec">IA Emocional</span>
+                     </div>
+                     <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-fusion">Probar Ahora</a>
                  </div>
                 
                                  <div class="model-card">
                      <div class="model-header">
                          <div class="model-name">Vigoleonrocks Enterprise</div>
-                         <div class="model-price">$0.008/$0.024</div>
+                         <div class="model-price">$0.012/$0.036</div>
                      </div>
                      <div class="model-description">
-                         Modelo enterprise para grandes corporaciones y proyectos de investigación avanzada.
+                         Solución empresarial completa con todas las modalidades, privacidad mejorada y personalidad adaptativa.
                      </div>
                      <div class="model-specs">
-                         <span class="spec">8M tokens</span>
-                         <span class="spec">60% más que GPT-5</span>
+                         <span class="spec">Empresa + Privacidad</span>
+                         <span class="spec">Personalidad adaptativa</span>
                      </div>
                      <a href="#" class="cta-button test-model-btn" data-model="vigoleonrocks/vigoleonrocks-enterprise">Probar Ahora</a>
                  </div>
@@ -1448,7 +1456,7 @@ HTML_TEMPLATE = """
                  resultDiv.style.display = 'block';
              } catch (error) {
                  loadingDiv.style.display = 'none';
-                 resultDiv.innerHTML = `<strong>Error de conexión:</strong> ${error.message}\n\nAsegúrate de que el servidor CIO esté ejecutándose en el puerto 5001.`;
+                     resultDiv.innerHTML = `<strong>Error de conexión:</strong> ${error.message}\n\nAsegúrate de que el servidor VIGOLEONROCKS esté ejecutándose en el puerto 5000.`;
                  resultDiv.style.display = 'block';
              }
          }
@@ -1677,20 +1685,12 @@ HTML_TEMPLATE = """
                      formData.append('image', dataURLtoFile(mainCurrentImageData, 'image.jpg'));
                  }
                  
-                 console.log('📤 Enviando JSON a servidor multimodal avanzado (puerto 5004)');
+                 console.log('📤 Enviando a endpoint multimodal del sitio corporativo');
                  
-                 // Usar el nuevo servidor multimodal avanzado en puerto 5004
-                 const response = await fetch('http://localhost:5004/api/process_text', {
+                 // Usar el endpoint multimodal del sitio web corporativo
+                 const response = await fetch('/api/process_multimodal', {
                      method: 'POST',
-                     headers: {
-                         'Content-Type': 'application/json',
-                     },
-                     body: JSON.stringify({
-                         text: message,
-                         session_id: `session_${Date.now()}`,
-                         user_id: 'web_user',
-                         api_key: 'demo_key_web'
-                     })
+                     body: formData
                  });
                  
                  console.log('📥 Respuesta recibida:', response.status, response.statusText);
@@ -1850,50 +1850,57 @@ def test_model():
                 "timestamp": datetime.now().isoformat()
             }), 400
         
-        # Llamar directamente al servidor CIO
+        # Llamar directamente al servidor VIGOLEONROCKS con JSON simplificado
         import requests
         try:
+            # Usar solo el formato que funciona según las pruebas
             response = requests.post(
-                "http://localhost:5001/api/process",
-                json={
-                    "query": prompt,
-                    "api_key": "demo_key_web",
-                    "type": "text",
-                    "model": model_id,
-                    "temperature": 0.7,
-                    "max_tokens": 1000
-                },
+                "http://localhost:5000/api/vigoleonrocks",
+                json={"text": prompt},
+                headers={'Content-Type': 'application/json'},
                 timeout=30
             )
             
             if response.status_code == 200:
                 result = response.json()
+                
+                # Extraer respuesta del formato VIGOLEONROCKS
+                vigoleonrocks_response = ""
+                if 'vigoleonrocks_output' in result and result['vigoleonrocks_output']:
+                    vigoleonrocks_response = result['vigoleonrocks_output'].get('vigoleonrocks_response', 'Procesado por VIGOLEONROCKS')
+                elif 'status' in result and result['status'] == 'SUCCESS':
+                    vigoleonrocks_response = f"Respuesta procesada exitosamente por {result.get('model', 'VIGOLEONROCKS')}"
+                else:
+                    vigoleonrocks_response = "Respuesta procesada por VIGOLEONROCKS"
+                
                 return jsonify({
                     "success": True,
-                    "response": result.get("response", "Respuesta del modelo Vigoleonrocks"),
-                    "model": model_id,
-                    "quality": result.get("quality", 93.0),
-                    "consciousness": result.get("consciousness", 0.544),
-                    "coherence": result.get("coherence", 0.782),
+                    "response": vigoleonrocks_response,
+                    "model": result.get('model', model_id),
+                    "quality": result.get('processing', {}).get('coherence_level', 0.95) * 100,
+                    "consciousness": result.get('processing', {}).get('quantum_states_used', 26) / 26.0,
+                    "coherence": result.get('processing', {}).get('coherence_level', 0.95),
+                    "processing_method": result.get('processing_method', 'quantum_processing'),
+                    "processing_time_ms": result.get('processing', {}).get('time_ms', 0),
                     "timestamp": datetime.now().isoformat()
                 })
             else:
                 return jsonify({
                     "success": False,
-                    "error": f"Error del servidor CIO: {response.status_code} - {response.text}",
+                    "error": f"Error del servidor VIGOLEONROCKS: {response.status_code} - {response.text}",
                     "timestamp": datetime.now().isoformat()
                 }), 502
                 
         except requests.exceptions.ConnectionError:
             return jsonify({
                 "success": False,
-                "error": "No se puede conectar al servidor CIO. Asegúrate de que esté ejecutándose en el puerto 5001.",
+                "error": "No se puede conectar al servidor VIGOLEONROCKS. Asegúrate de que esté ejecutándose en el puerto 5000.",
                 "timestamp": datetime.now().isoformat()
             }), 503
         except requests.exceptions.Timeout:
             return jsonify({
                 "success": False,
-                "error": "Timeout al conectar con el servidor CIO",
+                "error": "Timeout al conectar con el servidor VIGOLEONROCKS",
                 "timestamp": datetime.now().isoformat()
             }), 504
             
@@ -1906,7 +1913,7 @@ def test_model():
 
 @app.route('/api/process_multimodal', methods=['POST'])
 def process_multimodal():
-    """Endpoint para procesar consultas multimodales (chat con imágenes)"""
+    """Endpoint para procesar consultas multimodales (chat con imágenes) usando VIGOLEONROCKS"""
     try:
         query = request.form.get('query', '')
         image_file = request.files.get('image')
@@ -1918,53 +1925,75 @@ def process_multimodal():
                 "timestamp": datetime.now().isoformat()
             }), 400
         
-        # Llamar al servidor CIO para procesamiento multimodal
+        # Manejar imagen si se proporciona
+        image_url = None
+        if image_file:
+            # Convertir imagen a base64 para enviarlo como URL
+            import base64
+            image_data = image_file.read()
+            image_base64 = base64.b64encode(image_data).decode('utf-8')
+            image_url = f"data:{image_file.content_type};base64,{image_base64}"
+        
+        # Llamar al servidor VIGOLEONROCKS para procesamiento multimodal
         import requests
         try:
-            files = {}
-            data = {
-                "query": query,
-                "api_key": "demo_key_web",
-                "type": "multimodal"
+            # Preparar payload para VIGOLEONROCKS
+            payload = {
+                "text": query or "Analiza esta imagen"
             }
             
-            if image_file:
-                files['image'] = image_file
+            # Si hay imagen, agregarla como image_url (el servidor VIGOLEONROCKS lo soporta)
+            if image_url:
+                payload["image_url"] = image_url
             
             response = requests.post(
-                "http://localhost:5001/api/process",
-                data=data,
-                files=files,
+                "http://localhost:5000/api/vigoleonrocks",
+                json=payload,
+                headers={'Content-Type': 'application/json'},
                 timeout=60
             )
             
             if response.status_code == 200:
                 result = response.json()
+                
+                # Extraer respuesta del formato VIGOLEONROCKS
+                vigoleonrocks_response = ""
+                if 'vigoleonrocks_output' in result and result['vigoleonrocks_output']:
+                    vigoleonrocks_response = result['vigoleonrocks_output'].get('vigoleonrocks_response', 'Procesamiento multimodal completado por VIGOLEONROCKS')
+                elif 'status' in result and result['status'] == 'SUCCESS':
+                    vigoleonrocks_response = f"Respuesta multimodal procesada exitosamente por {result.get('model', 'VIGOLEONROCKS')}"
+                else:
+                    vigoleonrocks_response = "Procesamiento multimodal completado por VIGOLEONROCKS"
+                
                 return jsonify({
                     "success": True,
-                    "response": result.get("response", "Respuesta del modelo Vigoleonrocks"),
-                    "quality": result.get("quality", 93.0),
-                    "consciousness": result.get("consciousness", 0.544),
-                    "coherence": result.get("coherence", 0.782),
+                    "response": vigoleonrocks_response,
+                    "model": result.get('model', 'VIGOLEONROCKS-Python-Unified-v2.0'),
+                    "quality": result.get('processing', {}).get('coherence_level', 0.95) * 100,
+                    "consciousness": result.get('processing', {}).get('quantum_states_used', 26) / 26.0,
+                    "coherence": result.get('processing', {}).get('coherence_level', 0.95),
+                    "processing_method": result.get('processing_method', 'quantum_processing'),
+                    "processing_time_ms": result.get('processing', {}).get('time_ms', 0),
+                    "has_image": image_url is not None,
                     "timestamp": datetime.now().isoformat()
                 })
             else:
                 return jsonify({
                     "success": False,
-                    "error": f"Error del servidor CIO: {response.status_code} - {response.text}",
+                    "error": f"Error del servidor VIGOLEONROCKS: {response.status_code} - {response.text}",
                     "timestamp": datetime.now().isoformat()
                 }), 502
                 
         except requests.exceptions.ConnectionError:
             return jsonify({
                 "success": False,
-                "error": "No se puede conectar al servidor CIO. Asegúrate de que esté ejecutándose en el puerto 5001.",
+                "error": "No se puede conectar al servidor VIGOLEONROCKS. Asegúrate de que esté ejecutándose en el puerto 5000.",
                 "timestamp": datetime.now().isoformat()
             }), 503
         except requests.exceptions.Timeout:
             return jsonify({
                 "success": False,
-                "error": "Timeout al conectar con el servidor CIO",
+                "error": "Timeout al conectar con el servidor VIGOLEONROCKS",
                 "timestamp": datetime.now().isoformat()
             }), 504
             

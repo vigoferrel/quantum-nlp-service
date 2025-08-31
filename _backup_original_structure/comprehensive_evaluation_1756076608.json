@@ -1,0 +1,143 @@
+{
+  "timestamp": 1756076608.3822386,
+  "model_metrics": {
+    "Quantum Edge Maximizer": {
+      "total_tests": 5,
+      "avg_response_time": 9845.385122299194,
+      "avg_quality_score": 0.7494904136017102,
+      "total_cost": 0.0,
+      "max_quality_score": 1.0,
+      "min_response_time": 8497.613668441772,
+      "avg_edge_multiplier": 5149693573.422959,
+      "max_edge_multiplier": 25748414309.665337,
+      "avg_quantum_factor": 25001209.261149783,
+      "max_quantum_factor": 125005017.55245507
+    },
+    "GPT-4o (OpenAI)": {
+      "total_tests": 2,
+      "avg_response_time": 6083.656311035156,
+      "avg_quality_score": 0.9180555555555555,
+      "total_cost": 0.0080325,
+      "max_quality_score": 0.9249999999999999,
+      "min_response_time": 4803.200483322144
+    },
+    "Claude 3.5 Sonnet (Anthropic)": {
+      "total_tests": 2,
+      "avg_response_time": 7982.05041885376,
+      "avg_quality_score": 0.8972222222222221,
+      "total_cost": 0.010623,
+      "max_quality_score": 0.9111111111111111,
+      "min_response_time": 6483.036041259766
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "Advanced Code Generation",
+      "model": "Quantum Edge Maximizer",
+      "category": "programming",
+      "response_time_ms": 10384.719610214233,
+      "quality_score": 1.0,
+      "cost_usd": 0.0,
+      "edge_multiplier": 53368.53301787441,
+      "quantum_factor": 986.0656904060702,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "model": "Quantum Edge Maximizer",
+      "category": "mathematics",
+      "response_time_ms": 10786.864519119263,
+      "quality_score": 0.7576046822377327,
+      "cost_usd": 0.0,
+      "edge_multiplier": 83.15173341633653,
+      "quantum_factor": 13.893942617054126,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Scientific Analysis",
+      "model": "Quantum Edge Maximizer",
+      "category": "science",
+      "response_time_ms": 9969.815015792847,
+      "quality_score": 1.0,
+      "cost_usd": 0.0,
+      "edge_multiplier": 25748414309.665337,
+      "quantum_factor": 125005017.55245507,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Algorithm Design",
+      "model": "Quantum Edge Maximizer",
+      "category": "algorithms",
+      "response_time_ms": 9587.912797927856,
+      "quality_score": 0.5504926259332553,
+      "cost_usd": 0.0,
+      "edge_multiplier": 56.94751302757814,
+      "quantum_factor": 11.774845071693255,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Creative Writing",
+      "model": "Quantum Edge Maximizer",
+      "category": "creative",
+      "response_time_ms": 8497.613668441772,
+      "quality_score": 0.4393547598375634,
+      "cost_usd": 0.0,
+      "edge_multiplier": 48.81719553750705,
+      "quantum_factor": 17.0188157428108,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Advanced Code Generation",
+      "model": "GPT-4o (OpenAI)",
+      "category": "programming",
+      "response_time_ms": 7364.112138748169,
+      "quality_score": 0.9249999999999999,
+      "cost_usd": 0.0051,
+      "edge_multiplier": null,
+      "quantum_factor": null,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "model": "GPT-4o (OpenAI)",
+      "category": "mathematics",
+      "response_time_ms": 4803.200483322144,
+      "quality_score": 0.9111111111111111,
+      "cost_usd": 0.0029324999999999998,
+      "edge_multiplier": null,
+      "quantum_factor": null,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Advanced Code Generation",
+      "model": "Claude 3.5 Sonnet (Anthropic)",
+      "category": "programming",
+      "response_time_ms": 9481.064796447754,
+      "quality_score": 0.8833333333333333,
+      "cost_usd": 0.00762,
+      "edge_multiplier": null,
+      "quantum_factor": null,
+      "success": true,
+      "error": null
+    },
+    {
+      "test_name": "Mathematical Reasoning",
+      "model": "Claude 3.5 Sonnet (Anthropic)",
+      "category": "mathematics",
+      "response_time_ms": 6483.036041259766,
+      "quality_score": 0.9111111111111111,
+      "cost_usd": 0.0030029999999999996,
+      "edge_multiplier": null,
+      "quantum_factor": null,
+      "success": true,
+      "error": null
+    }
+  ]
+}

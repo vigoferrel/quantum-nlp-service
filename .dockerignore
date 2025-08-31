@@ -1,0 +1,145 @@
+# Git
+.git
+.gitignore
+.github
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Documentation
+*.md
+docs/
+README*
+CHANGELOG*
+
+# Tests
+tests/
+test_*.py
+*_test.py
+conftest.py
+
+# Backups
+_backup_original_structure/
+_new_optimized_structure/
+*.bak
+*.backup
+
+# Logs
+logs/
+*.log
+
+# Cache
+cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Node.js (si hay)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Secrets
+secrets/
+.env.local
+.env.production
+.env.staging
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Monitoring
+monitoring/
+*.json
+*.csv
+
+# Reports
+reports/
+*.json
+*.csv
+*.txt
+
+# Sessions
+consciousness_sessions/
+vigoleonrocks_sessions/
+
+# Static files (se copian explícitamente si se necesitan)
+static/
+*.html
+*.css
+*.js
+
+# MCP
+mcp/
+
+# Local development
+localGPT-main/
+openvpn-gui-master/
+services/

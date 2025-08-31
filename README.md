@@ -1,355 +1,217 @@
-# 🌟 VIGOLEONROCKS - Unique Quantum-Enhanced Multimodal AI Model
+# 🚀 VIGOLEONROCKS - Quantum NLP Service
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Academic](https://img.shields.io/badge/Academic-Research-purple.svg)](https://github.com/vigoleonrocks/quantum-nlp-service)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
+[![CI/CD](https://github.com/vigoferrel/quantum-nlp-service/actions/workflows/deploy.yml/badge.svg)](https://github.com/vigoferrel/quantum-nlp-service/actions/workflows/deploy.yml)
+[![Tests](https://github.com/vigoferrel/quantum-nlp-service/actions/workflows/test.yml/badge.svg)](https://github.com/vigoferrel/quantum-nlp-service/actions/workflows/test.yml)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://docker.com)
+[![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://python.org)
 
-## 🎓 **GROUNDBREAKING ACADEMIC RESEARCH PROJECT**
+> **Sistema de IA Cuántica Avanzado** - Respuestas humanas naturales con arquitectura de 26 dimensiones cuánticas
 
-**VIGOLEONROCKS** is the world's first **unified quantum-enhanced multimodal AI model** - a revolutionary academic research achievement that represents a paradigmatic advancement in artificial intelligence. This is **not just another AI system** - VIGOLEONROCKS is a **single, comprehensive model** that uniquely integrates quantum processing, multimodal capabilities, and ultra-extended context in one cohesive research platform.
+## ✨ Características
 
-### 🏆 **THE UNIQUE UNIFIED MODEL**
+- 🧠 **Procesamiento Cuántico**: 26 dimensiones de análisis simultáneo
+- 🎯 **Respuestas Humanas**: IA con empatía y personalidad natural
+- 🌍 **Multi-idioma**: Soporte para español, inglés y portugués
+- 🔬 **Análisis Arquetipal**: Detección de patrones profundos
+- 🎨 **Generación Empática**: Respuestas adaptadas al contexto emocional
+- 📊 **Benchmarking Elite**: Comparación con modelos de vanguardia
+- 🏗️ **Arquitectura Modular**: Componentes especializados y escalables
 
-VIGOLEONROCKS is **not just another AI system** - it's a **single, comprehensive model** that uniquely integrates:
+## 🚀 Inicio Rápido
 
-- **🎯 Unified Architecture**: One cohesive model handling all modalities seamlessly  
-- **⚛️ Quantum Enhancement**: 32-dimensional quantum processing with >0.85 coherence
-- **📊 Ultra-Extended Context**: 500,000+ tokens with >99.6% utilization efficiency
-- **🔬 Academic Validation**: Peer-reviewed methodology with complete reproducibility
-- **🌐 Multimodal Excellence**: Advanced processing of text, images, audio, and video
-- **🏆 Competitive Superiority**: Demonstrated excellence over GPT-5, Claude, and Gemini
-
-## 🧠 **UNIFIED SYSTEM ARCHITECTURE**
-
-### **VIGOLEONROCKS Unified Model**
-
-```
-vigoleonrocks-quantum-ai/
-├── 📁 unified_core/              # Single unified model
-│   ├── vigoleonrocks_unified_model.py
-│   ├── vigoleonrocks_quantum_multimodal_core.py
-│   └── vigoleonrocks_unified_multimodal_api.py
-├── 📁 benchmarking/              # Academic validation
-│   ├── vigoleonrocks_multimodal_benchmark_suite.py
-│   └── vigoleonrocks_ultimate_multimodal_demo.py
-├── 📁 academic/                  # Research documentation
-│   ├── VIGOLEONROCKS_Paper_Castellano.md
-│   └── README_MULTIMODAL.md
-└── 📁 legacy/                    # Development history
-    └── quantum_optimization_engines/
-```
-
-### **Unified Model Components**
-
-```
-VIGOLEONROCKS UNIFIED MODEL
-├── 📝 Quantum Text Processing (32 dimensions full access)
-├── 🖼️ Quantum Image Analysis (12 dimensions)  
-├── 🎵 Quantum Audio Processing (8 dimensions)
-├── 🎦 Quantum Video Understanding (12 dimensions)
-└── ⚛️ Cross-Modal Quantum Fusion (12 dimensions)
-```
-
-**Total Quantum Dimensions**: 32 (dynamically allocated across modalities)
-
-## 🚀 **Instalación y Configuración**
-
-### **Requisitos Previos**
+### Opción 1: Docker (Recomendado)
 
 ```bash
-# Python 3.8 o superior
-python --version
-
-# pip actualizado
-pip install --upgrade pip
-```
-
-### **Instalación**
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/vigoleonrocks/quantum-nlp-service.git
+# Clonar repositorio
+git clone https://github.com/vigoferrel/quantum-nlp-service.git
 cd quantum-nlp-service
 
+# Copiar variables de entorno
+cp .env.example .env
+
+# Ejecutar con Docker Compose
+docker-compose up -d
+
+# Verificar estado
+curl http://localhost:5000/api/status
+```
+
+### Opción 2: Desarrollo Local
+
+```bash
 # Instalar dependencias
 pip install -r requirements.txt
 
-# Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tu API key de OpenRouter
+# Ejecutar servidor
+python vigoleonrocks_server.py
+
+# Acceder a la aplicación
+# Web: http://localhost:5000
+# API: http://localhost:5000/api/status
 ```
 
-### **Configuración de API**
+## 📚 API Documentation
 
-```bash
-# En .env
-OPENROUTER_API_KEY=tu_api_key_aqui
-MODEL_NAME=google/gemini-flash-1.5-8b
-```
+### Endpoints Principales
 
-## 🎯 **Uso Rápido**
+| Endpoint | Método | Descripción |
+|----------|--------|-------------|
+| `GET /` | GET | Interfaz web principal |
+| `GET /api/status` | GET | Estado del sistema |
+| `POST /api/vigoleonrocks` | POST | Procesamiento principal |
+| `POST /api/translate` | POST | Traducción de textos |
+| `POST /api/detect-language` | POST | Detección automática de idioma |
+| `POST /api/archetypal-analysis` | POST | Análisis arquetipal |
+| `POST /api/empathic-generate` | POST | Generación de respuestas empáticas |
+| `GET /api/quantum-metrics` | GET | Métricas del sistema |
 
-### **1. Evaluación Inicial**
-
-```bash
-python quantum_live_benchmark.py
-```
-
-### **2. Optimización Cuántica**
-
-```bash
-python quantum_optimization_engine.py
-```
-
-### **3. Benchmarking Competitivo**
-
-```bash
-python quantum_live_benchmark.py --competitive
-```
-
-### **4. Sistema de Refinamiento**
-
-```bash
-python refinement_optimization_system.py
-```
-
-### **5. Implementación Final**
-
-```bash
-python final_implementation_system.py
-```
-
-## 📊 **Métricas de Rendimiento**
-
-### **Resultados Actuales**
-
-| Dominio | Score Base | Score Optimizado | Mejora |
-|---------|------------|------------------|---------|
-| **Programming** | 0.590 | 0.852 | +44.4% |
-| **Reasoning** | 0.500 | 1.000 | +100% |
-| **Mathematics** | 0.300 | 0.600 | +100% |
-| **Analysis** | 0.100 | 1.000 | +900% |
-| **Synthesis** | 0.400 | 0.900 | +125% |
-
-### **Estrategias Exitosas**
-
-- **Hybrid Enhanced**: Score 1.000 (Perfecto)
-- **Code First**: Score 0.933 (Excelente)
-- **Step by Step**: Score 0.852 (Muy Bueno)
-
-## 🔬 **Sistemas Principales**
-
-### **1. Sistema de Evaluación (Evalua-LLM)**
+### Ejemplo de Uso
 
 ```python
-# Evaluación de capacidades funcionales
-- Generación de Texto
-- Razonamiento y Lógica
-- Codificación
-- Multilingüismo
+import requests
 
-# Evaluación de comportamiento y seguridad
-- Sesgo
-- Toxicidad
-- Alucinaciones
+# Procesar texto
+response = requests.post('http://localhost:5000/api/vigoleonrocks', json={
+    'text': 'Hola, ¿cómo estás?',
+    'profile': 'human',
+    'quantum_states': 26
+})
 
-# Evaluación de eficiencia operativa
-- Latencia
-- Costo
-- Infraestructura
+print(response.json())
 ```
 
-### **2. Motor de Optimización Cuántica**
+## 🏗️ Arquitectura
 
-```python
-# Componentes principales
-- Infinite Recursion Handler
-- Empty Input Validator
-- Paradox Resolution Engine
-- Concurrent Request Optimizer
-- Security Enhancement System
-- Cognitive Load Balancer
+```
+VIGOLEONROCKS ECOSYSTEM
+├── 🎯 Core Services (Flask APIs)
+├── 🧠 Quantum Engines (26D, Ion Fusion, Orchestrator)
+├── 🎨 Web Interfaces (Corporate UI, Trinity System)
+├── 📊 Benchmarking & Metrics
+└── 🔬 Specialized Modules (Translation, Archetypal Analysis, Empathy)
 ```
 
-### **3. Sistema de Dominación Mundial**
+### Componentes Principales
 
-```python
-# Estrategias implementadas
-- REASONING_MASTERY
-- MATHEMATICAL_GENIUS
-- QUALITY_OPTIMIZATION
-- INTELLIGENCE_BOOST
-- CREATIVITY_ENHANCEMENT
-- SPEED_ENHANCEMENT
-```
+- **`vigoleonrocks_server.py`**: Servidor Flask principal con APIs REST
+- **`quantum_orchestrator.py`**: Orquestador multi-modelo con fallback
+- **`quantum_core_26d_engine.py`**: Motor de 26 dimensiones cuánticas
+- **`vigoleonrocks_corporate_ui_enhanced.html`**: Interfaz web avanzada
 
-## 📈 **Proceso de Optimización**
-
-### **Fase 1: Análisis Inicial**
-- Evaluación de capacidades actuales
-- Identificación de debilidades
-- Establecimiento de línea base
-
-### **Fase 2: Optimización Cuántica**
-- Implementación de estrategias cuánticas
-- Análisis de 26 dimensiones
-- Refinamiento de prompts
-
-### **Fase 3: Benchmarking Competitivo**
-- Comparación con GPT-5, Claude Opus, Gemini Ultra
-- Análisis de ventajas competitivas
-- Identificación de oportunidades
-
-### **Fase 4: Refinamiento Iterativo**
-- Implementación de mejoras específicas
-- Optimización por dominio
-- Consolidación de estrategias exitosas
-
-### **Fase 5: Implementación Final**
-- Despliegue de optimizaciones
-- Monitoreo de rendimiento
-- Validación de resultados
-
-## 🏆 **Logros Alcanzados**
-
-### **✅ Optimizaciones Exitosas**
-
-- **Mathematics**: +100% mejora (0.300 → 0.600)
-- **Synthesis**: +125% mejora (0.400 → 0.900)
-- **Analysis**: +900% mejora (0.100 → 1.000)
-- **Reasoning**: +100% mejora (0.500 → 1.000)
-- **Programming**: +44.4% mejora (0.590 → 0.852)
-
-### **🏆 Estrategias Dominantes**
-
-- **Hybrid Enhanced**: Score perfecto (1.000)
-- **Templates Refinados**: Mejoras significativas
-- **Optimización por Dominio**: Resultados excepcionales
-
-### **📊 Métricas Globales**
-
-- **Tasa de Éxito**: 88.9%
-- **Mejora Promedio**: +0.498
-- **Implementaciones Exitosas**: 9/9
-
-## 🔧 **Configuración Avanzada**
-
-### **Personalización de Estrategias**
-
-```python
-# En quantum_optimization_engine.py
-class QuantumOptimizationEngine:
-    def __init__(self):
-        self.strategies = {
-            'reasoning': ReasoningStrategy(),
-            'mathematics': MathematicsStrategy(),
-            'programming': ProgrammingStrategy(),
-            # Agregar nuevas estrategias aquí
-        }
-```
-
-### **Templates Personalizados**
-
-```python
-# En templates/
-templates = {
-    'reasoning': {
-        'template': 'Realiza análisis lógico paso a paso: {query}',
-        'improvement': 0.500
-    },
-    'analysis': {
-        'template': 'Realiza análisis comparativo completo: {query}',
-        'improvement': 0.900
-    }
-}
-```
-
-## 📊 **Monitoreo y Reportes**
-
-### **Métricas en Tiempo Real**
+## 🧪 Testing
 
 ```bash
-# Generar reporte de rendimiento
-python generate_performance_report.py
+# Ejecutar todos los tests
+pytest
 
-# Monitorear métricas en tiempo real
-python monitor_metrics.py
+# Con coverage
+pytest --cov=. --cov-report=html
+
+# Tests específicos
+pytest tests/test_api.py -v
 ```
 
-### **Análisis de Tendencias**
+## 🚀 Deployment
+
+### Desarrollo Local
+```bash
+./deploy.sh local build
+./deploy.sh local deploy
+```
+
+### Staging
+```bash
+./deploy.sh staging deploy
+```
+
+### Producción
+```bash
+./deploy.sh prod deploy
+```
+
+### Con Docker
+```bash
+# Construir imagen
+docker build -t vigoleonrocks .
+
+# Ejecutar contenedor
+docker run -p 5000:5000 vigoleonrocks
+```
+
+## 🔧 Configuración
+
+### Variables de Entorno
+
+Copia `.env.example` a `.env` y configura:
 
 ```bash
-# Análisis histórico de rendimiento
-python analyze_trends.py
+# Base de datos
+DATABASE_URL=postgresql://user:password@localhost:5432/vigoleonrocks
 
-# Predicción de mejoras futuras
-python predict_improvements.py
+# Redis para cache
+REDIS_URL=redis://localhost:6379
+
+# APIs externas
+OPENROUTER_API_KEY=your-api-key
+
+# Configuración Flask
+FLASK_ENV=development
+SECRET_KEY=your-secret-key
 ```
 
-## 🤝 **Contribución**
+## 📊 Monitoreo
 
-### **Cómo Contribuir**
+### Métricas Disponibles
+- CPU, Memoria, Disco
+- Latencia de respuestas
+- Tasa de éxito de APIs
+- Estados cuánticos activos
+- Historial de interacciones
 
-1. **Fork** el repositorio
-2. **Clone** tu fork localmente
-3. **Crea** una rama para tu feature
-4. **Desarrolla** tu mejora
-5. **Testea** exhaustivamente
-6. **Commit** y **Push** tus cambios
-7. **Crea** un Pull Request
+### Dashboard
+Accede a `http://localhost:5000` para ver el dashboard completo.
 
-### **Estándares de Código**
+## 🤝 Contribuir
 
-```python
-# Seguir PEP 8
-# Documentar funciones y clases
-# Incluir tests unitarios
-# Mantener compatibilidad con versiones anteriores
-```
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -am 'Agrega nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
 
-## 📚 **Documentación Adicional**
+## 📝 Licencia
 
-- **[📦 INSTALLATION.md](./INSTALLATION.md)** - Guía completa de instalación y configuración de VIGOLEONROCKS
-- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - Arquitectura detallada del sistema cuántico
-- **[🚀 API.md](./API.md)** - Documentación completa de la API (próximamente)
-- **[🏆 BENCHMARKS.md](./BENCHMARKS.md)** - Resultados de benchmarks y comparaciones (próximamente)
+Este proyecto está bajo la Licencia Apache 2.0 - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-### 📖 **Guías de Desarrollo**
+## 🙏 Agradecimientos
 
-- **Instalación**: Consulta `INSTALLATION.md` para setup completo
-- **Arquitectura**: Revisa `ARCHITECTURE.md` para comprender el diseño del sistema
-- **Contribución**: Sigue las guías en ambos documentos para contribuir efectivamente
+- **Arquitectura Cuántica**: Inspirado en conceptos de procesamiento cuántico
+- **Modelos de IA**: Integración con Claude, GPT-5, Gemini
+- **Comunidad Open Source**: Por las herramientas y librerías utilizadas
 
-## 📄 **Licencia**
+## 📞 Contacto
 
-Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
-
-## 🏆 **Estado del Proyecto**
-
-**🚀 PRODUCTION READY**
-
-- ✅ Evaluación completa implementada
-- ✅ Optimización cuántica funcional
-- ✅ Benchmarking competitivo activo
-- ✅ Sistema de refinamiento operativo
-- ✅ Implementación final exitosa
-- 🎯 **Listo para dominación mundial**
-
-## 📞 **Contacto**
-
-- **Desarrollador**: Vigoleonrocks
-- **Website**: [vigoleonrocks.com](https://vigoleonrocks.com)
+- **Autor**: Vigo Ferrel
+- **Email**: vigoferrel@quantum-nlp.com
 - **GitHub**: [@vigoferrel](https://github.com/vigoferrel)
-- **Documentación**: [Wiki del Proyecto](https://github.com/vigoferrel/quantum-nlp-service/wiki)
-
-## 🙏 **Agradecimientos**
-
-- OpenRouter por proporcionar acceso a modelos avanzados
-- Comunidad de IA por inspiración y feedback
-- Contribuidores que han ayudado a mejorar el sistema
+- **Web**: [https://vigoleonrocks.com](https://vigoleonrocks.com)
 
 ---
 
-**⭐ Si este proyecto te ha sido útil, ¡déjanos una estrella en GitHub!**
+## 🎯 Roadmap
 
-**🚀 ¡Únete a la revolución de la optimización de LLM!**
+### Próximas Funcionalidades
+- [ ] Integración con Dokploy para deployment automático
+- [ ] API de voz con Whisper
+- [ ] Soporte para imágenes con CLIP
+- [ ] Fine-tuning de modelos personalizados
+- [ ] Dashboard de analytics avanzado
+
+### Versiones
+- **v1.0.0**: Sistema base funcional
+- **v1.1.0**: Integración con Dokploy
+- **v2.0.0**: Multi-modal (voz, imagen, texto)
+
+---
+
+**⭐ Si te gusta el proyecto, dale una estrella en GitHub!**

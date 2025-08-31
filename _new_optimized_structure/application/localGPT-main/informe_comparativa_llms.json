@@ -1,0 +1,45 @@
+{
+  "fecha": "2025-07-22T14:37:38.733030",
+  "resultados": [
+    {
+      "LLM": "CIO",
+      "Precisi\u00f3n": 0.92,
+      "Velocidad": 0.85,
+      "Coherencia": 0.94,
+      "Escalabilidad": 0.9,
+      "Puntaje Total": 0.9025
+    },
+    {
+      "LLM": "GPT-4",
+      "Precisi\u00f3n": 0.89,
+      "Velocidad": 0.88,
+      "Coherencia": 0.91,
+      "Escalabilidad": 0.87,
+      "Puntaje Total": 0.8875
+    },
+    {
+      "LLM": "Claude",
+      "Precisi\u00f3n": 0.87,
+      "Velocidad": 0.82,
+      "Coherencia": 0.89,
+      "Escalabilidad": 0.85,
+      "Puntaje Total": 0.8574999999999999
+    },
+    {
+      "LLM": "LLaMA",
+      "Precisi\u00f3n": 0.85,
+      "Velocidad": 0.8,
+      "Coherencia": 0.86,
+      "Escalabilidad": 0.83,
+      "Puntaje Total": 0.835
+    }
+  ],
+  "conclusiones": {
+    "mejor_modelo": "CIO",
+    "puntaje_maximo": 0.9025,
+    "ventajas_CIO": {
+      "precisi\u00f3n": 0.030000000000000027,
+      "coherencia": 0.029999999999999916
+    }
+  }
+}

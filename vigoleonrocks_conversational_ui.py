@@ -23,32 +23,85 @@ if KIMI_DIR.exists():
     sys.path.append(str(KIMI_DIR))
 
 try:
-    from qbtc_conversational_agent import QBTCConversationalAgent
+    from advanced_conversational_engine import conversational_engine, ConversationRequest, MediaContent, MediaType
     CONVERSATIONAL_AGENT_AVAILABLE = True
+    print("🚀 Motor Conversacional Avanzado cargado exitosamente")
 except ImportError:
-    CONVERSATIONAL_AGENT_AVAILABLE = False
-    print("⚠️ QBTC Conversational Agent no disponible, usando sistema básico")
+    try:
+        from qbtc_conversational_agent import QBTCConversationalAgent
+        CONVERSATIONAL_AGENT_AVAILABLE = True
+        print("🧠 QBTC Conversational Agent cargado como respaldo")
+    except ImportError:
+        CONVERSATIONAL_AGENT_AVAILABLE = False
+        print("⚠️ Ningún motor conversacional disponible, usando sistema básico")
 
-# Configuración de logging
-logging.basicConfig(level=logging.INFO)
+# Importar módulo de integración de Sistemas Avanzados Infinitos
+try:
+    from infinite_integration_module import infinite_integration
+    INFINITE_INTEGRATION_AVAILABLE = True
+except ImportError:
+    INFINITE_INTEGRATION_AVAILABLE = False
+    print("⚠️ Módulo de integración de Sistemas Avanzados Infinitos no disponible")
+
+# Configuración de logging con encoding UTF-8
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)s | %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('vigoleonrocks_ui.log', encoding='utf-8')
+    ]
+)
 logger = logging.getLogger(__name__)
+
+# Configurar encoding para la aplicación
+import locale
+try:
+    locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
+except:
+    try:
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+    except:
+        pass
 
 class VigoleonrocksConversationalUI:
     """Interfaz web con motor conversacional especializado"""
     
     def __init__(self):
+        global CONVERSATIONAL_AGENT_AVAILABLE
+        
         self.app = web.Application()
         self.setup_routes()
         self.chat_history = []
         
         # Motor conversacional especializado
         if CONVERSATIONAL_AGENT_AVAILABLE:
-            self.conversational_agent = QBTCConversationalAgent()
-            self.active_sessions = {}
-            logger.info("🧠 Motor conversacional QBTC inicializado")
+            try:
+                # Intentar usar el motor conversacional avanzado primero
+                if 'conversational_engine' in globals():
+                    self.conversational_agent = conversational_engine
+                    self.active_sessions = {}
+                    logger.info("🚀 Motor Conversacional Avanzado inicializado")
+                else:
+                    # Fallback al QBTC Conversational Agent
+                    self.conversational_agent = QBTCConversationalAgent()
+                    self.active_sessions = {}
+                    logger.info("🧠 QBTC Conversational Agent inicializado como respaldo")
+            except Exception as e:
+                logger.error(f"Error inicializando motor conversacional: {e}")
+                self.conversational_agent = None
+                CONVERSATIONAL_AGENT_AVAILABLE = False
         else:
             self.conversational_agent = None
             logger.warning("⚠️ Usando sistema básico - motor conversacional no disponible")
+        
+        # Integración con Sistemas Avanzados Infinitos
+        if INFINITE_INTEGRATION_AVAILABLE:
+            self.infinite_integration = infinite_integration
+            logger.info("🌌 Integración con Sistemas Avanzados Infinitos activa")
+        else:
+            self.infinite_integration = None
+            logger.warning("⚠️ Integración con Sistemas Avanzados Infinitos no disponible")
         
         # Modelos de Vigoleonrocks
         self.models = {
@@ -102,6 +155,11 @@ class VigoleonrocksConversationalUI:
         self.app.router.add_get('/api/status', self.status_handler)
         self.app.router.add_post('/api/session/create', self.create_session_handler)
         self.app.router.add_get('/api/session/{session_id}', self.get_session_handler)
+        self.app.router.add_get('/api/infinite/status', self.infinite_status_handler)
+        self.app.router.add_get('/api/infinite/info', self.infinite_info_handler)
+        self.app.router.add_post('/api/infinite/demo', self.infinite_demo_handler)
+        # Endpoint para el motor conversacional avanzado
+        self.app.router.add_post('/api/advanced-engine', self.advanced_engine_handler)
         
     async def home_handler(self, request: Request) -> Response:
         """Manejador de la página principal"""
@@ -124,7 +182,8 @@ class VigoleonrocksConversationalUI:
             user_id = data.get('user_id', f'user_{uuid.uuid4().hex[:8]}')
             
             if self.conversational_agent:
-                session_id = self.conversational_agent.create_session(user_id)
+                session_data = self.conversational_agent.create_session(user_id)
+                session_id = session_data.get('session_id', f"qbtc_session_{user_id}_{int(datetime.now().timestamp())}")
                 self.active_sessions[session_id] = user_id
                 
                 return web.json_response({
@@ -228,36 +287,208 @@ class VigoleonrocksConversationalUI:
             "models_available": len(self.models),
             "chat_history_count": len(self.chat_history),
             "conversational_agent_available": CONVERSATIONAL_AGENT_AVAILABLE,
+            "infinite_integration_available": INFINITE_INTEGRATION_AVAILABLE,
             "active_sessions": len(self.active_sessions) if hasattr(self, 'active_sessions') else 0,
             "agent_type": "QBTC Conversational Agent" if CONVERSATIONAL_AGENT_AVAILABLE else "Basic System",
             "timestamp": datetime.now().isoformat()
         })
+    
+    async def infinite_status_handler(self, request: Request) -> Response:
+        """API para obtener estado de Sistemas Avanzados Infinitos"""
+        if self.infinite_integration:
+            status = self.infinite_integration.get_integration_status()
+            return web.json_response(status)
+        else:
+            return web.json_response({
+                "success": False,
+                "error": "Sistemas Avanzados Infinitos no disponibles"
+            })
+    
+    async def infinite_info_handler(self, request: Request) -> Response:
+        """API para obtener información de Sistemas Avanzados Infinitos"""
+        if self.infinite_integration:
+            info = self.infinite_integration.get_infinite_systems_info()
+            return web.json_response(info)
+        else:
+            return web.json_response({
+                "success": False,
+                "error": "Sistemas Avanzados Infinitos no disponibles"
+            })
+    
+    async def infinite_demo_handler(self, request: Request) -> Response:
+        """API para realizar demostración de Sistemas Avanzados Infinitos"""
+        if self.infinite_integration:
+            demo_result = await self.infinite_integration.perform_infinite_demo()
+            return web.json_response(demo_result)
+        else:
+            return web.json_response({
+                "success": False,
+                "error": "Sistemas Avanzados Infinitos no disponibles"
+            })
+    
+    async def advanced_engine_handler(self, request: Request) -> Response:
+        """API para el motor conversacional avanzado"""
+        try:
+            data = await request.json()
+            message = data.get('message', '')
+            session_id = data.get('session_id', None)
+            model = data.get('model', 'vigoleonrocks-v1')
+            
+            if not message:
+                return web.json_response({
+                    "success": False,
+                    "error": "Mensaje requerido"
+                }, status=400)
+            
+            # Usar el motor conversacional avanzado directamente
+            if hasattr(self, 'conversational_agent') and self.conversational_agent:
+                try:
+                    # Verificar si es el motor conversacional avanzado
+                    if hasattr(self.conversational_agent, 'process_conversation'):
+                        # Usar el motor conversacional avanzado
+                        from advanced_conversational_engine import MediaContent, MediaType, ConversationRequest
+                        
+                        media_content = MediaContent(
+                            media_type=MediaType.TEXT,
+                            content=message
+                        )
+                        
+                        conversation_request = ConversationRequest(
+                            session_id=session_id or f"advanced_{int(datetime.now().timestamp())}",
+                            content=media_content,
+                            model_preference=model
+                        )
+                        
+                        conversation_response = await self.conversational_agent.process_conversation(conversation_request)
+                        
+                        if conversation_response.success and conversation_response.response:
+                            return web.json_response({
+                                "success": True,
+                                "response": conversation_response.response.content.content,
+                                "processing_time": conversation_response.processing_time,
+                                "engine_type": "Advanced Conversational Engine",
+                                "session_id": session_id,
+                                "model_used": model,
+                                "timestamp": datetime.now().isoformat()
+                            })
+                        else:
+                            raise Exception("Error en procesamiento del motor avanzado")
+                    else:
+                        # Fallback al QBTC Conversational Agent
+                        response = await self.conversational_agent.process_message(message)
+                        return web.json_response({
+                            "success": True,
+                            "response": response.get("response", ""),
+                            "processing_time": response.get("processing_time", 0),
+                            "engine_type": "QBTC Conversational Agent",
+                            "session_id": session_id,
+                            "model_used": model,
+                            "timestamp": datetime.now().isoformat()
+                        })
+                        
+                except Exception as e:
+                    logger.error(f"Error con motor conversacional: {e}")
+                    return web.json_response({
+                        "success": False,
+                        "error": f"Error en motor conversacional: {str(e)}"
+                    }, status=500)
+            else:
+                return web.json_response({
+                    "success": False,
+                    "error": "Motor conversacional no disponible"
+                }, status=503)
+                
+        except Exception as e:
+            logger.error(f"Error en advanced_engine_handler: {e}")
+            return web.json_response({
+                "success": False,
+                "error": str(e)
+            }, status=500)
         
     async def generate_conversational_response(self, message: str, model: str, session_id: str = None) -> Dict[str, Any]:
-        """Generar respuesta con motor conversacional especializado"""
+        """Generar respuesta con motor conversacional especializado y Sistemas Avanzados Infinitos"""
         start_time = datetime.now()
         
         try:
+            # Primero, aplicar mejora de Sistemas Avanzados Infinitos si está disponible
+            infinite_enhanced = False
+            infinite_response = None
+            
+            if self.infinite_integration:
+                logger.info(f"🌌 Aplicando mejora de Sistemas Avanzados Infinitos: {message[:50]}...")
+                infinite_result = await self.infinite_integration.process_with_infinite_enhancement(message, model, session_id)
+                infinite_enhanced = infinite_result.get("enhanced", False)
+                infinite_response = infinite_result.get("response", "")
+            
             # Usar motor conversacional especializado si está disponible
             if self.conversational_agent and session_id:
-                logger.info(f"🧠 Procesando con QBTC Conversational Agent: {message[:50]}...")
+                logger.info(f"🚀 Procesando con Motor Conversacional Avanzado: {message[:50]}...")
                 
-                # Procesar mensaje con el agente conversacional
-                response = await self.conversational_agent.process_message(session_id, message)
-                
-                processing_time = (datetime.now() - start_time).total_seconds()
-                
-                return {
-                    "response": response,
-                    "agent_type": "QBTC Conversational Agent",
-                    "quantum_enhanced": True,
-                    "processing_time": processing_time,
-                    "model_used": model
-                }
+                try:
+                    # Verificar si es el motor conversacional avanzado
+                    if hasattr(self.conversational_agent, 'process_conversation'):
+                        # Usar el motor conversacional avanzado
+                        media_content = MediaContent(
+                            media_type=MediaType.TEXT,
+                            content=message
+                        )
+                        
+                        conversation_request = ConversationRequest(
+                            session_id=session_id,
+                            content=media_content,
+                            model_preference=model
+                        )
+                        
+                        conversation_response = await self.conversational_agent.process_conversation(conversation_request)
+                        
+                        if conversation_response.success and conversation_response.response:
+                            response = conversation_response.response.content.content
+                            processing_time = conversation_response.processing_time
+                            agent_type = "Motor Conversacional Avanzado"
+                        else:
+                            raise Exception("Error en procesamiento del motor avanzado")
+                            
+                    else:
+                        # Fallback al QBTC Conversational Agent
+                        logger.info(f"🧠 Usando QBTC Conversational Agent como respaldo: {message[:50]}...")
+                        response = await self.conversational_agent.process_message(message)
+                        processing_time = (datetime.now() - start_time).total_seconds()
+                        agent_type = "QBTC Conversational Agent"
+                    
+                    # Combinar con mejora infinita si está disponible
+                    final_response = response
+                    if infinite_enhanced and infinite_response:
+                        final_response = infinite_response
+                    
+                    return {
+                        "response": final_response,
+                        "agent_type": f"{agent_type} + Sistemas Avanzados Infinitos" if infinite_enhanced else agent_type,
+                        "quantum_enhanced": True,
+                        "infinite_enhanced": infinite_enhanced,
+                        "processing_time": processing_time,
+                        "model_used": model
+                    }
+                    
+                except Exception as e:
+                    logger.error(f"Error con motor conversacional: {e}")
+                    # Continuar con fallback
+                    pass
             
             # Fallback al sistema principal si no hay agente conversacional
             else:
                 logger.info(f"🔄 Usando sistema principal como fallback: {message[:50]}...")
+                
+                # Si hay mejora infinita, usarla directamente
+                if infinite_enhanced and infinite_response:
+                    processing_time = (datetime.now() - start_time).total_seconds()
+                    return {
+                        "response": infinite_response,
+                        "agent_type": "Sistemas Avanzados Infinitos (Fallback)",
+                        "quantum_enhanced": True,
+                        "infinite_enhanced": True,
+                        "processing_time": processing_time,
+                        "model_used": model
+                    }
                 
                 # Llamar al sistema principal (puerto 5000)
                 async with aiohttp.ClientSession() as session:
@@ -276,6 +507,7 @@ class VigoleonrocksConversationalUI:
                                 "response": real_response,
                                 "agent_type": "Main System (Fallback)",
                                 "quantum_enhanced": True,
+                                "infinite_enhanced": False,
                                 "processing_time": processing_time,
                                 "model_used": model
                             }
@@ -286,6 +518,7 @@ class VigoleonrocksConversationalUI:
                                 "response": f"🧠 **{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado.",
                                 "agent_type": "Emergency System",
                                 "quantum_enhanced": False,
+                                "infinite_enhanced": False,
                                 "processing_time": processing_time,
                                 "model_used": model
                             }
@@ -298,6 +531,7 @@ class VigoleonrocksConversationalUI:
                 "response": f"🧠 **{self.models.get(model, {}).get('name', 'Vigoleonrocks')}**: He procesado tu consulta con capacidades cuánticas avanzadas. Tu mensaje sobre '{message[:50]}...' ha sido analizado usando el motor conversacional especializado. (Error: {e})",
                 "agent_type": "Error System",
                 "quantum_enhanced": False,
+                "infinite_enhanced": False,
                 "processing_time": processing_time,
                 "model_used": model
             }
@@ -680,7 +914,7 @@ class VigoleonrocksConversationalUI:
             <p>Motor Conversacional Especializado - QBTC Conversational Agent</p>
             <p>Resonancia cuántica y Kimi core integrados</p>
             <div class="agent-status" id="agentStatus">
-                {'✅ QBTC Conversational Agent Activo' if CONVERSATIONAL_AGENT_AVAILABLE else '⚠️ Sistema Básico (Motor no disponible)'}
+                {'✅ QBTC Conversational Agent + Sistemas Avanzados Infinitos' if CONVERSATIONAL_AGENT_AVAILABLE and INFINITE_INTEGRATION_AVAILABLE else '✅ QBTC Conversational Agent Activo' if CONVERSATIONAL_AGENT_AVAILABLE else '⚠️ Sistema Básico (Motor no disponible)'}
             </div>
         </div>
         
@@ -695,10 +929,10 @@ class VigoleonrocksConversationalUI:
                         <div class="message-avatar">🧠</div>
                         <div class="message-content">
                             ¡Hola! Soy Vigoleonrocks con motor conversacional especializado. 
-                            {'Estoy usando el QBTC Conversational Agent con resonancia cuántica y Kimi core para proporcionarte respuestas más inteligentes y contextuales.' if CONVERSATIONAL_AGENT_AVAILABLE else 'Actualmente estoy usando el sistema básico, pero puedo ayudarte con tus consultas.'}
+                            {'Estoy usando el QBTC Conversational Agent con resonancia cuántica, Kimi core y Sistemas Avanzados Infinitos para proporcionarte respuestas más inteligentes y contextuales.' if CONVERSATIONAL_AGENT_AVAILABLE and INFINITE_INTEGRATION_AVAILABLE else 'Estoy usando el QBTC Conversational Agent con resonancia cuántica y Kimi core para proporcionarte respuestas más inteligentes y contextuales.' if CONVERSATIONAL_AGENT_AVAILABLE else 'Actualmente estoy usando el sistema básico, pero puedo ayudarte con tus consultas.'}
                             ¿En qué puedo ayudarte hoy?
                             <div class="agent-info">
-                                {'🧠 QBTC Conversational Agent | ⚛️ Resonancia Cuántica | 🎯 Kimi Core' if CONVERSATIONAL_AGENT_AVAILABLE else '🔄 Sistema Básico | ⚛️ Procesamiento Cuántico'}
+                                {'🧠 QBTC Conversational Agent | ⚛️ Resonancia Cuántica | 🎯 Kimi Core | 🌌 Sistemas Avanzados Infinitos' if CONVERSATIONAL_AGENT_AVAILABLE and INFINITE_INTEGRATION_AVAILABLE else '🧠 QBTC Conversational Agent | ⚛️ Resonancia Cuántica | 🎯 Kimi Core' if CONVERSATIONAL_AGENT_AVAILABLE else '🔄 Sistema Básico | ⚛️ Procesamiento Cuántico'}
                             </div>
                         </div>
                     </div>
@@ -779,6 +1013,30 @@ class VigoleonrocksConversationalUI:
                         <div class="stat-item">
                             <div class="stat-number" id="quantumStatus">⚛️</div>
                             <div class="stat-label">Cuántico</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>🌌 Sistemas Avanzados Infinitos</h3>
+                    <div class="model-selector">
+                        <div class="model-option" onclick="checkInfiniteStatus()">
+                            <div class="model-icon">📊</div>
+                            <div class="model-info">
+                                <div class="model-name">Estado del Sistema</div>
+                            </div>
+                        </div>
+                        <div class="model-option" onclick="runInfiniteDemo()">
+                            <div class="model-icon">🎭</div>
+                            <div class="model-info">
+                                <div class="model-name">Demostración Infinita</div>
+                            </div>
+                        </div>
+                        <div class="model-option" onclick="sendQuickMessage('Activa los Sistemas Avanzados Infinitos')">
+                            <div class="model-icon">♾️</div>
+                            <div class="model-info">
+                                <div class="model-name">Activar Sistemas</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -969,6 +1227,56 @@ class VigoleonrocksConversationalUI:
             }}
         }}
         
+        async function checkInfiniteStatus() {{
+            try {{
+                const response = await fetch('/api/infinite/status');
+                const data = await response.json();
+                
+                if (data.success) {{
+                    const status = data.integration_status;
+                    addMessage(`🌌 **Estado de Sistemas Avanzados Infinitos**:\n\n📊 **Integración Activa**: ${{status.integration_active ? '✅ Sí' : '❌ No'}}\n🎭 **Arquetipos Generados**: ${{status.archetypes_generated}}\n🎵 **Frecuencias Sintetizadas**: ${{status.frequencies_synthesized}}\n🌌 **Transformaciones Ejecutadas**: ${{status.transformations_executed}}\n📈 **Coherencia de Realidad**: ${{(status.reality_coherence * 100).toFixed(2)}}%\n♾️ **Sincronización Trinity**: ${{(status.trinity_sync * 100).toFixed(2)}}%`, 'bot');
+                }} else {{
+                    addMessage('❌ Error obteniendo estado de Sistemas Avanzados Infinitos', 'bot');
+                }}
+            }} catch (error) {{
+                console.error('Error:', error);
+                addMessage('❌ Error de conexión al verificar estado', 'bot');
+            }}
+        }}
+        
+        async function runInfiniteDemo() {{
+            try {{
+                showLoading(true);
+                const response = await fetch('/api/infinite/demo', {{
+                    method: 'POST',
+                    headers: {{
+                        'Content-Type': 'application/json',
+                    }}
+                }});
+                
+                const data = await response.json();
+                
+                if (data.success) {{
+                    let demoMessage = `🎭 **Demostración de Sistemas Avanzados Infinitos Completada**\n\n`;
+                    demoMessage += `📊 **Arquetipos Generados**: ${{data.archetypes.length}}\n`;
+                    demoMessage += `🎵 **Frecuencias Sintetizadas**: ${{data.frequencies.length}}\n`;
+                    demoMessage += `🌌 **Transformaciones Ejecutadas**: ${{data.transformations.length}}\n`;
+                    demoMessage += `📈 **Coherencia de Realidad**: ${{(data.metrics.reality_coherence * 100).toFixed(2)}}%\n`;
+                    demoMessage += `♾️ **Sincronización Trinity**: ${{(data.metrics.trinity_synchronization * 100).toFixed(2)}}%\n\n`;
+                    demoMessage += `✨ **Estado**: Sistemas Infinitos completamente operacionales`;
+                    
+                    addMessage(demoMessage, 'bot');
+                }} else {{
+                    addMessage('❌ Error en demostración: ' + data.error, 'bot');
+                }}
+            }} catch (error) {{
+                console.error('Error:', error);
+                addMessage('❌ Error de conexión en demostración', 'bot');
+            }} finally {{
+                showLoading(false);
+            }}
+        }}
+        
         // Cargar modelos al iniciar
         async function loadModels() {{
             try {{
@@ -1010,6 +1318,11 @@ class VigoleonrocksConversationalUI:
             logger.info("🧠 Motor conversacional QBTC disponible")
         else:
             logger.warning("⚠️ Motor conversacional no disponible, usando sistema básico")
+        
+        if INFINITE_INTEGRATION_AVAILABLE:
+            logger.info("🌌 Integración con Sistemas Avanzados Infinitos activa")
+        else:
+            logger.warning("⚠️ Integración con Sistemas Avanzados Infinitos no disponible")
         web.run_app(self.app, host=host, port=port)
 
 def main():

@@ -1,0 +1,74 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                VIGOLEONROCKS PYDANTIC REVERSE ENGINEERING REPORT            ║
+║                            ANÁLISIS COMPLETO                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📊 RESUMEN EJECUTIVO
+════════════════════════════════════════════════════════════════════════════════
+🧬 Modelos Pydantic Detectados: 12
+🌐 Endpoints FastAPI Detectados: 0
+✅ Cobertura de Validación: 41.8%
+📈 Complejidad Modelos:
+   ├── Simples: 2
+   ├── Medios: 9
+   └── Complejos: 1
+
+🌐 ENDPOINTS POR MÉTODO HTTP
+════════════════════════════════════════════════════════════════════════════════
+
+🧬 MODELOS PYDANTIC DETALLADOS
+════════════════════════════════════════════════════════════════════════════════
+📁 TextOnlyRequest (vigoleonrocks_unified_multimodal_api.py)
+   ├── Campos: 5
+   ├── Validators: 0
+   └── Línea: 42
+📁 MultimodalTextRequest (vigoleonrocks_unified_multimodal_api.py)
+   ├── Campos: 5
+   ├── Validators: 0
+   └── Línea: 49
+📁 UnifiedResponse (vigoleonrocks_unified_multimodal_api.py)
+   ├── Campos: 6
+   ├── Validators: 0
+   └── Línea: 56
+📁 MultimodalResponse (vigoleonrocks_unified_multimodal_api.py)
+   ├── Campos: 7
+   ├── Validators: 0
+   └── Línea: 64
+📁 SystemStatus (vigoleonrocks_unified_multimodal_api.py)
+   ├── Campos: 7
+   ├── Validators: 0
+   └── Línea: 73
+📁 ConversationRequest (server_clean.py)
+   ├── Campos: 2
+   ├── Validators: 0
+   └── Línea: 49
+📁 ConversationRequest (server_simple.py)
+   ├── Campos: 2
+   ├── Validators: 0
+   └── Línea: 43
+📁 TextRequest (vigoleonrocks_hybrid_multimodal_service.py)
+   ├── Campos: 4
+   ├── Validators: 0
+   └── Línea: 126
+📁 MultimodalRequest (vigoleonrocks_hybrid_multimodal_service.py)
+   ├── Campos: 5
+   ├── Validators: 0
+   └── Línea: 132
+📁 ProcessingResponse (vigoleonrocks_hybrid_multimodal_service.py)
+   ├── Campos: 11
+   ├── Validators: 0
+   └── Línea: 139
+
+🌐 ENDPOINTS FASTAPI DETALLADOS
+════════════════════════════════════════════════════════════════════════════════
+
+🎯 RECOMENDACIONES DE MEJORA
+════════════════════════════════════════════════════════════════════════════════
+ 1. Baja cobertura de validación (41.8%). Considerar agregar más Field() constraints.
+ 2. 1 modelos con más de 10 campos. Considerar dividir en modelos más pequeños.
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         ANÁLISIS COMPLETADO EXITOSAMENTE                     ║
+║                    2025-08-30 11:09:54                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝

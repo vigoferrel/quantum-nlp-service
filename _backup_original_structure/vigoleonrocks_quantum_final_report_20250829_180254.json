@@ -1,0 +1,254 @@
+{
+  "timestamp": "2025-08-29T18:02:54.725215",
+  "total_time": 15.488261461257935,
+  "test_summary": {
+    "total_tests": 4,
+    "vigoleonrocks_wins": 4,
+    "win_rate": 100.0,
+    "avg_quality_advantage": 37.99913091514384
+  },
+  "performance_metrics": {
+    "vigoleonrocks_avg_score": 0.9376676560832322,
+    "competitors_avg_score": 0.6795,
+    "vigoleonrocks_avg_time": 2.260509490966797,
+    "competitors_avg_time": 13.991666666666667,
+    "speed_trade_off": 83.84388690196452
+  },
+  "technical_quality": {
+    "avg_technical_score": 45.0,
+    "avg_implementation_depth": 57.14285714285714,
+    "avg_dimensions_processed": 8.0
+  },
+  "quantum_refinement_impact": {
+    "historical_benchmark": 0.889,
+    "refined_performance": 0.9376676560832322,
+    "improvement_vs_historical": 5.474427005987875,
+    "avg_refinement_time": 0.013184547424316406
+  },
+  "detailed_results": [
+    {
+      "test_name": "Dijkstra Ultra-Optimizado",
+      "category": "PROGRAMMING_EXTREME",
+      "complexity": 0.95,
+      "vigoleonrocks": {
+        "score": 0.9101379705390183,
+        "time": 2.269765615463257,
+        "dimensions": 7,
+        "refinement_time": 0.007010459899902344,
+        "response_length": 6728,
+        "content_analysis": {
+          "found_advantages": [
+            "análisis complejidad detallado",
+            "casos edge",
+            "validación"
+          ],
+          "technical_score": 60.0,
+          "implementation_depth": 85.71428571428571,
+          "technical_indicators": {
+            "has_functional_code": true,
+            "has_complexity_analysis": true,
+            "has_step_by_step": true,
+            "has_mathematical_notation": false,
+            "has_specific_examples": true,
+            "has_implementation_details": true,
+            "code_quality": true
+          },
+          "response_density": 7.82
+        }
+      },
+      "competitors": {
+        "gpt5_flagship": {
+          "response": "Here's a basic Dijkstra implementation:\n\n```python\ndef dijkstra(graph, start):\n    # Basic implementation\n    distances = {}\n    # ... simple logic\n    return distances\n```\n\nThis should work for basic cases.",
+          "quality_score": 0.5995,
+          "processing_time": 10.4,
+          "model": "gpt5_flagship",
+          "competitor_name": "GPT-5 Flagship"
+        },
+        "claude_opus_41": {
+          "response": "I can help with Dijkstra's algorithm:\n\nKey considerations:\n- Graph representation\n- Priority queue usage\n- Path reconstruction\n\nThe implementation involves careful handling of distances and visited nodes.",
+          "quality_score": 0.675,
+          "processing_time": 14.200000000000001,
+          "model": "claude_opus_41",
+          "competitor_name": "Claude Opus 4.1"
+        },
+        "gemini_ultra": {
+          "response": "For Dijkstra's algorithm:\n\n• Graph setup\n• Distance initialization\n• Priority queue management\n• Result optimization\n\nHere are implementation ideas...",
+          "quality_score": 0.585,
+          "processing_time": 17.599999999999998,
+          "model": "gemini_ultra",
+          "competitor_name": "Gemini Ultra"
+        }
+      },
+      "quality_advantage": 34.835254894669376,
+      "speed_comparison": 83.86422548248869,
+      "vigoleonrocks_wins": true
+    },
+    {
+      "test_name": "Límite Matemático Complejo",
+      "category": "MATHEMATICS_EXTREME",
+      "complexity": 0.9,
+      "vigoleonrocks": {
+        "score": 0.9511341151698427,
+        "time": 2.277318000793457,
+        "dimensions": 5,
+        "refinement_time": 0.020174503326416016,
+        "response_length": 2871,
+        "content_analysis": {
+          "found_advantages": [
+            "series taylor",
+            "verificación numérica"
+          ],
+          "technical_score": 40.0,
+          "implementation_depth": 85.71428571428571,
+          "technical_indicators": {
+            "has_functional_code": true,
+            "has_complexity_analysis": true,
+            "has_step_by_step": true,
+            "has_mathematical_notation": true,
+            "has_specific_examples": false,
+            "has_implementation_details": true,
+            "code_quality": true
+          },
+          "response_density": 4.3
+        }
+      },
+      "competitors": {
+        "gpt5_flagship": {
+          "response": "To solve this mathematical problem:\n\n1. Apply standard formulas\n2. Perform calculations\n3. Get approximate result\n\nThe solution would involve several steps...",
+          "quality_score": 0.607,
+          "processing_time": 10.3,
+          "model": "gpt5_flagship",
+          "competitor_name": "GPT-5 Flagship"
+        },
+        "claude_opus_41": {
+          "response": "This mathematical problem requires:\n\nStep-by-step analysis:\n- Identify the mathematical structure\n- Apply appropriate methods\n- Verify results\n\nThe solution involves multiple mathematical concepts...",
+          "quality_score": 0.681,
+          "processing_time": 14.100000000000001,
+          "model": "claude_opus_41",
+          "competitor_name": "Claude Opus 4.1"
+        },
+        "gemini_ultra": {
+          "response": "Mathematical solution approach:\n\n- Method 1: Theoretical analysis\n- Method 2: Numerical approximation\n- Method 3: Step-by-step verification\n\nEach approach has specific advantages...",
+          "quality_score": 0.594,
+          "processing_time": 17.5,
+          "model": "gemini_ultra",
+          "competitor_name": "Gemini Ultra"
+        }
+      },
+      "quality_advantage": 39.667270950050316,
+      "speed_comparison": 83.69462051937859,
+      "vigoleonrocks_wins": true
+    },
+    {
+      "test_name": "Arquitectura E-commerce 10M",
+      "category": "ARCHITECTURE_EXTREME",
+      "complexity": 0.92,
+      "vigoleonrocks": {
+        "score": 0.9889806762966451,
+        "time": 2.3429462909698486,
+        "dimensions": 10,
+        "refinement_time": 0.022907018661499023,
+        "response_length": 4454,
+        "content_analysis": {
+          "found_advantages": [
+            "análisis comparativo detallado",
+            "costos específicos",
+            "roadmap",
+            "technology stack"
+          ],
+          "technical_score": 80.0,
+          "implementation_depth": 42.857142857142854,
+          "technical_indicators": {
+            "has_functional_code": false,
+            "has_complexity_analysis": true,
+            "has_step_by_step": true,
+            "has_mathematical_notation": false,
+            "has_specific_examples": false,
+            "has_implementation_details": true,
+            "code_quality": false
+          },
+          "response_density": 5.46
+        }
+      },
+      "competitors": {
+        "gpt5_flagship": {
+          "response": "For system architecture:\n\n- Consider scalability\n- Plan for maintenance\n- Choose appropriate patterns\n\nA general approach would be...",
+          "quality_score": 0.604,
+          "processing_time": 10.34,
+          "model": "gpt5_flagship",
+          "competitor_name": "GPT-5 Flagship"
+        },
+        "claude_opus_41": {
+          "response": "For this architectural challenge:\n\n- Analyze requirements\n- Consider trade-offs\n- Design scalable solution\n\nA comprehensive approach should address...",
+          "quality_score": 0.6786000000000001,
+          "processing_time": 14.14,
+          "model": "claude_opus_41",
+          "competitor_name": "Claude Opus 4.1"
+        },
+        "gemini_ultra": {
+          "response": "System architecture considerations:\n\n- Performance requirements\n- Scalability needs\n- Maintenance aspects\n\nThe design should balance multiple factors...",
+          "quality_score": 0.5904,
+          "processing_time": 17.54,
+          "model": "gemini_ultra",
+          "competitor_name": "Gemini Ultra"
+        }
+      },
+      "quality_advantage": 45.73838436437444,
+      "speed_comparison": 83.27263476223335,
+      "vigoleonrocks_wins": true
+    },
+    {
+      "test_name": "Sistema ML Recomendaciones",
+      "category": "SYNTHESIS_EXTREME",
+      "complexity": 0.88,
+      "vigoleonrocks": {
+        "score": 0.9004178623274226,
+        "time": 2.152008056640625,
+        "dimensions": 10,
+        "refinement_time": 0.002646207809448242,
+        "response_length": 1268,
+        "content_analysis": {
+          "found_advantages": [],
+          "technical_score": 0.0,
+          "implementation_depth": 14.285714285714285,
+          "technical_indicators": {
+            "has_functional_code": false,
+            "has_complexity_analysis": false,
+            "has_step_by_step": false,
+            "has_mathematical_notation": false,
+            "has_specific_examples": false,
+            "has_implementation_details": true,
+            "code_quality": false
+          },
+          "response_density": 1.64
+        }
+      },
+      "competitors": {
+        "gpt5_flagship": {
+          "response": "Here's a basic Dijkstra implementation:\n\n```python\ndef dijkstra(graph, start):\n    # Basic implementation\n    distances = {}\n    # ... simple logic\n    return distances\n```\n\nThis should work for basic cases.",
+          "quality_score": 0.61,
+          "processing_time": 10.26,
+          "model": "gpt5_flagship",
+          "competitor_name": "GPT-5 Flagship"
+        },
+        "claude_opus_41": {
+          "response": "I can help with Dijkstra's algorithm:\n\nKey considerations:\n- Graph representation\n- Priority queue usage\n- Path reconstruction\n\nThe implementation involves careful handling of distances and visited nodes.",
+          "quality_score": 0.6834,
+          "processing_time": 14.06,
+          "model": "claude_opus_41",
+          "competitor_name": "Claude Opus 4.1"
+        },
+        "gemini_ultra": {
+          "response": "For Dijkstra's algorithm:\n\n• Graph setup\n• Distance initialization\n• Priority queue management\n• Result optimization\n\nHere are implementation ideas...",
+          "quality_score": 0.5976,
+          "processing_time": 17.46,
+          "model": "gemini_ultra",
+          "competitor_name": "Gemini Ultra"
+        }
+      },
+      "quality_advantage": 31.755613451481214,
+      "speed_comparison": 84.54757259472984,
+      "vigoleonrocks_wins": true
+    }
+  ]
+}

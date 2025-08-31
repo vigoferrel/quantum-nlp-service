@@ -1,0 +1,472 @@
+{
+  "metadata": {
+    "analysis_timestamp": "2025-08-30T11:15:54.387682",
+    "target_directory": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service",
+    "analyzer_version": "1.0.0"
+  },
+  "root_analysis": {
+    "name": "quantum-nlp-service",
+    "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service",
+    "file_count": 240,
+    "subdirectory_count": 11,
+    "total_lines": 121322,
+    "file_types": {
+      "": 4,
+      ".md": 11,
+      ".php": 24,
+      ".sh": 3,
+      ".json": 38,
+      ".py": 141,
+      ".html": 8,
+      ".txt": 3,
+      ".log": 2,
+      ".png": 2,
+      ".zip": 1,
+      ".bat": 2,
+      ".tex": 1
+    },
+    "primary_languages": [
+      "Python",
+      "JSON",
+      "PHP"
+    ],
+    "key_files": [
+      "api_metrics_corrected.php",
+      "api_metrics_fixed.php",
+      "api_metrics_simple.php",
+      "api_metrics_supremacy.php",
+      "api_quantum_clean.php",
+      "api_quantum_final.php",
+      "api_quantum_fixed.php",
+      "api_quantum_fixed_final.php",
+      "api_quantum_robust.php",
+      "api_quantum_simple.php",
+      "api_quantum_supremacy.php",
+      "api_status_clean.php",
+      "api_status_supremacy.php",
+      "api_vigoleonrocks.php",
+      "ARCHITECTURE.md",
+      "CONTRIBUTING.md",
+      "index.php",
+      "index_backup.php",
+      "index_backup_.php",
+      "index_final.php",
+      "index_fixed.php",
+      "index_fixed_final.php",
+      "index_updated.php",
+      "INSTALLATION.md",
+      "LICENSE",
+      "live_api_comparison_20250829_202601.json",
+      "main.py",
+      "quantum_edge_client.py",
+      "quantum_edge_server.py",
+      "quantum_essence_multimodal_server.py",
+      "quantum_essence_server.py",
+      "quantum_essence_server_fixed.py",
+      "quantum_essence_server_real.py",
+      "README.md",
+      "README_MULTIMODAL.md",
+      "requirements.txt",
+      "server_clean.py",
+      "server_simple.py",
+      "test_advanced_server.py",
+      "vigoleonrocks_hybrid_multimodal_service.py",
+      "vigoleonrocks_local_config.py",
+      "vigoleonrocks_real_config.py",
+      "vigoleonrocks_server.py",
+      "vigoleonrocks_unified_multimodal_api.py"
+    ],
+    "purpose": "Quantum Processing Engine",
+    "architecture_level": "Project Root",
+    "dependencies": [
+      "Has requirements.txt",
+      "69 Python packages"
+    ],
+    "integration_points": [
+      "GitHub Actions CI/CD",
+      "API Integration",
+      "Configuration Management",
+      "Service Integration",
+      "Client Integration"
+    ]
+  },
+  "subdirectories": [
+    {
+      "name": "cache",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\cache",
+      "file_count": 2,
+      "subdirectory_count": 0,
+      "total_lines": 4,
+      "file_types": {
+        ".json": 1,
+        ".pkl": 1
+      },
+      "primary_languages": [
+        "JSON"
+      ],
+      "key_files": [],
+      "purpose": "Caching System",
+      "architecture_level": "Caching Layer",
+      "dependencies": [],
+      "integration_points": [
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "config",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\config",
+      "file_count": 1,
+      "subdirectory_count": 0,
+      "total_lines": 60,
+      "file_types": {
+        ".json": 1
+      },
+      "primary_languages": [
+        "JSON"
+      ],
+      "key_files": [],
+      "purpose": "Configuration Management",
+      "architecture_level": "Configuration Layer",
+      "dependencies": [],
+      "integration_points": [
+        "Configuration Management",
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "consciousness_sessions",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\consciousness_sessions",
+      "file_count": 0,
+      "subdirectory_count": 0,
+      "total_lines": 0,
+      "file_types": {},
+      "primary_languages": [],
+      "key_files": [],
+      "purpose": "General Purpose Directory",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [],
+      "integration_points": []
+    },
+    {
+      "name": "dokploy-canary",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\dokploy-canary",
+      "file_count": 19,
+      "subdirectory_count": 2,
+      "total_lines": 16002,
+      "file_types": {
+        "": 4,
+        ".json": 2,
+        ".md": 6,
+        ".cloud": 1,
+        ".monitoring": 1,
+        ".schedule": 1,
+        ".server": 1,
+        ".yml": 1,
+        ".yaml": 2
+      },
+      "primary_languages": [
+        "Markdown",
+        "JSON"
+      ],
+      "key_files": [
+        "CONTRIBUTING.md",
+        "Dockerfile",
+        "Dockerfile.cloud",
+        "Dockerfile.monitoring",
+        "Dockerfile.schedule",
+        "Dockerfile.server",
+        "GUIDES.md",
+        "LICENSE.MD",
+        "package.json",
+        "README.md",
+        "SECURITY.md",
+        "TERMS_AND_CONDITIONS.md"
+      ],
+      "purpose": "Deployment System",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [
+        "Has package.json",
+        "0 npm dependencies, 9 dev dependencies",
+        "Has pnpm-lock.yaml"
+      ],
+      "integration_points": [
+        "Container Integration",
+        "GitHub Actions CI/CD",
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "localGPT-main",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\localGPT-main",
+      "file_count": 115,
+      "subdirectory_count": 37,
+      "total_lines": 21185,
+      "file_types": {
+        "": 8,
+        ".example": 1,
+        ".yaml": 1,
+        ".yml": 1,
+        ".2": 1,
+        ".md": 27,
+        ".py": 54,
+        ".json": 6,
+        ".db": 1,
+        ".bat": 8,
+        ".txt": 2,
+        ".log": 2,
+        ".toml": 1,
+        ".sql": 2
+      },
+      "primary_languages": [
+        "Python",
+        "Markdown"
+      ],
+      "key_files": [
+        ".editorconfig",
+        ".env",
+        ".env.example",
+        ".pre-commit-config.yaml",
+        "api_server.py",
+        "cio_api_server.py",
+        "CIO_ARCHITECTURE.md",
+        "CIO_FINAL_ARCHITECTURE.md",
+        "CONTRIBUTING.md",
+        "Dockerfile",
+        "Dockerfile_hpu",
+        "LICENSE",
+        "pyproject.toml",
+        "QBTC_UNIFIED_ARCHITECTURE.md",
+        "quantum_supreme_api_server.py",
+        "README.md",
+        "README_CORRECCIONES.md",
+        "requirements.txt",
+        "run_localGPT_API.py",
+        "supabase_client.py",
+        "test_api_client.py",
+        "test_api_server.py"
+      ],
+      "purpose": "LocalGPT Integration",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [
+        "Has requirements.txt",
+        "12 Python packages",
+        "Has pyproject.toml"
+      ],
+      "integration_points": [
+        "Container Integration",
+        "GitHub Actions CI/CD",
+        "API Integration",
+        "Configuration Management",
+        "Service Integration",
+        "Client Integration"
+      ]
+    },
+    {
+      "name": "mcp",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\mcp",
+      "file_count": 2,
+      "subdirectory_count": 5,
+      "total_lines": 192,
+      "file_types": {
+        ".py": 2
+      },
+      "primary_languages": [
+        "Python"
+      ],
+      "key_files": [
+        "main.py"
+      ],
+      "purpose": "MCP (Model Context Protocol) Service",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [],
+      "integration_points": [
+        "Configuration Management",
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "openvpn-gui-master",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\openvpn-gui-master",
+      "file_count": 63,
+      "subdirectory_count": 3,
+      "total_lines": 354,
+      "file_types": {
+        "": 7,
+        ".yaml": 1,
+        ".c": 21,
+        ".h": 23,
+        ".rst": 3,
+        ".txt": 1,
+        ".json": 3,
+        ".in": 1,
+        ".ac": 1,
+        ".gpl": 1,
+        ".am": 1
+      },
+      "primary_languages": [
+        "C/C++ Header",
+        "C"
+      ],
+      "key_files": [
+        ".editorconfig",
+        ".kateconfig",
+        ".pre-commit-config.yaml",
+        "CMakeLists.txt",
+        "config-msvc.h.in",
+        "configure.ac",
+        "config_parser.c",
+        "config_parser.h",
+        "Makefile.am",
+        "openvpn_config.c",
+        "openvpn_config.h",
+        "README.rst",
+        "service.c",
+        "service.h"
+      ],
+      "purpose": "VPN GUI Application",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [],
+      "integration_points": [
+        "GitHub Actions CI/CD",
+        "Configuration Management",
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "services",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\services",
+      "file_count": 0,
+      "subdirectory_count": 7,
+      "total_lines": 0,
+      "file_types": {},
+      "primary_languages": [],
+      "key_files": [],
+      "purpose": "Microservices Architecture",
+      "architecture_level": "Service Layer",
+      "dependencies": [],
+      "integration_points": [
+        "API Integration",
+        "Database Integration",
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "src",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\src",
+      "file_count": 2,
+      "subdirectory_count": 0,
+      "total_lines": 281,
+      "file_types": {
+        ".ts": 2
+      },
+      "primary_languages": [
+        "TypeScript"
+      ],
+      "key_files": [
+        "service.ts"
+      ],
+      "purpose": "Source Code",
+      "architecture_level": "Application Layer",
+      "dependencies": [],
+      "integration_points": [
+        "Service Integration"
+      ]
+    },
+    {
+      "name": "static",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\static",
+      "file_count": 0,
+      "subdirectory_count": 0,
+      "total_lines": 0,
+      "file_types": {},
+      "primary_languages": [],
+      "key_files": [],
+      "purpose": "General Purpose Directory",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [],
+      "integration_points": []
+    },
+    {
+      "name": "__pycache__",
+      "path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\__pycache__",
+      "file_count": 26,
+      "subdirectory_count": 0,
+      "total_lines": 0,
+      "file_types": {
+        ".pyc": 26
+      },
+      "primary_languages": [],
+      "key_files": [
+        "advanced_multimodal_server.cpython-313.pyc",
+        "cio_multimodal_server.cpython-313.pyc",
+        "server_clean.cpython-313.pyc",
+        "server_simple.cpython-313.pyc",
+        "vigoleonrocks_hybrid_multimodal_service.cpython-313.pyc",
+        "vigoleonrocks_real_config.cpython-313.pyc"
+      ],
+      "purpose": "General Purpose Directory",
+      "architecture_level": "Business Logic Layer",
+      "dependencies": [],
+      "integration_points": [
+        "Configuration Management",
+        "Service Integration"
+      ]
+    }
+  ],
+  "technology_stack": {
+    "Programming Languages": [
+      "PHP",
+      "Python",
+      "C/C++",
+      "JavaScript/TypeScript"
+    ],
+    "Web Technologies": [
+      "HTML/CSS",
+      "FastAPI/Flask"
+    ],
+    "Databases": [],
+    "Containerization": [
+      "Docker",
+      "Docker Compose"
+    ],
+    "AI/ML Frameworks": [
+      "openai",
+      "transformers",
+      "langchain",
+      "torch",
+      "tensorflow"
+    ],
+    "Testing Frameworks": [],
+    "Build Tools": [],
+    "Configuration": []
+  },
+  "integration_map": {
+    "Internal Services": [
+      "services - Microservices Architecture"
+    ],
+    "External APIs": [],
+    "Databases": [],
+    "Cloud Services": [],
+    "CI/CD": []
+  },
+  "complexity_metrics": {
+    "total_files": 230,
+    "total_directories": 11,
+    "total_lines_of_code": 38078,
+    "average_files_per_directory": 20.90909090909091,
+    "complexity_score": 66.9,
+    "technology_diversity": 6,
+    "integration_complexity": 23
+  },
+  "architectural_patterns": [
+    "Microservices Architecture"
+  ],
+  "deployment_structure": {
+    "containerization": true,
+    "orchestration": false,
+    "ci_cd": true,
+    "cloud_ready": true,
+    "deployment_scripts": [],
+    "configuration_management": true
+  }
+}

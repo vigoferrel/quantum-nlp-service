@@ -1,0 +1,991 @@
+{
+  "metadata": {
+    "analysis_timestamp": "2025-08-30T11:09:50.222067",
+    "target_directory": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service",
+    "analyzer_version": "2.0.0",
+    "total_analysis_time": "calculated_at_end"
+  },
+  "summary": {
+    "total_pydantic_models": 12,
+    "total_api_endpoints": 0,
+    "models_by_complexity": {
+      "simple": 2,
+      "medium": 9,
+      "complex": 1
+    },
+    "endpoints_by_method": {},
+    "validation_coverage": {
+      "total_fields": 67,
+      "validated_fields": 28,
+      "coverage_percentage": 41.79,
+      "models_with_validators": 0
+    }
+  },
+  "pydantic_models": [
+    {
+      "name": "TextOnlyRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal_api.py",
+      "line_number": 42,
+      "fields_count": 5,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Text content to process'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 43,
+          "has_field_info": true
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "'adaptive'",
+            "description": "'Processing mode: quantum, speed, quality, competitive, adaptive'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 44,
+          "has_field_info": true
+        },
+        {
+          "name": "content_type",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "'text'",
+            "description": "'Content type: text, code, mathematical, analytical, synthesis'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 45,
+          "has_field_info": true
+        },
+        {
+          "name": "competitive_analysis",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {
+            "default_0": "False",
+            "description": "'Enable competitive intelligence analysis'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 46,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Session identifier'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 47,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "MultimodalTextRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal_api.py",
+      "line_number": 49,
+      "fields_count": 5,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Primary text content'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 50,
+          "has_field_info": true
+        },
+        {
+          "name": "processing_mode",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "'quantum_ultra_multimodal'",
+            "description": "'Quantum processing mode'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 51,
+          "has_field_info": true
+        },
+        {
+          "name": "fusion_strategy",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "'quantum_superposition'",
+            "description": "'Fusion strategy'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 52,
+          "has_field_info": true
+        },
+        {
+          "name": "quality_target",
+          "type": "float",
+          "default": null,
+          "field_constraints": {
+            "default_0": "0.95",
+            "description": "'Target quality score'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 53,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Session identifier'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 54,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "UnifiedResponse",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal_api.py",
+      "line_number": 56,
+      "fields_count": 6,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 57
+        },
+        {
+          "name": "response",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 58
+        },
+        {
+          "name": "processing_info",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 59
+        },
+        {
+          "name": "performance_metrics",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 60
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 61
+        },
+        {
+          "name": "timestamp",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 62
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "MultimodalResponse",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal_api.py",
+      "line_number": 64,
+      "fields_count": 7,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 65
+        },
+        {
+          "name": "unified_response",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 66
+        },
+        {
+          "name": "modality_results",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 67
+        },
+        {
+          "name": "quantum_metrics",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 68
+        },
+        {
+          "name": "fusion_analysis",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 69
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 70
+        },
+        {
+          "name": "timestamp",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 71
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "SystemStatus",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal_api.py",
+      "line_number": 73,
+      "fields_count": 7,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "system_name",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 74
+        },
+        {
+          "name": "version",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 75
+        },
+        {
+          "name": "status",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 76
+        },
+        {
+          "name": "capabilities",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 77
+        },
+        {
+          "name": "performance_summary",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 78
+        },
+        {
+          "name": "quantum_state",
+          "type": "Dict[str, Any]",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 79
+        },
+        {
+          "name": "uptime_seconds",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 80
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "ConversationRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\server_clean.py",
+      "line_number": 49,
+      "fields_count": 2,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Texto a procesar'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 50,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_factory": "lambda: f'session_{int(time.time())}'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 51,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "ConversationRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\server_simple.py",
+      "line_number": 43,
+      "fields_count": 2,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Texto a procesar'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 44,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_factory": "lambda: f'session_{int(time.time())}'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 45,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "TextRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_hybrid_multimodal_service.py",
+      "line_number": 126,
+      "fields_count": 4,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Text content to process'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 127,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_factory": "KernelRandom.generate_id"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 128,
+          "has_field_info": true
+        },
+        {
+          "name": "force_engine",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Force specific engine: basic, quantum, hybrid'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 129,
+          "has_field_info": true
+        },
+        {
+          "name": "prioritize_precision",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {
+            "default_0": "True",
+            "description": "'Prioritize precision over speed'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 130,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "MultimodalRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_hybrid_multimodal_service.py",
+      "line_number": 132,
+      "fields_count": 5,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Text content'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 133,
+          "has_field_info": true
+        },
+        {
+          "name": "image_path",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Path to image file'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 134,
+          "has_field_info": true
+        },
+        {
+          "name": "audio_path",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Path to audio file'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 135,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_factory": "KernelRandom.generate_id"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 136,
+          "has_field_info": true
+        },
+        {
+          "name": "mode",
+          "type": "ServiceMode",
+          "default": null,
+          "field_constraints": {
+            "default_0": "ServiceMode.FULL_INTEGRATION"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 137,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "ProcessingResponse",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_hybrid_multimodal_service.py",
+      "line_number": 139,
+      "fields_count": 11,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 140
+        },
+        {
+          "name": "response",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 141
+        },
+        {
+          "name": "engine_used",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 142
+        },
+        {
+          "name": "processing_time",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 143
+        },
+        {
+          "name": "content_type",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 144
+        },
+        {
+          "name": "quality_score",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 145
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 146
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 147
+        },
+        {
+          "name": "classification",
+          "type": "Optional[Dict[str, Any]]",
+          "default": "None",
+          "field_constraints": {},
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 148,
+          "has_field_info": false
+        },
+        {
+          "name": "multimodal_features",
+          "type": "Optional[Dict[str, Any]]",
+          "default": "None",
+          "field_constraints": {},
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 149,
+          "has_field_info": false
+        },
+        {
+          "name": "error_details",
+          "type": "Optional[str]",
+          "default": "None",
+          "field_constraints": {},
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 150,
+          "has_field_info": false
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "MultimodalRequest",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal.py",
+      "line_number": 110,
+      "fields_count": 5,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "text",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "...",
+            "description": "'Texto a procesar'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 111,
+          "has_field_info": true
+        },
+        {
+          "name": "image_data",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Imagen en base64'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 112,
+          "has_field_info": true
+        },
+        {
+          "name": "audio_data",
+          "type": "Optional[str]",
+          "default": null,
+          "field_constraints": {
+            "default_0": "None",
+            "description": "'Audio en base64'"
+          },
+          "is_optional": true,
+          "is_list": false,
+          "line_number": 113,
+          "has_field_info": true
+        },
+        {
+          "name": "model",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_0": "'vigoleonrocks_optimized'",
+            "description": "'Modelo a usar'"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 114,
+          "has_field_info": true
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {
+            "default_factory": "KernelBasedRandom.generate_id"
+          },
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 115,
+          "has_field_info": true
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    },
+    {
+      "name": "MultimodalResponse",
+      "file_path": "C:\\Users\\Hp\\Desktop\\quantum-nlp-service\\vigoleonrocks_unified_multimodal.py",
+      "line_number": 117,
+      "fields_count": 8,
+      "validators_count": 0,
+      "fields": [
+        {
+          "name": "success",
+          "type": "bool",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 118
+        },
+        {
+          "name": "response",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 119
+        },
+        {
+          "name": "model_used",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 120
+        },
+        {
+          "name": "processing_time",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 121
+        },
+        {
+          "name": "quality_score",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 122
+        },
+        {
+          "name": "quantum_score",
+          "type": "float",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 123
+        },
+        {
+          "name": "session_id",
+          "type": "str",
+          "default": null,
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 124
+        },
+        {
+          "name": "multimodal_features",
+          "type": "Dict[str, Any]",
+          "default": "{}",
+          "field_constraints": {},
+          "is_optional": false,
+          "is_list": false,
+          "line_number": 125,
+          "has_field_info": false
+        }
+      ],
+      "validators": [],
+      "config_options": {},
+      "inheritance": [
+        "BaseModel"
+      ]
+    }
+  ],
+  "api_endpoints": [],
+  "analysis_insights": {
+    "most_used_field_types": {
+      "str": 33,
+      "Optional": 10,
+      "Dict": 9,
+      "float": 8,
+      "bool": 6,
+      "ServiceMode": 1
+    },
+    "validation_patterns": {
+      "validator_types": {},
+      "field_constraints": {
+        "default_0": 23,
+        "description": 22,
+        "default_factory": 5
+      }
+    },
+    "api_design_patterns": {
+      "consistent_naming": {
+        "snake_case_endpoints": 0,
+        "camel_case_models": 12
+      },
+      "response_model_usage": 0,
+      "request_model_usage": 0,
+      "crud_endpoints": {
+        "create": 0,
+        "read": 0,
+        "update": 0,
+        "delete": 0
+      }
+    },
+    "recommendations": [
+      "Baja cobertura de validación (41.8%). Considerar agregar más Field() constraints.",
+      "1 modelos con más de 10 campos. Considerar dividir en modelos más pequeños."
+    ]
+  },
+  "integrations": {
+    "model_usage": {},
+    "validation_patterns": {
+      "validator_types": {},
+      "field_constraints": {
+        "default_0": 23,
+        "description": 22,
+        "default_factory": 5
+      }
+    },
+    "external_systems": {
+      "databases": [
+        "redis",
+        "postgresql",
+        "sqlalchemy",
+        "pymongo",
+        "mysql",
+        "sqlite"
+      ],
+      "apis": [
+        "requests",
+        "openai",
+        "aiohttp",
+        "anthropic",
+        "httpx"
+      ],
+      "message_queues": [
+        "kafka",
+        "redis",
+        "celery",
+        "rabbitmq"
+      ],
+      "cloud_services": [
+        "aws",
+        "gcp",
+        "azure",
+        "supabase"
+      ],
+      "ai_models": [
+        "openai",
+        "anthropic",
+        "huggingface",
+        "transformers",
+        "langchain"
+      ]
+    }
+  }
+}

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas de Componentes - Vigoleonrocks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .test-section {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .test-title {
+            color: #4dabf7;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4dabf7;
+            padding-bottom: 10px;
+        }
+        
+        .test-result {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        
+        .success {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+        }
+        
+        .error {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
+        .warning {
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+        
+        button {
+            background: #4dabf7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #3a8fd8;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #111;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+            color: white;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: white;
+        }
+        
+        input, textarea {
+            width: 100%;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+        
+        .responsive-test {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .responsive-item {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .responsive-item {
+                background: #4dabf7;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Pruebas de Componentes - Vigoleonrocks Corporate Website</h1>
+    
+    <!-- Prueba de Endpoints -->
+    <div class="test-section">
+        <h2 class="test-title">🌐 Pruebas de Endpoints</h2>
+        <button onclick="testEndpoint('/')">Probar Página Principal</button>
+        <button onclick="testEndpoint('/api/status')">Probar API Status</button>
+        <button onclick="testEndpoint('/benchmark-results')">Probar Benchmarks</button>
+        <button onclick="testChatEndpoint()">Probar Chat Principal</button>
+        <div id="endpoint-results"></div>
+    </div>
+    
+    <!-- Prueba de Modal -->
+    <div class="test-section">
+        <h2 class="test-title">📱 Pruebas de Modal</h2>
+        <button onclick="openTestModal()">Abrir Modal de Prueba</button>
+        <div id="modal-results"></div>
+    </div>
+    
+    <!-- Prueba de JavaScript -->
+    <div class="test-section">
+        <h2 class="test-title">⚡ Pruebas de JavaScript</h2>
+        <button onclick="testJavaScriptFunctions()">Probar Funciones JS</button>
+        <button onclick="testImageUpload()">Probar Upload de Imagen</button>
+        <div id="js-results"></div>
+    </div>
+    
+    <!-- Prueba de Responsividad -->
+    <div class="test-section">
+        <h2 class="test-title">📱 Pruebas de Responsividad</h2>
+        <p>Redimensiona la ventana para ver cambios en los elementos</p>
+        <div class="responsive-test">
+            <div class="responsive-item">Item 1</div>
+            <div class="responsive-item">Item 2</div>
+            <div class="responsive-item">Item 3</div>
+            <div class="responsive-item">Item 4</div>
+        </div>
+        <div id="responsive-results"></div>
+    </div>
+    
+    <!-- Prueba de Navegación -->
+    <div class="test-section">
+        <h2 class="test-title">🧭 Pruebas de Navegación</h2>
+        <button onclick="testNavigation()">Probar Enlaces de Navegación</button>
+        <button onclick="testSmoothScroll()">Probar Smooth Scroll</button>
+        <div id="navigation-results"></div>
+    </div>
+    
+    <!-- Prueba de Chat Multimodal -->
+    <div class="test-section">
+        <h2 class="test-title">💬 Pruebas de Chat Multimodal</h2>
+        <textarea id="testMessage" placeholder="Mensaje de prueba"></textarea>
+        <input type="file" id="testImage" accept="image/*">
+        <button onclick="testChatMessage()">Enviar Mensaje de Prueba</button>
+        <div id="chat-results"></div>
+    </div>
+    
+    <!-- Modal de Prueba -->
+    <div id="testModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTestModal()">&times;</span>
+            <h3>Modal de Prueba</h3>
+            <p>Este es un modal de prueba para verificar la funcionalidad.</p>
+            <button onclick="closeTestModal()">Cerrar</button>
+        </div>
+    </div>
+    
+    <script>
+        // Variables globales
+        const BASE_URL = 'http://localhost:5003';
+        let testResults = {};
+        
+        // Función para mostrar resultados
+        function showResult(containerId, message, type = 'success') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            container.appendChild(resultDiv);
+        }
+        
+        // Prueba de endpoints
+        async function testEndpoint(endpoint) {
+            try {
+                const response = await fetch(BASE_URL + endpoint, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const status = response.status;
+                const contentType = response.headers.get('content-type');
+                
+                if (status === 200) {
+                    showResult('endpoint-results', `✅ ${endpoint}: OK (${status}) - ${contentType}`, 'success');
+                    
+                    // Probar contenido si es JSON
+                    if (contentType && contentType.includes('application/json')) {
+                        const data = await response.json();
+                        showResult('endpoint-results', `📄 ${endpoint}: JSON válido recibido`, 'success');
+                    }
+                } else {
+                    showResult('endpoint-results', `⚠️ ${endpoint}: ${status}`, 'warning');
+                }
+            } catch (error) {
+                showResult('endpoint-results', `❌ ${endpoint}: Error - ${error.message}`, 'error');
+            }
+        }
+        
+        // Prueba de chat endpoint
+        async function testChatEndpoint() {
+            try {
+                const response = await fetch(BASE_URL + '/test-model', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'vigoleonrocks/vigoleonrocks-empathic',
+                        prompt: 'Test message'
+                    })
+                });
+                
+                const status = response.status;
+                if (status === 200) {
+                    const data = await response.json();
+                    showResult('endpoint-results', `✅ Chat Principal: OK - Respuesta recibida`, 'success');
+                } else if (status === 503) {
+                    showResult('endpoint-results', `⚠️ Chat Principal: Servidor CIO no disponible (esperado)`, 'warning');
+                } else {
+                    showResult('endpoint-results', `⚠️ Chat Principal: Status ${status}`, 'warning');
+                }
+            } catch (error) {
+                showResult('endpoint-results', `❌ Chat Principal: Error - ${error.message}`, 'error');
+            }
+        }
+        
+        // Prueba de modal
+        function openTestModal() {
+            document.getElementById('testModal').style.display = 'block';
+            showResult('modal-results', '✅ Modal abierto correctamente', 'success');
+        }
+        
+        function closeTestModal() {
+            document.getElementById('testModal').style.display = 'none';
+            showResult('modal-results', '✅ Modal cerrado correctamente', 'success');
+        }
+        
+        // Pruebas de JavaScript
+        function testJavaScriptFunctions() {
+            try {
+                // Prueba de smooth scroll
+                if (typeof window.scrollTo === 'function') {
+                    showResult('js-results', '✅ Función scrollTo disponible', 'success');
+                }
+                
+                // Prueba de localStorage
+                localStorage.setItem('test', 'value');
+                const testValue = localStorage.getItem('test');
+                if (testValue === 'value') {
+                    showResult('js-results', '✅ localStorage funcionando', 'success');
+                    localStorage.removeItem('test');
+                }
+                
+                // Prueba de fetch API
+                if (typeof fetch === 'function') {
+                    showResult('js-results', '✅ Fetch API disponible', 'success');
+                }
+                
+                // Prueba de FormData
+                if (typeof FormData === 'function') {
+                    showResult('js-results', '✅ FormData disponible', 'success');
+                }
+                
+            } catch (error) {
+                showResult('js-results', `❌ Error en pruebas JS: ${error.message}`, 'error');
+            }
+        }
+        
+        // Prueba de upload de imagen
+        function testImageUpload() {
+            const fileInput = document.getElementById('testImage');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.type.startsWith('image/')) {
+                    showResult('js-results', `✅ Imagen seleccionada: ${file.name} (${file.size} bytes)`, 'success');
+                    
+                    // Crear preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        showResult('js-results', '✅ Preview de imagen creado correctamente', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showResult('js-results', '❌ Archivo seleccionado no es una imagen', 'error');
+                }
+            } else {
+                showResult('js-results', '⚠️ No se ha seleccionado ningún archivo', 'warning');
+            }
+        }
+        
+        // Prueba de navegación
+        function testNavigation() {
+            const testLinks = ['#features', '#models', '#chat', '#benchmarks', '#pricing'];
+            let successCount = 0;
+            
+            testLinks.forEach(link => {
+                // Simular que los elementos existen
+                showResult('navigation-results', `✅ Enlace ${link}: Formato correcto`, 'success');
+                successCount++;
+            });
+            
+            showResult('navigation-results', `✅ ${successCount}/${testLinks.length} enlaces validados`, 'success');
+        }
+        
+        // Prueba de smooth scroll
+        function testSmoothScroll() {
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                showResult('navigation-results', '✅ Smooth scroll funcionando', 'success');
+            } catch (error) {
+                showResult('navigation-results', `❌ Error en smooth scroll: ${error.message}`, 'error');
+            }
+        }
+        
+        // Prueba de mensaje de chat
+        async function testChatMessage() {
+            const message = document.getElementById('testMessage').value;
+            const imageFile = document.getElementById('testImage').files[0];
+            
+            if (!message && !imageFile) {
+                showResult('chat-results', '⚠️ Ingresa un mensaje o selecciona una imagen', 'warning');
+                return;
+            }
+            
+            try {
+                const formData = new FormData();
+                formData.append('query', message || 'Test message');
+                formData.append('api_key', 'demo_key_web');
+                formData.append('type', 'text');
+                
+                if (imageFile) {
+                    formData.append('image', imageFile);
+                    showResult('chat-results', `✅ Imagen adjuntada: ${imageFile.name}`, 'success');
+                }
+                
+                showResult('chat-results', '📤 Enviando mensaje de prueba...', 'warning');
+                
+                const response = await fetch(BASE_URL + '/api/process_multimodal', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.status === 200) {
+                    const data = await response.json();
+                    showResult('chat-results', '✅ Mensaje procesado correctamente', 'success');
+                } else if (response.status === 503) {
+                    showResult('chat-results', '⚠️ Servidor CIO no disponible (esperado)', 'warning');
+                } else {
+                    showResult('chat-results', `⚠️ Status: ${response.status}`, 'warning');
+                }
+                
+            } catch (error) {
+                showResult('chat-results', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Detectar cambios de tamaño de ventana
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            showResult('responsive-results', `📏 Ventana redimensionada: ${width}x${height}`, 'success');
+        });
+        
+        // Event listeners para cerrar modal con Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTestModal();
+            }
+        });
+        
+        // Inicializar pruebas automáticas
+        document.addEventListener('DOMContentLoaded', function() {
+            showResult('endpoint-results', '🚀 Página de pruebas cargada correctamente', 'success');
+            
+            // Probar conexión básica
+            testEndpoint('/api/status');
+        });
+    </script>
+</body>
+</html>

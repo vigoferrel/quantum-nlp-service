@@ -1,0 +1,88 @@
+{
+  "evaluation_summary": {
+    "total_tests": 7,
+    "overall_success_rate": 1.0,
+    "average_response_time": 0.028060708727155412
+  },
+  "coding_analysis": {
+    "success_rate": 1.0,
+    "simulated_responses": 4,
+    "real_code_generated": 0,
+    "capability_score": 0.0
+  },
+  "reasoning_analysis": {
+    "success_rate": 1.0,
+    "quality_score": 0.3333333333333333,
+    "simulated_responses": 3
+  },
+  "detailed_results": {
+    "coding_tests": [
+      {
+        "test_name": "Función básica Python",
+        "success": true,
+        "response_time": 0.030202865600585938,
+        "answer_length": 169,
+        "keyword_score": 0.3333333333333333,
+        "contains_code": true,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Crea una función Python que calcule el factorial de un número'"
+      },
+      {
+        "test_name": "Manejo de archivos",
+        "success": true,
+        "response_time": 0.014446020126342773,
+        "answer_length": 186,
+        "keyword_score": 0.25,
+        "contains_code": true,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Escribe código Python para leer un archivo CSV y mostrar las primeras 5 líneas'"
+      },
+      {
+        "test_name": "Clase simple",
+        "success": true,
+        "response_time": 0.0312042236328125,
+        "answer_length": 180,
+        "keyword_score": 0.8,
+        "contains_code": true,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Define una clase Calculator con métodos add, subtract, multiply y divide'"
+      },
+      {
+        "test_name": "Bug fix - Django URLs",
+        "success": true,
+        "response_time": 0.031423091888427734,
+        "answer_length": 217,
+        "keyword_score": 0.75,
+        "contains_code": true,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Fix this Django URL configuration error: path('api/users/<int:id>/', views.user_detail) is ca"
+      }
+    ],
+    "reasoning_tests": [
+      {
+        "test_name": "Matemáticas básicas",
+        "success": true,
+        "response_time": 0.028711318969726562,
+        "quality_score": 0.0,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Si tengo 15 manzanas y doy 7 a mi amigo, ¿cuántas me quedan?'"
+      },
+      {
+        "test_name": "Lógica simple",
+        "success": true,
+        "response_time": 0.03037261962890625,
+        "quality_score": 1.0,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Todos los gatos son mamíferos. Whiskers es un gato. ¿Qué podemos concluir sobre Whiskers?'"
+      },
+      {
+        "test_name": "Resolución de problemas",
+        "success": true,
+        "response_time": 0.030064821243286133,
+        "quality_score": 0.0,
+        "is_simulation": true,
+        "answer_preview": "Output simulado con perfil {'model': 'vigoleonrocks', 'temperature': 0.5, 'top_k': 40, 'top_p': 0.9} para 'Un sistema web está lento. Lista 3 posibles causas y sus soluciones'"
+      }
+    ]
+  }
+}

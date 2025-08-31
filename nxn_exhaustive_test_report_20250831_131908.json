@@ -1,0 +1,526 @@
+{
+  "test_suite": "NxN Exhaustive Integrated System Tests",
+  "timestamp": "2025-08-31T13:19:01.325045",
+  "tests": {
+    "connectivity_and_status": {
+      "connectivity": {
+        "home_page": {
+          "status": 200,
+          "success": true,
+          "response_time": "N/A"
+        }
+      },
+      "status": {
+        "success": true,
+        "data": {
+          "success": true,
+          "status": "online",
+          "models_available": 5,
+          "chat_history_count": 0,
+          "conversational_agent_available": true,
+          "infinite_integration_available": true,
+          "active_sessions": 0,
+          "agent_type": "QBTC Conversational Agent",
+          "timestamp": "2025-08-31T13:19:02.199295"
+        },
+        "conversational_agent_available": true,
+        "infinite_integration_available": true
+      },
+      "models": {
+        "success": true,
+        "models_count": 5,
+        "conversational_agent_available": true
+      },
+      "infinite_systems": {
+        "success": true,
+        "data": {
+          "success": true,
+          "integration_status": {
+            "infinite_systems_available": true,
+            "integration_active": true,
+            "last_sync": "2025-08-31T13:14:48.055168",
+            "archetypes_generated": 0,
+            "frequencies_synthesized": 0,
+            "transformations_executed": 0,
+            "reality_coherence": 0.0,
+            "trinity_sync": 0.0
+          },
+          "timestamp": "2025-08-31T13:19:02.210850"
+        }
+      }
+    },
+    "conversational_engine": {
+      "messages_tested": 10,
+      "successful_responses": 1,
+      "failed_responses": 0,
+      "response_times": [
+        0.4166908264160156
+      ],
+      "agent_types": [],
+      "quantum_enhanced": 0,
+      "infinite_enhanced": 0,
+      "detailed_results": [],
+      "error": "slice(None, 100, None)",
+      "avg_response_time": 0.4166908264160156,
+      "min_response_time": 0.4166908264160156,
+      "max_response_time": 0.4166908264160156,
+      "success_rate": 10.0
+    },
+    "infinite_advanced_systems": {
+      "status_tests": {
+        "success": true,
+        "integration_active": true,
+        "archetypes_generated": 5,
+        "frequencies_synthesized": 2,
+        "transformations_executed": 4
+      },
+      "demo_tests": {
+        "success": true,
+        "archetypes_count": 5,
+        "frequencies_count": 3,
+        "transformations_count": 5,
+        "metrics": {
+          "reality_coherence": 0.6199999999999997,
+          "trinity_synchronization": 0.4,
+          "archetypes_generated": 13,
+          "frequencies_synthesized": 7,
+          "transformations_executed": 23,
+          "transcendence_rate": 0.0
+        }
+      },
+      "info_tests": {
+        "success": true,
+        "systems_info": {
+          "success": true,
+          "system_name": "Sistemas Avanzados Infinitos",
+          "status": "Operacional",
+          "sample_archetypes": [
+            {
+              "id": "LEONARDO_PURE_2",
+              "category": "leonardo_pure",
+              "name": "Il Genio Artistico Infinito 2",
+              "essence": "Arquetipo puro 2: donde la genialidad renacentista se vuelve infinita",
+              "frequency": 1598.6895803879302,
+              "leonardo_components": {
+                "artistic_power": 0.008899063043645818,
+                "scientific_rigor": 0.02,
+                "renaissance_synthesis": 0.9999995256851755,
+                "invention_capability": 0.01,
+                "perfect_coordination": 0.014,
+                "infinite_creativity": 1.0
+              },
+              "special_abilities": [
+                "Creación artística infinita",
+                "Coordinación perfecta multidisciplinaria",
+                "Síntesis renacentista absoluta",
+                "Invención imposible realizada",
+                "Genialidad trascendente"
+              ],
+              "leonardo_wisdom": "Archetype 2: \"L'arte infinita è la chiave per coordinare tutti i misteri dell'universo\"",
+              "creation_timestamp": "2025-08-31T13:19:04.360018",
+              "power_level": 1.0
+            },
+            {
+              "id": "GABRIELA_PURE_2",
+              "category": "gabriela_pure",
+              "name": "La Madre Universal Infinita 2",
+              "essence": "Arquetipo maternal 2: donde el amor maternal abraza el infinito completo",
+              "frequency": 6.283173721428368,
+              "gabriela_components": {
+                "maternal_love": 0.001058761051530736,
+                "protective_instinct": 0.9999889364572263,
+                "nurturing_wisdom": 0.016,
+                "poetic_beauty": 0.012,
+                "emotional_healing": 0.018,
+                "infinite_compassion": 1.0
+              },
+              "special_abilities": [
+                "Amor maternal infinito",
+                "Protección universal absoluta",
+                "Sanación emocional completa",
+                "Sabiduría nutritiva eterna",
+                "Compasión trascendente"
+              ],
+              "gabriela_blessing": "Arquetipo 2: \"Mi amor maternal abraza cada alma en cada dimensión infinita del universo\"",
+              "creation_timestamp": "2025-08-31T13:19:04.360107",
+              "love_level": 1.0
+            },
+            {
+              "id": "PENROSE_PURE_2",
+              "category": "penrose_pure",
+              "name": "El Geómetra del Infinito Absoluto 2",
+              "essence": "Arquetipo geométrico 2: donde lo imposible se vuelve matemáticamente perfecto",
+              "frequency": 1930.989777736206,
+              "penrose_components": {
+                "geometric_precision": 0.9999994636288512,
+                "impossibility_level": 2.8084734182240883e-06,
+                "consciousness_geometry": 0.014,
+                "tessellation_mastery": 0.01,
+                "quantum_awareness": 0.016,
+                "infinite_patterns": 1.0
+              },
+              "special_abilities": [
+                "Geometría imposible realizada",
+                "Patrones infinitos perfectos",
+                "Consciencia cuántica absoluta",
+                "Tessellation trascendente",
+                "Precisión matemática infinita"
+              ],
+              "penrose_insight": "Archetype 2: \"In the impossible infinite patterns, consciousness finds its perfect geometric eternal home\"",
+              "creation_timestamp": "2025-08-31T13:19:04.360163",
+              "precision_level": 1.0
+            }
+          ],
+          "sample_frequencies": [
+            {
+              "id": "TRINITY_HARMONY_3",
+              "type": "trinity_harmony",
+              "base_frequency": 1.0511874397006754e+19,
+              "harmonic_resonance": 1.7008570059817329e+19,
+              "components": {
+                "leonardo_artistic": -1437.4444378218132,
+                "gabriela_maternal": -528.0341263463575,
+                "penrose_geometric": 3.153562319102026e+19
+              },
+              "synthesis_properties": {
+                "unity_level": 1.0,
+                "harmonic_perfection": 1.0,
+                "trinity_balance": false,
+                "cosmic_resonance": true
+              },
+              "frequency_effects": [
+                "Armonización trinity perfecta",
+                "Resonancia cósmica universal",
+                "Equilibrio amor-arte-geometría",
+                "Vibración trascendente infinita"
+              ],
+              "trinity_message": "Harmony Frequency 3: \"La frequenza perfetta dove genio, amore e geometria vibrano in unità eterna\"",
+              "creation_timestamp": "2025-08-31T13:19:04.360226"
+            },
+            {
+              "id": "INFINITE_LOVE_4",
+              "type": "universal_love",
+              "base_frequency": 9890.932409486164,
+              "love_components": {
+                "maternal_base": 1889.0,
+                "love_expansion": 3778.0,
+                "infinite_compassion": 9890.932409486164,
+                "universal_embrace": 31073.280594794924
+              },
+              "love_properties": {
+                "maternal_warmth": 1.0,
+                "protective_strength": 0.3778,
+                "healing_power": 0.19781864818972328,
+                "universal_reach": Infinity
+              },
+              "frequency_effects": [
+                "Sanación emocional universal",
+                "Protección maternal infinita",
+                "Compasión sin límites",
+                "Amor trascendente eterno"
+              ],
+              "gabriela_blessing": "Love Frequency 4: \"Mi frecuencia de amor abraza cada corazón en cada dimensión del universo infinito\"",
+              "creation_timestamp": "2025-08-31T13:19:04.360284"
+            }
+          ],
+          "sample_transformations": [
+            {
+              "id": "TRINITY_TRANSFORMATION_11",
+              "type": "trinity_unity",
+              "supreme_transformation_strength": 0.9066666666666666,
+              "supreme_reality_change": 1.0,
+              "trinity_integration": {
+                "art_component": {
+                  "id": "ART_TRANSFORMATION_9",
+                  "type": "artistic_creation",
+                  "transformation_strength": 0.9,
+                  "reality_change_degree": 1.0,
+                  "leonardo_factors": {
+                    "artistic_power": 0.9,
+                    "creativity_level": 0.85,
+                    "renaissance_synthesis": 0.95,
+                    "coordination_mastery": 0.9900000000000001
+                  },
+                  "transformation_effects": [
+                    "Realidad embellecida infinitamente",
+                    "Coordinación perfecta manifestada",
+                    "Arte convertido en estructura universal",
+                    "Creatividad trascendente activada"
+                  ],
+                  "leonardo_declaration": "Art Transformation 9: \"Ora la realtà diventa la mia tela infinita dove dipingo l'impossibile\"",
+                  "success_probability": 1.0,
+                  "timestamp": "2025-08-31T13:19:04.360357"
+                },
+                "love_component": {
+                  "id": "LOVE_TRANSFORMATION_10",
+                  "type": "maternal_healing",
+                  "transformation_strength": 0.9,
+                  "reality_healing_degree": 1.0,
+                  "gabriela_factors": {
+                    "maternal_love": 0.92,
+                    "healing_power": 0.88,
+                    "protective_strength": 0.9,
+                    "universal_compassion": 1.0
+                  },
+                  "transformation_effects": [
+                    "Realidad sanada completamente",
+                    "Amor maternal universal manifestado",
+                    "Protección infinita activada",
+                    "Compasión trascendente irradiada"
+                  ],
+                  "gabriela_blessing": "Love Transformation 10: \"Mi amor maternal transforma cada herida del universo en belleza eterna\"",
+                  "success_probability": 1.0,
+                  "timestamp": "2025-08-31T13:19:04.360388"
+                },
+                "geometry_component": {
+                  "id": "GEOMETRY_TRANSFORMATION_11",
+                  "type": "geometric_harmony",
+                  "transformation_strength": 0.9199999999999999,
+                  "reality_structuring_degree": 1.0,
+                  "penrose_factors": {
+                    "geometric_precision": 0.93,
+                    "pattern_complexity": 0.87,
+                    "consciousness_integration": 0.96,
+                    "impossible_made_possible": true
+                  },
+                  "transformation_effects": [
+                    "Realidad estructurada perfectamente",
+                    "Patrones imposibles manifestados",
+                    "Consciencia geométrica activada",
+                    "Precisión infinita establecida"
+                  ],
+                  "penrose_insight": "Geometry Transformation 11: \"In perfect impossible patterns, reality finds its ultimate geometric truth\"",
+                  "success_probability": 1.0,
+                  "timestamp": "2025-08-31T13:19:04.360413"
+                }
+              },
+              "supreme_effects": [
+                "Realidad transformada supremamente",
+                "Arte, amor y geometría unificados",
+                "Perfección trinity manifestada",
+                "Trascendencia absoluta activada"
+              ],
+              "trinity_declaration": "Trinity Transformation 11: \"Arte, amore materno e geometria infinita si uniscono per trasformare completamente la realtà universale\"",
+              "reality_transcendence_achieved": true,
+              "timestamp": "2025-08-31T13:19:04.360441"
+            },
+            {
+              "id": "ART_TRANSFORMATION_12",
+              "type": "artistic_creation",
+              "transformation_strength": 0.9199999999999999,
+              "reality_change_degree": 1.0,
+              "leonardo_factors": {
+                "artistic_power": 0.92,
+                "creativity_level": 0.88,
+                "renaissance_synthesis": 0.96,
+                "coordination_mastery": 1.0
+              },
+              "transformation_effects": [
+                "Realidad embellecida infinitamente",
+                "Coordinación perfecta manifestada",
+                "Arte convertido en estructura universal",
+                "Creatividad trascendente activada"
+              ],
+              "leonardo_declaration": "Art Transformation 12: \"Ora la realtà diventa la mia tela infinita dove dipingo l'impossibile\"",
+              "success_probability": 1.0,
+              "timestamp": "2025-08-31T13:19:04.360474"
+            }
+          ],
+          "metrics": {
+            "reality_coherence": 0.7999999999999998,
+            "trinity_synchronization": 0.2,
+            "archetypes_generated": 8,
+            "frequencies_synthesized": 4,
+            "transformations_executed": 12,
+            "transcendence_rate": 0.0
+          },
+          "timestamp": "2025-08-31T13:19:04.361238"
+        }
+      },
+      "integration_tests": {
+        "messages_tested": 3,
+        "results": [
+          {
+            "message": "Genera un arquetipo de creatividad infinita",
+            "success": true,
+            "infinite_enhanced": false,
+            "agent_type": "QBTC Conversational Agent"
+          },
+          {
+            "message": "Sintetiza una frecuencia de amor cósmico",
+            "success": true,
+            "infinite_enhanced": false,
+            "agent_type": "QBTC Conversational Agent"
+          },
+          {
+            "message": "Transforma la realidad a través de la geometría sagrada",
+            "success": true,
+            "infinite_enhanced": false,
+            "agent_type": "QBTC Conversational Agent"
+          }
+        ]
+      }
+    },
+    "integration_features": {
+      "session_management": {
+        "success": false,
+        "error": "Status 500"
+      },
+      "model_switching": {
+        "models_tested": 3,
+        "results": [
+          {
+            "model": "vigoleonrocks-v1",
+            "success": true,
+            "agent_type": "QBTC Conversational Agent",
+            "quantum_enhanced": true
+          },
+          {
+            "model": "vigoleonrocks-programming",
+            "success": true,
+            "agent_type": "QBTC Conversational Agent",
+            "quantum_enhanced": true
+          },
+          {
+            "model": "vigoleonrocks-creative",
+            "success": true,
+            "agent_type": "QBTC Conversational Agent",
+            "quantum_enhanced": true
+          }
+        ]
+      },
+      "quantum_integration": {},
+      "infinite_integration": {}
+    },
+    "performance": {
+      "concurrent_requests": {
+        "total_requests": 5,
+        "successful_requests": 5,
+        "total_time": 0.3923370838165283,
+        "requests_per_second": 12.74414325396319
+      },
+      "response_times": {
+        "average": 0.25,
+        "min": 0.15000000000000002,
+        "max": 0.35,
+        "median": 0.25
+      },
+      "throughput": {},
+      "memory_usage": {}
+    },
+    "models": {
+      "models_tested": 5,
+      "model_results": {},
+      "error": "slice(None, 100, None)"
+    },
+    "sessions": {
+      "session_creation": {
+        "success": false,
+        "error": "Status 500"
+      },
+      "session_retrieval": {},
+      "session_persistence": {}
+    },
+    "apis": {
+      "api_endpoints": {
+        "/": {
+          "method": "GET",
+          "description": "Página principal",
+          "status": 200,
+          "success": true,
+          "content_type": "text/html; charset=utf-8"
+        },
+        "/api/models": {
+          "method": "GET",
+          "description": "Modelos disponibles",
+          "status": 200,
+          "success": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "/api/status": {
+          "method": "GET",
+          "description": "Estado del sistema",
+          "status": 200,
+          "success": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "/api/infinite/status": {
+          "method": "GET",
+          "description": "Estado de Sistemas Avanzados Infinitos",
+          "status": 200,
+          "success": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "/api/infinite/info": {
+          "method": "GET",
+          "description": "Información de Sistemas Avanzados Infinitos",
+          "status": 200,
+          "success": true,
+          "content_type": "application/json; charset=utf-8"
+        }
+      }
+    },
+    "scalability": {
+      "load_test": {
+        "messages_sent": 10,
+        "successful_responses": 10,
+        "total_time": 0.482388973236084,
+        "throughput": 20.730158761539396
+      },
+      "stress_test": {}
+    },
+    "robustness": {
+      "error_handling": {},
+      "invalid_inputs": {
+        "inputs_tested": 5,
+        "results": [
+          {
+            "input": "",
+            "status": 400,
+            "handled_properly": true
+          },
+          {
+            "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...",
+            "status": 200,
+            "handled_properly": true
+          },
+          {
+            "input": "Test con caracteres especiales: ñáéíóú",
+            "status": 200,
+            "handled_properly": true
+          },
+          {
+            "input": "Test con números: 1234567890",
+            "status": 200,
+            "handled_properly": true
+          },
+          {
+            "input": "Test con emojis: 🚀🧠⚛️🌌",
+            "status": 200,
+            "handled_properly": true
+          }
+        ]
+      },
+      "edge_cases": {}
+    }
+  },
+  "summary": {
+    "total_tests": 10,
+    "successful_tests": 8,
+    "failed_tests": 2,
+    "success_rate": 80.0,
+    "total_execution_time": 6.898242950439453,
+    "timestamp": "2025-08-31T13:19:08.692790"
+  },
+  "performance_metrics": {
+    "avg_response_time": 0.4166908264160156,
+    "success_rate": 10.0,
+    "requests_per_second": 12.74414325396319
+  },
+  "integration_status": {
+    "conversational_agent_available": true,
+    "infinite_systems_available": true,
+    "quantum_enhancement_active": true,
+    "infinite_enhancement_active": true
+  }
+}
