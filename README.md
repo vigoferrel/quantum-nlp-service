@@ -19,7 +19,64 @@
 
 ## 🚀 Inicio Rápido
 
-### Opción 1: Docker (Recomendado)
+### Opción 1: Dokploy (Recomendado - Producción)
+
+#### Método A: Dashboard Web
+```bash
+# 1. Instalar Dokploy en tu VPS
+curl -sSL https://dokploy.com/install.sh | sh
+
+# 2. Acceder al dashboard web
+# http://tu-vps-ip:3000
+
+# 3. Conectar repositorio GitHub
+# - Ir a Projects → Create Project
+# - Seleccionar "Connect Git Repository"
+# - URL: https://github.com/vigoferrel/quantum-nlp-service
+# - Dokploy detectará automáticamente dokploy.json
+
+# 4. Configurar variables de entorno
+# En Project Settings → Environment Variables:
+DATABASE_URL=postgresql://user:password@postgres:5432/vigoleonrocks
+REDIS_URL=redis://redis:6379
+SECRET_KEY=tu-secret-key-aqui
+OPENROUTER_API_KEY=tu-api-key-aqui
+POSTGRES_PASSWORD=tu-password-postgres
+
+# 5. Deploy automático
+# Push a main → Deploy producción
+# Push a develop → Deploy staging
+```
+
+#### Método B: API de Dokploy
+```bash
+# 1. Configurar variables de entorno
+export DOKPLOY_SERVER_URL="http://tu-vps-ip:3000"
+export DOKPLOY_API_TOKEN="tu-api-token"
+
+# 2. Ejecutar script de deployment
+python deploy_dokploy.py
+
+# 3. Verificar estado
+curl http://tu-vps-ip/api/status
+```
+
+#### Método C: GitHub Actions (Automático)
+```yaml
+# Configurar secrets en GitHub:
+# DOKPLOY_SERVER_URL
+# DOKPLOY_API_TOKEN
+# DATABASE_URL
+# REDIS_URL
+# SECRET_KEY
+# OPENROUTER_API_KEY
+# POSTGRES_PASSWORD
+
+# El workflow .github/workflows/dokploy-deploy.yml
+# se ejecutará automáticamente en cada push
+```
+
+### Opción 2: Docker Local (Desarrollo)
 
 ```bash
 # Clonar repositorio
