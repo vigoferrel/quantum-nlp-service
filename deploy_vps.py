@@ -17,7 +17,7 @@ VPS_CONFIG = {
     'ip': '72.60.61.49',
     'ipv6': '2a02:4780:66:bfe::1',
     'dokploy_url': 'http://72.60.61.49:3000',
-    'domain': 'vigoleonrocks.com'  # Cambia esto por tu dominio real
+    'domain': 'vigoleonrocks.com'
 }
 
 # Configuración de logging

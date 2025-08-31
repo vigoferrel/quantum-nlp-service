@@ -179,6 +179,12 @@
       "type": "primary",
       "ssl": true,
       "redirect_https": true
+    },
+    {
+      "domain": "www.vigoleonrocks.com",
+      "type": "redirect",
+      "redirect_to": "https://vigoleonrocks.com",
+      "ssl": true
     }
   ],
   "backups": {
