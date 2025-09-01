@@ -121,13 +121,15 @@ monitoring/
 *.csv
 
 # Excepciones - archivos necesarios para el build
-!requirements.txt
+# requirements.txt ya está incluido arriba
 
 # Reports
 reports/
 *.json
 *.csv
+# Excluir archivos .txt excepto requirements.txt
 *.txt
+!requirements.txt
 
 # Sessions
 consciousness_sessions/
