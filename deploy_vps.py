@@ -48,31 +48,45 @@ class VPSDeployer:
             logger.error(f"❌ Error conectando con Dokploy: {e}")
             return False
 
-    def create_vigoleonrocks_project(self) -> Dict:
-        """Crea el proyecto VIGOLEONROCKS en Dokploy"""
-        logger.info("🚀 Creando proyecto VIGOLEONROCKS...")
+    def create_vigoleonrocks_application(self) -> Dict:
+        """Crea la aplicación VIGOLEONROCKS en Dokploy"""
+        logger.info("🚀 Creando aplicación VIGOLEONROCKS...")
 
-        project_config = {
+        app_config = {
             'name': 'vigoleonrocks',
             'description': 'Sistema de IA Cuántica VIGOLEONROCKS - Quantum NLP Service',
+            'projectName': 'server',  # Usar el proyecto 'server' que ya existe
+            'appName': 'vigoleonrocks',
+            'sourceType': 'git',
             'repository': 'https://github.com/vigoferrel/quantum-nlp-service',
             'branch': 'main',
-            'autoDeploy': True
+            'autoDeploy': True,
+            'build': {
+                'type': 'dockerfile',
+                'dockerfilePath': './Dockerfile'
+            },
+            'env': {
+                'FLASK_ENV': 'production',
+                'DATABASE_URL': 'postgresql://vigoleonrocks:quantum2024@vigoleonrocks-postgres:5432/vigoleonrocks',
+                'REDIS_URL': 'redis://vigoleonrocks-redis:6379',
+                'SECRET_KEY': 'vigoleonrocks_human_2024_secure_key',
+                'OPENROUTER_API_KEY': ''
+            }
         }
 
         try:
             response = self.session.post(
-                f"{self.dokploy_url}/api/projects",
-                json=project_config
+                f"{self.dokploy_url}/api/applications",
+                json=app_config
             )
             response.raise_for_status()
-            project_data = response.json()
+            app_data = response.json()
 
-            logger.info(f"✅ Proyecto creado: {project_data['id']}")
-            return project_data
+            logger.info(f"✅ Aplicación creada: {app_data['id']}")
+            return app_data
 
         except requests.exceptions.RequestException as e:
-            logger.error(f"❌ Error creando proyecto: {e}")
+            logger.error(f"❌ Error creando aplicación: {e}")
             raise
 
     def configure_services(self, project_id: str) -> Dict:
@@ -281,35 +295,47 @@ def main():
         return 1
 
     try:
-        # Crear proyecto
-        print("\n📦 Creando proyecto...")
-        project = deployer.create_vigoleonrocks_project()
-        project_id = project['id']
+        # Crear aplicación
+        print("\n📦 Creando aplicación VIGOLEONROCKS...")
+        app = deployer.create_vigoleonrocks_application()
+        app_id = app['id']
 
-        # Configurar servicios
-        print("\n⚙️ Configurando servicios...")
-        services = deployer.configure_services(project_id)
+        # Configurar servicios adicionales (PostgreSQL, Redis, Nginx)
+        print("\n⚙️ Configurando servicios adicionales...")
+        services = deployer.configure_services(app_id)
 
-        # Desplegar servicios
-        print("\n🚀 Desplegando servicios...")
-        deployments = deployer.deploy_services(project_id, services)
+        # Desplegar la aplicación principal
+        print("\n🚀 Desplegando aplicación...")
+        try:
+            response = deployer.session.post(
+                f"{deployer.dokploy_url}/api/applications/{app_id}/deploy"
+            )
+            response.raise_for_status()
+            print("✅ Aplicación desplegada exitosamente")
+        except Exception as e:
+            print(f"❌ Error desplegando aplicación: {e}")
 
-        # Configurar dominio (opcional)
-        if VPS_CONFIG['domain'] != 'vigoleonrocks.com':
-            print(f"\n🌐 Configurando dominio: {VPS_CONFIG['domain']}")
-            deployer.configure_domain(project_id, VPS_CONFIG['domain'])
+        # Desplegar servicios adicionales
+        print("\n🚀 Desplegando servicios adicionales...")
+        deployments = deployer.deploy_services(app_id, services)
+
+        # Configurar dominio
+        print(f"\n🌐 Configurando dominio: {VPS_CONFIG['domain']}")
+        if deployer.configure_domain(app_id, VPS_CONFIG['domain']):
+            print("✅ Dominio configurado exitosamente")
+        else:
+            print("⚠️ No se pudo configurar el dominio automáticamente")
 
         # Esperar a que esté saludable
         print("\n🏥 Verificando deployment...")
-        if deployer.wait_for_healthy_deployment(project_id):
+        if deployer.wait_for_healthy_deployment(app_id):
             print("\n" + "="*50)
             print("🎉 DEPLOYMENT COMPLETADO EXITOSAMENTE!")
             print("="*50)
             print(f"📍 URL de la aplicación: http://{VPS_CONFIG['ip']}")
             print(f"🔗 Dashboard Dokploy: {VPS_CONFIG['dokploy_url']}")
             print(f"📊 API Status: http://{VPS_CONFIG['ip']}/api/status")
-            if VPS_CONFIG['domain'] != 'vigoleonrocks.com':
-                print(f"🌐 Dominio: https://{VPS_CONFIG['domain']}")
+            print(f"🌐 Dominio: https://{VPS_CONFIG['domain']} (después de DNS)")
             print("="*50)
             return 0
         else:
