@@ -66,12 +66,12 @@ class VPSDeployer:
                 'dockerfilePath': './Dockerfile'
             },
             'env': {
-                'FLASK_ENV': 'production',
-                'DATABASE_URL': 'postgresql://vigoleonrocks:quantum2024@vigoleonrocks-postgres:5432/vigoleonrocks',
-                'REDIS_URL': 'redis://vigoleonrocks-redis:6379',
-                'SECRET_KEY': 'vigoleonrocks_human_2024_secure_key',
-                'OPENROUTER_API_KEY': ''
-            }
+                    'FLASK_ENV': 'production',
+                    'DATABASE_URL': 'postgresql://vigoleonrocks:z(P/Rj3P63@d8ll5&Vs7@vigoleonrocks-postgres:5432/vigoleonrocks',
+                    'REDIS_URL': 'redis://vigoleonrocks-redis:6379',
+                    'SECRET_KEY': 'vigoleonrocks_human_2024_secure_key',
+                    'OPENROUTER_API_KEY': ''
+                }
         }
 
         try:
