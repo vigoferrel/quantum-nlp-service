@@ -1,122 +1,147 @@
--- 🚀 VIGOLEONROCKS Database Initialization
--- Script para inicializar PostgreSQL con las tablas necesarias
+-- Inicialización de la base de datos VIGOLEONROCKS
+-- Versión: 1.0
+-- Fecha: 2025-09-01
 
--- Crear base de datos si no existe
--- CREATE DATABASE vigoleonrocks;
+-- Crear esquema principal
+CREATE SCHEMA IF NOT EXISTS vigoleonrocks;
 
--- Conectar a la base de datos
--- \c vigoleonrocks;
-
--- Crear tabla para conversaciones
-CREATE TABLE IF NOT EXISTS conversations (
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS vigoleonrocks.users (
     id SERIAL PRIMARY KEY,
-    user_id VARCHAR(255),
-    session_id VARCHAR(255),
-    message TEXT NOT NULL,
-    response TEXT NOT NULL,
-    language VARCHAR(10) DEFAULT 'es',
-    profile VARCHAR(50) DEFAULT 'human',
-    quantum_states INTEGER DEFAULT 26,
-    processing_time FLOAT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    is_active BOOLEAN DEFAULT true,
+    is_admin BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Crear tabla para métricas del sistema
-CREATE TABLE IF NOT EXISTS system_metrics (
-    id SERIAL PRIMARY KEY,
-    metric_name VARCHAR(255) NOT NULL,
-    metric_value FLOAT,
-    metric_type VARCHAR(50),
-    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Crear tabla para usuarios
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
-    email VARCHAR(255) UNIQUE,
-    password_hash VARCHAR(255),
-    role VARCHAR(50) DEFAULT 'user',
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP WITH TIME ZONE
 );
 
--- Crear tabla para configuraciones
-CREATE TABLE IF NOT EXISTS configurations (
+-- Tabla de sesiones de IA
+CREATE TABLE IF NOT EXISTS vigoleonrocks.ai_sessions (
+    id SERIAL PRIMARY KEY,
+    session_id VARCHAR(255) UNIQUE NOT NULL,
+    user_id INTEGER REFERENCES vigoleonrocks.users(id) ON DELETE CASCADE,
+    title VARCHAR(255),
+    model_used VARCHAR(100),
+    total_tokens INTEGER DEFAULT 0,
+    total_cost DECIMAL(10,6) DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT true
+);
+
+-- Tabla de mensajes de chat
+CREATE TABLE IF NOT EXISTS vigoleonrocks.chat_messages (
+    id SERIAL PRIMARY KEY,
+    session_id INTEGER REFERENCES vigoleonrocks.ai_sessions(id) ON DELETE CASCADE,
+    role VARCHAR(20) NOT NULL CHECK (role IN ('user', 'assistant', 'system')),
+    content TEXT NOT NULL,
+    tokens_used INTEGER DEFAULT 0,
+    processing_time DECIMAL(8,3),
+    language_detected VARCHAR(10),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de métricas de rendimiento
+CREATE TABLE IF NOT EXISTS vigoleonrocks.performance_metrics (
+    id SERIAL PRIMARY KEY,
+    endpoint VARCHAR(255) NOT NULL,
+    method VARCHAR(10) NOT NULL,
+    response_time DECIMAL(8,3) NOT NULL,
+    status_code INTEGER NOT NULL,
+    user_agent TEXT,
+    ip_address INET,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de configuraciones del sistema
+CREATE TABLE IF NOT EXISTS vigoleonrocks.system_config (
     id SERIAL PRIMARY KEY,
     config_key VARCHAR(255) UNIQUE NOT NULL,
     config_value TEXT,
     config_type VARCHAR(50) DEFAULT 'string',
-    description TEXT,
+    is_encrypted BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear tabla para logs de API
-CREATE TABLE IF NOT EXISTS api_logs (
+-- Tabla de logs de errores
+CREATE TABLE IF NOT EXISTS vigoleonrocks.error_logs (
     id SERIAL PRIMARY KEY,
+    error_type VARCHAR(100) NOT NULL,
+    error_message TEXT NOT NULL,
+    stack_trace TEXT,
     endpoint VARCHAR(255),
-    method VARCHAR(10),
-    user_id VARCHAR(255),
+    user_id INTEGER REFERENCES vigoleonrocks.users(id),
     ip_address INET,
     user_agent TEXT,
-    request_data JSONB,
-    response_data JSONB,
-    status_code INTEGER,
-    processing_time FLOAT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear tabla para análisis arquetipal
-CREATE TABLE IF NOT EXISTS archetypal_analysis (
+-- Tabla de análisis arquetípicos
+CREATE TABLE IF NOT EXISTS vigoleonrocks.archetype_analysis (
     id SERIAL PRIMARY KEY,
-    text_input TEXT NOT NULL,
+    session_id INTEGER REFERENCES vigoleonrocks.ai_sessions(id) ON DELETE CASCADE,
+    text_content TEXT NOT NULL,
     dominant_archetype VARCHAR(100),
-    patterns JSONB,
-    confidence FLOAT,
+    archetype_patterns JSONB,
+    confidence_score DECIMAL(3,2),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear tabla para traducciones
-CREATE TABLE IF NOT EXISTS translations (
+-- Tabla de traducciones
+CREATE TABLE IF NOT EXISTS vigoleonrocks.translations (
     id SERIAL PRIMARY KEY,
-    original_text TEXT NOT NULL,
+    session_id INTEGER REFERENCES vigoleonrocks.ai_sessions(id) ON DELETE CASCADE,
+    source_text TEXT NOT NULL,
     translated_text TEXT NOT NULL,
     source_language VARCHAR(10),
     target_language VARCHAR(10),
-    confidence FLOAT,
+    translation_quality DECIMAL(3,2),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear índices para mejor performance
-CREATE INDEX IF NOT EXISTS idx_conversations_user_id ON conversations(user_id);
-CREATE INDEX IF NOT EXISTS idx_conversations_session_id ON conversations(session_id);
-CREATE INDEX IF NOT EXISTS idx_conversations_created_at ON conversations(created_at);
-CREATE INDEX IF NOT EXISTS idx_system_metrics_timestamp ON system_metrics(timestamp);
-CREATE INDEX IF NOT EXISTS idx_api_logs_created_at ON api_logs(created_at);
-CREATE INDEX IF NOT EXISTS idx_archetypal_analysis_created_at ON archetypal_analysis(created_at);
-CREATE INDEX IF NOT EXISTS idx_translations_created_at ON translations(created_at);
+-- Índices para optimización
+CREATE INDEX IF NOT EXISTS idx_users_email ON vigoleonrocks.users(email);
+CREATE INDEX IF NOT EXISTS idx_users_username ON vigoleonrocks.users(username);
+CREATE INDEX IF NOT EXISTS idx_ai_sessions_user_id ON vigoleonrocks.ai_sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_ai_sessions_created_at ON vigoleonrocks.ai_sessions(created_at);
+CREATE INDEX IF NOT EXISTS idx_chat_messages_session_id ON vigoleonrocks.chat_messages(session_id);
+CREATE INDEX IF NOT EXISTS idx_performance_metrics_created_at ON vigoleonrocks.performance_metrics(created_at);
+CREATE INDEX IF NOT EXISTS idx_error_logs_created_at ON vigoleonrocks.error_logs(created_at);
 
--- Insertar configuraciones por defecto
-INSERT INTO configurations (config_key, config_value, config_type, description) VALUES
-('quantum_states', '26', 'integer', 'Número de estados cuánticos activos'),
-('default_profile', 'human', 'string', 'Perfil por defecto para respuestas'),
-('max_request_size', '1048576', 'integer', 'Tamaño máximo de request en bytes'),
-('rate_limit_requests', '100', 'integer', 'Límite de requests por hora'),
-('cache_timeout', '300', 'integer', 'Timeout de cache en segundos'),
-('log_level', 'INFO', 'string', 'Nivel de logging'),
-('maintenance_mode', 'false', 'boolean', 'Modo mantenimiento activado/desactivado')
+-- Configuraciones iniciales del sistema
+INSERT INTO vigoleonrocks.system_config (config_key, config_value, config_type) VALUES
+('system_version', '1.0.0', 'string'),
+('max_tokens_per_request', '4096', 'integer'),
+('rate_limit_requests', '100', 'integer'),
+('rate_limit_window', '3600', 'integer'),
+('maintenance_mode', 'false', 'boolean'),
+('quantum_states', '26', 'integer'),
+('supported_languages', '["es", "en", "pt", "fr", "de", "it", "ja", "ko", "zh"]', 'json'),
+('default_model', 'vigoleonrocks-quantum', 'string')
 ON CONFLICT (config_key) DO NOTHING;
 
--- Insertar usuario administrador por defecto
--- NOTA: Cambia la contraseña después de la instalación
-INSERT INTO users (username, email, password_hash, role) VALUES
-('admin', 'admin@vigoleonrocks.com', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj6fMmiP0K6', 'admin')
+-- Usuario administrador por defecto (cambiar password en producción)
+INSERT INTO vigoleonrocks.users (username, email, password_hash, full_name, is_admin) VALUES
+('admin', 'admin@vigoleonrocks.com', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj6fMJyHnUeO', 'VIGOLEONROCKS Administrator', true)
 ON CONFLICT (username) DO NOTHING;
 
--- Crear función para actualizar updated_at automáticamente
-CREATE OR REPLACE FUNCTION update_updated_at_column()
+-- Comentarios en las tablas
+COMMENT ON TABLE vigoleonrocks.users IS 'Usuarios registrados en el sistema';
+COMMENT ON TABLE vigoleonrocks.ai_sessions IS 'Sesiones de conversación con IA';
+COMMENT ON TABLE vigoleonrocks.chat_messages IS 'Mensajes de chat en cada sesión';
+COMMENT ON TABLE vigoleonrocks.performance_metrics IS 'Métricas de rendimiento del sistema';
+COMMENT ON TABLE vigoleonrocks.system_config IS 'Configuraciones del sistema';
+COMMENT ON TABLE vigoleonrocks.error_logs IS 'Logs de errores del sistema';
+COMMENT ON TABLE vigoleonrocks.archetype_analysis IS 'Análisis arquetípicos realizados';
+COMMENT ON TABLE vigoleonrocks.translations IS 'Traducciones realizadas por el sistema';
+
+-- Función para actualizar updated_at automáticamente
+CREATE OR REPLACE FUNCTION vigoleonrocks.update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
     NEW.updated_at = CURRENT_TIMESTAMP;
@@ -124,32 +149,12 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- Crear triggers para updated_at
-CREATE TRIGGER update_conversations_updated_at BEFORE UPDATE ON conversations FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_configurations_updated_at BEFORE UPDATE ON configurations FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+-- Triggers para updated_at
+CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON vigoleonrocks.users
+    FOR EACH ROW EXECUTE FUNCTION vigoleonrocks.update_updated_at_column();
 
--- Crear vista para estadísticas de uso
-CREATE OR REPLACE VIEW usage_statistics AS
-SELECT
-    DATE(created_at) as date,
-    COUNT(*) as total_requests,
-    COUNT(DISTINCT user_id) as unique_users,
-    AVG(processing_time) as avg_processing_time,
-    COUNT(CASE WHEN status_code >= 400 THEN 1 END) as error_count
-FROM api_logs
-WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
-GROUP BY DATE(created_at)
-ORDER BY date DESC;
+CREATE TRIGGER update_ai_sessions_updated_at BEFORE UPDATE ON vigoleonrocks.ai_sessions
+    FOR EACH ROW EXECUTE FUNCTION vigoleonrocks.update_updated_at_column();
 
--- Comentarios en las tablas
-COMMENT ON TABLE conversations IS 'Almacena todas las conversaciones del sistema';
-COMMENT ON TABLE system_metrics IS 'Métricas del sistema para monitoreo';
-COMMENT ON TABLE users IS 'Usuarios del sistema con roles y permisos';
-COMMENT ON TABLE configurations IS 'Configuraciones del sistema';
-COMMENT ON TABLE api_logs IS 'Logs detallados de todas las llamadas a la API';
-COMMENT ON TABLE archetypal_analysis IS 'Resultados de análisis arquetipal';
-COMMENT ON TABLE translations IS 'Historial de traducciones realizadas';
-
--- Otorgar permisos básicos (ajusta según necesites)
--- GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO vigoleonrocks;
--- GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO vigoleonrocks;
+CREATE TRIGGER update_system_config_updated_at BEFORE UPDATE ON vigoleonrocks.system_config
+    FOR EACH ROW EXECUTE FUNCTION vigoleonrocks.update_updated_at_column();
