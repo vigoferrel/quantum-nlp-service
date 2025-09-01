@@ -120,6 +120,9 @@ monitoring/
 *.json
 *.csv
 
+# Excepciones - archivos necesarios para el build
+!requirements.txt
+
 # Reports
 reports/
 *.json
