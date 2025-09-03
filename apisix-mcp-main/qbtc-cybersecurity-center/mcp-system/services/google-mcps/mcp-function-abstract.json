@@ -1,0 +1,103 @@
+{
+  "mcp_server": {
+    "core_functions": {
+      "createMCPServer": "Creates base TCP server for MCP communications",
+      "handleConnection": "Manages incoming MCP client connections",
+      "processRequest": "Processes incoming MCP requests and routes to appropriate handler",
+      "sendResponse": "Sends formatted response back to MCP client",
+      "errorHandler": "Global error handling and logging"
+    },
+    "utility_functions": {
+      "validateRequest": "Validates incoming request format and parameters",
+      "cacheManager": "Handles caching of responses",
+      "rateLimiter": "Controls request rate limiting",
+      "logger": "Centralized logging functionality"
+    }
+  },
+  "google_calendar_mcp": {
+    "core_functions": {
+      "listEvents": "Retrieves calendar events with pagination",
+      "createEvent": "Creates new calendar event",
+      "updateEvent": "Updates existing calendar event",
+      "deleteEvent": "Deletes calendar event",
+      "getEventDetails": "Gets detailed information for specific event"
+    },
+    "utility_functions": {
+      "refreshToken": "Handles OAuth token refresh",
+      "batchRequests": "Batches multiple calendar operations",
+      "validateEventData": "Validates event data format",
+      "handleConflicts": "Manages scheduling conflicts"
+    }
+  },
+  "google_gmail_mcp": {
+    "core_functions": {
+      "listMessages": "Lists email messages with filters",
+      "sendEmail": "Sends new email",
+      "getDraft": "Retrieves email draft",
+      "createDraft": "Creates new email draft",
+      "searchEmails": "Searches emails with query"
+    },
+    "utility_functions": {
+      "attachmentHandler": "Manages email attachments",
+      "labelManager": "Handles Gmail labels",
+      "threadManager": "Manages email threads",
+      "quotaTracker": "Tracks API usage quotas"
+    }
+  },
+  "google_maps_mcp": {
+    "core_functions": {
+      "geocode": "Converts addresses to coordinates",
+      "reverseGeocode": "Converts coordinates to addresses",
+      "getDirections": "Gets routing directions",
+      "placeSearch": "Searches for places",
+      "distanceMatrix": "Calculates distances between points"
+    },
+    "utility_functions": {
+      "coordinateValidator": "Validates geographic coordinates",
+      "resultOptimizer": "Optimizes route results",
+      "placesCache": "Caches frequent place lookups",
+      "regionBiasing": "Handles regional search preferences"
+    }
+  },
+  "shared_utilities": {
+    "authentication": {
+      "tokenManager": "Manages OAuth tokens across services",
+      "credentialStore": "Securely stores API credentials",
+      "sessionHandler": "Handles user sessions"
+    },
+    "performance": {
+      "connectionPool": "Manages connection pooling",
+      "requestBatcher": "Batches similar requests",
+      "cacheStrategy": "Implements caching strategies"
+    },
+    "error_handling": {
+      "retryManager": "Manages request retries",
+      "errorLogger": "Logs errors and exceptions",
+      "failoverHandler": "Handles service failover"
+    },
+    "monitoring": {
+      "performanceMetrics": "Tracks performance metrics",
+      "healthCheck": "Monitors service health",
+      "usageAnalytics": "Tracks API usage"
+    }
+  },
+  "configuration": {
+    "environment_variables": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET",
+      "GOOGLE_REFRESH_TOKEN",
+      "MCP_SERVER_PORT",
+      "CACHE_TTL",
+      "MAX_RETRIES",
+      "BATCH_SIZE",
+      "LOG_LEVEL"
+    ],
+    "performance_settings": {
+      "connection_pool_size": 10,
+      "cache_duration": 3600,
+      "retry_limit": 3,
+      "batch_window": 100,
+      "timeout": 30000
+    }
+  }
+}

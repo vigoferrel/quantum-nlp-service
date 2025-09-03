@@ -1,0 +1,16 @@
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import makeAdminAPIRequest from "../utils/adminAPI.js";
+import { CreateOrUpdateProtoSchema } from "../schemas/protos.js";
+
+const setupProtoTools = (server: McpServer) => {
+  server.tool("create_or_update_proto", "Create a proto, if the proto already exists, it will be updated", CreateOrUpdateProtoSchema.shape, async (args: any) => {
+    const protoId = args.id;
+    if (protoId) {
+      return await makeAdminAPIRequest(`/protos/${protoId}`, "PUT", args.proto);
+    } else {
+      return await makeAdminAPIRequest("/protos", "POST", args.proto);
+    }
+  });
+};
+
+export default setupProtoTools;

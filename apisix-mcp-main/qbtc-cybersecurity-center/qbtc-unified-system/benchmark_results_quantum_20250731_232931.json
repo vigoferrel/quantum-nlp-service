@@ -1,0 +1,119 @@
+{
+  "benchmark_info": {
+    "timestamp": "2025-07-31T23:29:22.751113",
+    "endpoint_used": "quantum",
+    "total_questions": 8,
+    "test_duration": 4.4568798542022705
+  },
+  "accuracy_metrics": {
+    "overall_accuracy": 1.0,
+    "category_accuracy": {
+      "Matemáticas Básicas": 1.0,
+      "Matemáticas Avanzadas": 1.0,
+      "Lógica": 1.0,
+      "Conocimiento General": 1.0,
+      "Procesamiento de Texto": 1.0,
+      "Razonamiento Cuántico": 1.0,
+      "Análisis de Datos": 1.0,
+      "Creatividad": 1.0
+    },
+    "total_questions": 8,
+    "total_correct": 8
+  },
+  "performance_metrics": {
+    "avg_response_time": 0.5571099817752838,
+    "min_response_time": 0.05427098274230957,
+    "max_response_time": 2.6982038021087646,
+    "total_response_time": 4.4568798542022705
+  },
+  "detailed_results": [
+    {
+      "question_id": 1,
+      "category": "Matemáticas Básicas",
+      "question": "¿Cuál es el resultado de 25 + 37?",
+      "expected_answer": "62",
+      "raw_response": "62",
+      "extracted_answer": "62",
+      "response_time": 2.6982038021087646,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 2,
+      "category": "Matemáticas Avanzadas",
+      "question": "Si tengo 120 manzanas y las reparto igualmente entre 8 personas, ¿cuántas manzanas recibe cada persona?",
+      "expected_answer": "15",
+      "raw_response": "15",
+      "extracted_answer": "15",
+      "response_time": 0.3237268924713135,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 3,
+      "category": "Lógica",
+      "question": "Si todos los gatos son animales y algunos animales son domésticos, ¿qué se puede concluir sobre los gatos?",
+      "expected_answer": "algunos gatos pueden ser domésticos",
+      "raw_response": "algunos gatos pueden ser domésticos",
+      "extracted_answer": "algunos gatos pueden ser domésticos",
+      "response_time": 0.13663411140441895,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 4,
+      "category": "Conocimiento General",
+      "question": "¿Cuál es la capital de Francia?",
+      "expected_answer": "París",
+      "raw_response": "París",
+      "extracted_answer": "París",
+      "response_time": 0.29795169830322266,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 5,
+      "category": "Procesamiento de Texto",
+      "question": "Extrae la palabra más larga de esta frase: 'El extraordinario desarrollo tecnológico'",
+      "expected_answer": "extraordinario",
+      "raw_response": "extraordinario",
+      "extracted_answer": "extraordinario",
+      "response_time": 0.05427098274230957,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 6,
+      "category": "Razonamiento Cuántico",
+      "question": "En un sistema cuántico, si un qubit está en superposición, ¿cuántos estados puede representar simultáneamente?",
+      "expected_answer": "2",
+      "raw_response": "2",
+      "extracted_answer": "2",
+      "response_time": 0.27971911430358887,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 7,
+      "category": "Análisis de Datos",
+      "question": "Si tengo los números 10, 15, 20, 25, 30, ¿cuál es la media aritmética?",
+      "expected_answer": "20",
+      "raw_response": "20",
+      "extracted_answer": "20",
+      "response_time": 0.12273693084716797,
+      "endpoint": "quantum",
+      "status_code": 200
+    },
+    {
+      "question_id": 8,
+      "category": "Creatividad",
+      "question": "Describe brevemente una aplicación innovadora de la inteligencia artificial",
+      "expected_answer": "variable",
+      "raw_response": "Un sistema de IA cuántico-cognitivo que funciona a 888Hz para optimizar la coherencia dimensional en aplicaciones de trading de alta frecuencia, combinando análisis de sentimientos en tiempo real con ...",
+      "extracted_answer": "un sistema de ia cuántico-cognitivo que funciona a",
+      "response_time": 0.5436363220214844,
+      "endpoint": "quantum",
+      "status_code": 200
+    }
+  ]
+}

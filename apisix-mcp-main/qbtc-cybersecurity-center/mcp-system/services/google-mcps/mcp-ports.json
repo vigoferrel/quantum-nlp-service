@@ -1,0 +1,27 @@
+{
+  "core_mcps": {
+    "git_tools": 55100,
+    "puppeteer": 55110,
+    "brave_search": 55120,
+    "time": 55130,
+    "context7": 55140,
+    "filesystem": 55150,
+    "sequential_thinking": 55160,
+    "supabase": 55170
+  },
+  "google_mcps": {
+    "calendar": 55200,
+    "gmail": 55210,
+    "maps": 55220
+  },
+  "monitoring": {
+    "health_check": 55900,
+    "metrics": 55910,
+    "logs": 55920
+  },
+  "port_ranges": {
+    "core": "55100-55199",
+    "google": "55200-55299",
+    "monitoring": "55900-55999"
+  }
+}

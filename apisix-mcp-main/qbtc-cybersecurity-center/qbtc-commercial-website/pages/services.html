@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - QBTC Cybersecurity</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .service-detail {
+            background: linear-gradient(135deg, rgba(16, 33, 62, 0.9) 0%, rgba(15, 52, 96, 0.7) 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-detail::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-detail:hover::before {
+            opacity: 1;
+        }
+        
+        .service-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .price-tag {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0 0 15px 15px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🛡️ Nuestros Servicios</h1>
+            <p>Soluciones Avanzadas de Ciberseguridad Cuántica</p>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="#enterprise">Empresarial</a></li>
+                    <li><a href="#government">Gubernamental</a></li>
+                    <li><a href="#personal">Personal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="enterprise">
+        <div class="container">
+            <div class="service-detail">
+                <div class="price-tag">Desde $10,000/mes</div>
+                <div class="service-icon">🏢</div>
+                <h2>Seguridad Empresarial Cuántica</h2>
+                <p>Protección integral para empresas que manejan datos críticos y requieren el más alto nivel de seguridad cuántica.</p>
+                
+                <ul class="features-list">
+                    <li>Cifrado cuántico de extremo a extremo</li>
+                    <li>Monitoreo 24/7 con IA avanzada</li>
+                    <li>Detección de amenazas en tiempo real</li>
+                    <li>Respuesta automática a incidentes</li>
+                    <li>Auditorías de seguridad mensuales</li>
+                    <li>Simulación de ataques cuánticos</li>
+                    <li>Certificación post-cuántica</li>
+                    <li>Soporte técnico dedicado</li>
+                </ul>
+                
+                <p><strong>Ideal para:</strong> Bancos, hospitales, empresas tecnológicas, infraestructura crítica</p>
+                <a href="#contact" class="cta-button">Solicitar Cotización Empresarial</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="government">
+        <div class="container">
+            <div class="service-detail">
+                <div class="price-tag">Cotización Especial</div>
+                <div class="service-icon">🏛️</div>
+                <h2>Seguridad Gubernamental Cuántica</h2>
+                <p>Soluciones de máxima seguridad diseñadas específicamente para entidades gubernamentales y agencias de seguridad nacional.</p>
+                
+                <ul class="features-list">
+                    <li>Clasificación de seguridad TOP SECRET</li>
+                    <li>Cumplimiento con estándares NIST post-cuánticos</li>
+                    <li>Infraestructura aislada y dedicada</li>
+                    <li>Cifrado cuántico militar</li>
+                    <li>Detección de espionaje cuántico</li>
+                    <li>Protocolos de emergencia nacional</li>
+                    <li>Integración con sistemas existentes</li>
+                    <li>Entrenamiento especializado del personal</li>
+                </ul>
+                
+                <p><strong>Ideal para:</strong> Ministerios, agencias de inteligencia, fuerzas armadas, infraestructura nacional</p>
+                <a href="#contact" class="cta-button">Contactar Especialista Gubernamental</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="personal">
+        <div class="container">
+            <div class="service-detail">
+                <div class="price-tag">$99/mes</div>
+                <div class="service-icon">👤</div>
+                <h2>Protección Personal Cuántica</h2>
+                <p>Seguridad cuántica accesible para individuos que valoran su privacidad y protección digital personal.</p>
+                
+                <ul class="features-list">
+                    <li>VPN cuántica personal</li>
+                    <li>Cifrado de archivos personales</li>
+                    <li>Protección de identidad digital</li>
+                    <li>Navegación anónima cuántica</li>
+                    <li>Backup cifrado en la nube</li>
+                    <li>Protección de comunicaciones</li>
+                    <li>Alertas de seguridad personalizadas</li>
+                    <li>Aplicación móvil intuitiva</li>
+                </ul>
+                
+                <p><strong>Ideal para:</strong> Profesionales, ejecutivos, personas públicas, cualquier usuario que valore su privacidad</p>
+                <a href="#contact" class="cta-button">Comenzar Prueba Gratuita</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="additional-services">
+        <div class="container">
+            <h2>Servicios Adicionales</h2>
+            <div class="service-list">
+                <div class="service">
+                    <h3>🎓 Capacitación en Ciberseguridad</h3>
+                    <p>Formación especializada para equipos de TI en tecnologías de seguridad cuántica y mejores prácticas.</p>
+                    <p><strong>Precio:</strong> $500 por participante</p>
+                </div>
+                
+                <div class="service">
+                    <h3>🔍 Auditoría de Vulnerabilidades</h3>
+                    <p>Evaluación completa de su infraestructura para identificar posibles vectores de ataque cuántico.</p>
+                    <p><strong>Precio:</strong> Desde $5,000</p>
+                </div>
+                
+                <div class="service">
+                    <h3>🛠️ Consultoría Estratégica</h3>
+                    <p>Asesoramiento personalizado para desarrollar una estrategia de seguridad cuántica a largo plazo.</p>
+                    <p><strong>Precio:</strong> $300/hora</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contacta con Nuestros Especialistas</h2>
+            <p>Obtén una evaluación gratuita de tus necesidades de seguridad y una propuesta personalizada.</p>
+            <form id="contact-form">
+                <input type="text" placeholder="Nombre Completo" required>
+                <input type="email" placeholder="Correo Electrónico" required>
+                <input type="text" placeholder="Empresa/Organización" required>
+                <select required>
+                    <option value="">Selecciona un Servicio</option>
+                    <option value="enterprise">Seguridad Empresarial</option>
+                    <option value="government">Seguridad Gubernamental</option>
+                    <option value="personal">Protección Personal</option>
+                    <option value="training">Capacitación</option>
+                    <option value="audit">Auditoría</option>
+                    <option value="consulting">Consultoría</option>
+                </select>
+                <textarea placeholder="Describe tus necesidades de seguridad" required></textarea>
+                <button type="submit">Solicitar Consulta Gratuita</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

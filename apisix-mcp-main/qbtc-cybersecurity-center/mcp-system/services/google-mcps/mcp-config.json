@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "mcps": {
+    "calendar": {
+      "command": "npm run start-calendar",
+      "args": [],
+      "env": {
+        "GOOGLE_CLIENT_ID": "1006013846228-7f2vh8bdo0pbs7uvehptdq8gpsa645gj.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRET": "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",
+        "GOOGLE_CREDENTIALS_PATH": "C:\\Users\\Hp\\Documents\\google-mcps\\google_credentials.json"
+      },
+      "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+    },
+    "gmail": {
+      "command": "npm run start-gmail",
+      "args": [],
+      "env": {
+        "GOOGLE_CLIENT_ID": "1006013846228-7f2vh8bdo0pbs7uvehptdq8gpsa645gj.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRET": "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",
+        "GOOGLE_CREDENTIALS_PATH": "C:\\Users\\Hp\\Documents\\google-mcps\\google_credentials.json"
+      },
+      "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+    },
+    "maps": {
+      "command": "npm run start-maps",
+      "args": [],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "AIzaSyB5UXFEpTMqTC1-W8w330eVCgScl3fpLRk"
+      },
+      "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+    }
+  },
+  "global": {
+    "env": {
+      "NODE_ENV": "development",
+      "LOG_LEVEL": "info"
+    },
+    "timeout": 30000,
+    "retry": {
+      "attempts": 3,
+      "delay": 1000
+    }
+  }
+}

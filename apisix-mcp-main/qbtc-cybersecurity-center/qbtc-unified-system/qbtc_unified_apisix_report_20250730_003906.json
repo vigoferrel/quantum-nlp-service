@@ -1,0 +1,145 @@
+{
+  "status": "UNIFIED_SYSTEM_ACTIVE",
+  "timestamp": "2025-07-30T00:38:14.778582",
+  "frequency": 888,
+  "components": {},
+  "performance_metrics": {
+    "services_discovered": 0,
+    "routes_configured": 0,
+    "health_checks_passed": 0,
+    "quantum_signatures_generated": 0,
+    "start_timestamp": "2025-07-30T00:38:14.754482"
+  },
+  "infrastructure_status": {
+    "node_api_experiments": false,
+    "python_api_quantum_coding": true,
+    "apisix_gateway": false,
+    "apisix_admin": false,
+    "rabbitmq": true,
+    "rabbitmq_management": true,
+    "redis": true,
+    "supabase_db": true,
+    "docker_available": false
+  },
+  "apisix_mcp_status": {
+    "directory_exists": false,
+    "package_json_exists": false,
+    "main_file_exists": false,
+    "build_ready": false,
+    "node_modules_exists": false
+  },
+  "apisix_docker_status": {
+    "admin_api_accessible": false,
+    "gateway_accessible": false,
+    "configuration_files_exist": false,
+    "routes_configured": 0
+  },
+  "discovered_services": [
+    {
+      "name": "quantum-api-python",
+      "url": "http://127.0.0.1:8000",
+      "type": "quantum_coding_api",
+      "health_endpoint": "/health",
+      "status": "active",
+      "response_time": 2.424299,
+      "health_status": 200
+    },
+    {
+      "name": "llm-api-service",
+      "url": "http://127.0.0.1:8000",
+      "type": "llm_service",
+      "health_endpoint": "/v1/models",
+      "status": "active",
+      "response_time": 1.547614,
+      "health_status": 404
+    }
+  ],
+  "route_configuration": {
+    "routes": [],
+    "upstreams": [],
+    "errors": [
+      "Error configurando servicio quantum-api-python: HTTPConnectionPool(host='127.0.0.1', port=9180): Max retries exceeded with url: /apisix/admin/upstreams/upstream-quantum-api-python (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E0444270>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))",
+      "Error configurando servicio llm-api-service: HTTPConnectionPool(host='127.0.0.1', port=9180): Max retries exceeded with url: /apisix/admin/upstreams/upstream-llm-api-service (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E0444490>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))"
+    ]
+  },
+  "monitoring": {
+    "logs_directory_ready": true,
+    "metrics_collection_active": true,
+    "apisix_metrics_accessible": false
+  },
+  "connectivity_tests": {
+    "apisix_gateway": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=9080): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E04449E0>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))",
+      "response_time": 2.409,
+      "url": "http://127.0.0.1:9080",
+      "name": "APISIX Gateway"
+    },
+    "apisix_admin": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=9180): Max retries exceeded with url: /apisix/admin/routes (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E0444C00>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))",
+      "response_time": 2.486,
+      "url": "http://127.0.0.1:9180/apisix/admin/routes",
+      "name": "APISIX Admin API"
+    },
+    "gateway_route_1": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=9080): Max retries exceeded with url: /api/experiments_api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E0444E20>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))",
+      "response_time": 2.203,
+      "url": "http://127.0.0.1:9080/api/experiments_api/health",
+      "name": "Gateway Route 1"
+    },
+    "gateway_route_2": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=9080): Max retries exceeded with url: /api/quantum_coding_api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000284E0445040>: Failed to establish a new connection: [WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión'))",
+      "response_time": 2.424,
+      "url": "http://127.0.0.1:9080/api/quantum_coding_api/health",
+      "name": "Gateway Route 2"
+    },
+    "rabbitmq_management": {
+      "status": "warning",
+      "status_code": 401,
+      "response_time": 0.441,
+      "url": "http://127.0.0.1:15672/api/overview",
+      "name": "RabbitMQ Management"
+    }
+  },
+  "performance_score": {
+    "total_score": 39.3,
+    "components": {
+      "infrastructure": 16.7,
+      "services_discovery": 16,
+      "apisix_routes": 0,
+      "connectivity": 0.0,
+      "monitoring": 6.7
+    },
+    "grade": "D",
+    "improvement_suggestions": [
+      "Activar más componentes de infraestructura (Docker, RabbitMQ, Redis)",
+      "Iniciar más servicios API para mejorar el auto-discovery",
+      "Configurar más rutas APISIX para servicios activos",
+      "Verificar conectividad de red y configuración de puertos",
+      "Activar sistema de métricas y monitoreo completo"
+    ]
+  },
+  "quantum_signatures": {
+    "quantum-api-python": "QBTC888_450077_VIGOLEONROCKS",
+    "llm-api-service": "QBTC888_436763_VIGOLEONROCKS"
+  },
+  "uptime_seconds": 51.608367919921875,
+  "final_performance_metrics": {
+    "services_discovered": 2,
+    "routes_configured": 0,
+    "health_checks_passed": 0,
+    "quantum_signatures_generated": 2,
+    "start_timestamp": "2025-07-30T00:38:14.754482"
+  },
+  "report_metadata": {
+    "generated_by": "QBTC_APISIX_UNIFIED_ORCHESTRATOR",
+    "version": "888.1.0-UNIFIED",
+    "frequency": 888,
+    "system": "VIGOLEONROCKS",
+    "report_timestamp": "20250730_003906",
+    "total_execution_time": 51.608450412750244
+  }
+}

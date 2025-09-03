@@ -1,0 +1,119 @@
+{
+  "benchmark_info": {
+    "timestamp": "2025-07-29T16:25:32.673803",
+    "endpoint_used": "quantum",
+    "total_questions": 8,
+    "test_duration": 0.33240389823913574
+  },
+  "accuracy_metrics": {
+    "overall_accuracy": 0.125,
+    "category_accuracy": {
+      "Matemáticas Básicas": 0.0,
+      "Matemáticas Avanzadas": 0.0,
+      "Lógica": 0.0,
+      "Conocimiento General": 0.0,
+      "Procesamiento de Texto": 0.0,
+      "Razonamiento Cuántico": 0.0,
+      "Análisis de Datos": 0.0,
+      "Creatividad": 1.0
+    },
+    "total_questions": 8,
+    "total_correct": 1
+  },
+  "performance_metrics": {
+    "avg_response_time": 0.04155048727989197,
+    "min_response_time": 0.011333227157592773,
+    "max_response_time": 0.19985723495483398,
+    "total_response_time": 0.33240389823913574
+  },
+  "detailed_results": [
+    {
+      "question_id": 1,
+      "category": "Matemáticas Básicas",
+      "question": "¿Cuál es el resultado de 25 + 37?",
+      "expected_answer": "62",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "8001",
+      "response_time": 0.19985723495483398,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 2,
+      "category": "Matemáticas Avanzadas",
+      "question": "Si tengo 120 manzanas y las reparto igualmente entre 8 personas, ¿cuántas manzanas recibe cada persona?",
+      "expected_answer": "15",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "8001",
+      "response_time": 0.026582002639770508,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 3,
+      "category": "Lógica",
+      "question": "Si todos los gatos son animales y algunos animales son domésticos, ¿qué se puede concluir sobre los gatos?",
+      "expected_answer": "algunos gatos pueden ser domésticos",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "[error de conexión: 404 client error: not found fo",
+      "response_time": 0.016736268997192383,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 4,
+      "category": "Conocimiento General",
+      "question": "¿Cuál es la capital de Francia?",
+      "expected_answer": "París",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "[error de conexión: 404 client error: not found fo",
+      "response_time": 0.024137020111083984,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 5,
+      "category": "Procesamiento de Texto",
+      "question": "Extrae la palabra más larga de esta frase: 'El extraordinario desarrollo tecnológico'",
+      "expected_answer": "extraordinario",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "localhost",
+      "response_time": 0.028512239456176758,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 6,
+      "category": "Razonamiento Cuántico",
+      "question": "En un sistema cuántico, si un qubit está en superposición, ¿cuántos estados puede representar simultáneamente?",
+      "expected_answer": "2",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "8001",
+      "response_time": 0.013840436935424805,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 7,
+      "category": "Análisis de Datos",
+      "question": "Si tengo los números 10, 15, 20, 25, 30, ¿cuál es la media aritmética?",
+      "expected_answer": "20",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "8001",
+      "response_time": 0.011333227157592773,
+      "endpoint": "quantum",
+      "status_code": 0
+    },
+    {
+      "question_id": 8,
+      "category": "Creatividad",
+      "question": "Describe brevemente una aplicación innovadora de la inteligencia artificial",
+      "expected_answer": "variable",
+      "raw_response": "[ERROR DE CONEXIÓN: 404 Client Error: Not Found for url: http://localhost:8001/quantum/process]",
+      "extracted_answer": "[error de conexión: 404 client error: not found fo",
+      "response_time": 0.011405467987060547,
+      "endpoint": "quantum",
+      "status_code": 0
+    }
+  ]
+}

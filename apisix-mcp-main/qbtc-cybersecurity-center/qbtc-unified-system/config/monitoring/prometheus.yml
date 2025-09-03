@@ -1,0 +1,34 @@
+# QBTC Performance Monitoring Configuration
+
+# Prometheus Configuration
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "qbtc_alerts.yml"
+
+scrape_configs:
+  - job_name: 'qbtc-quantum-core'
+    static_configs:
+      - targets: ['localhost:8001']
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+
+  - job_name: 'qbtc-api-gateway' 
+    static_configs:
+      - targets: ['localhost:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+
+  - job_name: 'qbtc-health-checks'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: '/health/metrics'
+    scrape_interval: 30s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093

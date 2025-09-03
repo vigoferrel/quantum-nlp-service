@@ -1,0 +1,218 @@
+{
+  "status": "INTELLIGENT_SYSTEM_ACTIVE",
+  "timestamp": "2025-07-30T02:17:46.847162",
+  "frequency": 888,
+  "orchestrator_version": "intelligent_v2.0",
+  "components": {},
+  "performance_metrics": {
+    "services_discovered": 0,
+    "routes_configured": 0,
+    "health_checks_passed": 0,
+    "quantum_signatures_generated": 0,
+    "fallback_activations": 0,
+    "auto_healing_events": 0,
+    "start_timestamp": "2025-07-30T02:17:46.846295",
+    "strategy_used": "unknown"
+  },
+  "system_health": {
+    "services_status": {
+      "node_api_experiments": {
+        "port": 3001,
+        "active": false,
+        "essential": false
+      },
+      "python_api_quantum_coding": {
+        "port": 8000,
+        "active": true,
+        "essential": true
+      },
+      "quantum-core-service": {
+        "port": 8001,
+        "active": true,
+        "essential": false
+      },
+      "trading-hft-service": {
+        "port": 8002,
+        "active": true,
+        "essential": false
+      },
+      "rabbitmq": {
+        "port": 5672,
+        "active": true,
+        "essential": true
+      },
+      "redis": {
+        "port": 6379,
+        "active": true,
+        "essential": true
+      },
+      "supabase_db": {
+        "port": 5432,
+        "active": true,
+        "essential": true
+      }
+    },
+    "docker_status": {
+      "available": false,
+      "containers_running": 0
+    },
+    "apisix_status": {
+      "admin_available": false,
+      "gateway_available": false,
+      "fully_operational": false
+    },
+    "infrastructure_health": {},
+    "system_resources": {
+      "cpu_percent": 100.0,
+      "memory_percent": 92.7,
+      "disk_percent": 60.3
+    }
+  },
+  "activation_strategy": "fallback_required",
+  "mode": "fallback_proxy",
+  "fallback_proxy_url": "http://127.0.0.1:9079",
+  "apisix_available": false,
+  "fallback_proxy_already_running": true,
+  "discovered_services": [
+    {
+      "name": "python_api_quantum_coding",
+      "url": "http://127.0.0.1:8000",
+      "port": 8000,
+      "type": "port_scan",
+      "essential": true,
+      "health_status": "active"
+    },
+    {
+      "name": "quantum-core-service",
+      "url": "http://127.0.0.1:8001",
+      "port": 8001,
+      "type": "port_scan",
+      "essential": false,
+      "health_status": "active"
+    },
+    {
+      "name": "trading-hft-service",
+      "url": "http://127.0.0.1:8002",
+      "port": 8002,
+      "type": "port_scan",
+      "essential": false,
+      "health_status": "active"
+    },
+    {
+      "name": "rabbitmq",
+      "url": "http://127.0.0.1:5672",
+      "port": 5672,
+      "type": "port_scan",
+      "essential": true,
+      "health_status": "active"
+    },
+    {
+      "name": "redis",
+      "url": "http://127.0.0.1:6379",
+      "port": 6379,
+      "type": "port_scan",
+      "essential": true,
+      "health_status": "active"
+    },
+    {
+      "name": "supabase_db",
+      "url": "http://127.0.0.1:5432",
+      "port": 5432,
+      "type": "port_scan",
+      "essential": true,
+      "health_status": "active"
+    }
+  ],
+  "route_configuration": {
+    "routes": [
+      "/api/python-api-quantum-coding",
+      "/api/quantum-core-service",
+      "/api/trading-hft-service",
+      "/api/rabbitmq",
+      "/api/redis",
+      "/api/supabase-db"
+    ],
+    "errors": [],
+    "method": "fallback_proxy"
+  },
+  "monitoring": {
+    "logs_directory_ready": true,
+    "metrics_collection_active": true,
+    "intelligent_monitoring_active": true
+  },
+  "connectivity_tests": {
+    "primary_gateway": {
+      "status": "error",
+      "error": "HTTPConnectionPool(host='127.0.0.1', port=9079): Read timed out. (read timeout=10)",
+      "response_time": 10.023,
+      "url": "http://127.0.0.1:9079/health",
+      "name": "Fallback Proxy"
+    },
+    "essential_python_api": {
+      "status": "warning",
+      "status_code": 405,
+      "response_time": 0.29,
+      "url": "http://127.0.0.1:8000",
+      "name": "Python API"
+    },
+    "essential_rabbitmq": {
+      "status": "error",
+      "error": "('Connection aborted.', BadStatusLine('AMQP\\x00\\x00\\t\\x01'))",
+      "response_time": 0.053,
+      "url": "http://127.0.0.1:5672",
+      "name": "RabbitMQ"
+    },
+    "essential_redis": {
+      "status": "error",
+      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "response_time": 0.161,
+      "url": "http://127.0.0.1:6379",
+      "name": "Redis"
+    }
+  },
+  "performance_score": {
+    "total_score": 80.7,
+    "components": {
+      "infrastructure": 25.7,
+      "gateway": 20,
+      "service_discovery": 20,
+      "routes": 15,
+      "connectivity": 0.0
+    },
+    "grade": "B"
+  },
+  "quantum_signatures": {
+    "python_api_quantum_coding": "QBTC888_824491_VIGOLEONROCKS_INTELLIGENT",
+    "quantum-core-service": "QBTC888_459343_VIGOLEONROCKS_INTELLIGENT",
+    "trading-hft-service": "QBTC888_173598_VIGOLEONROCKS_INTELLIGENT",
+    "rabbitmq": "QBTC888_750949_VIGOLEONROCKS_INTELLIGENT",
+    "redis": "QBTC888_152902_VIGOLEONROCKS_INTELLIGENT",
+    "supabase_db": "QBTC888_131342_VIGOLEONROCKS_INTELLIGENT"
+  },
+  "auto_healing": {
+    "auto_healing_enabled": true,
+    "healing_interval_seconds": 60,
+    "last_healing_check": "2025-07-30T02:18:24.928000"
+  },
+  "uptime_seconds": 38.08208346366882,
+  "final_performance_metrics": {
+    "services_discovered": 6,
+    "routes_configured": 6,
+    "health_checks_passed": 0,
+    "quantum_signatures_generated": 6,
+    "fallback_activations": 1,
+    "auto_healing_events": 0,
+    "start_timestamp": "2025-07-30T02:17:46.846295",
+    "strategy_used": "fallback_required"
+  },
+  "report_metadata": {
+    "generated_by": "QBTC_INTELLIGENT_ORCHESTRATOR",
+    "version": "intelligent_v2.0_fixed",
+    "frequency": 888,
+    "system": "VIGOLEONROCKS",
+    "report_timestamp": "20250730_021824",
+    "total_execution_time": 38.08217191696167,
+    "fallback_proxy_active": true,
+    "auto_healing_enabled": true
+  }
+}

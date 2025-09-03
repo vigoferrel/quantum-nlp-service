@@ -1,0 +1,11 @@
+{
+  "event_logging": {
+    "llm_requests": "supabase.llm_requests_log",
+    "responses": "supabase.llm_responses_log",
+    "performance": "supabase.performance_metrics"
+  },
+  "model_storage": {
+    "vigoleonrocks_models": "supabase.model_configurations",
+    "quantum_states": "supabase.quantum_consciousness_states"
+  }
+}

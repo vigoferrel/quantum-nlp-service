@@ -1,0 +1,157 @@
+{
+  "": {
+    "command": "",
+    "args": [],
+    "performance": {
+      "maxConcurrentRequests": 50,
+      "timeout": 30000,
+      "retryAttempts": 3,
+      "retryDelay": 1000,
+      "maxParticles": 10,
+      "updateInterval": 500
+    },
+    "logging": {
+      "level": "info",
+      "file": "mcp-servers.log",
+      "console": true,
+      "maxSize": "10m",
+      "maxFiles": 5
+    },
+    "security": {
+      "allowLocalFileAccess": true,
+      "enableNetworkAccess": true,
+      "corsEnabled": true,
+      "corsOrigins": ["http://localhost:8080"]
+    },
+    "env": {
+      "GOOGLE_CLIENT_ID": "1006013846228-7f2vh8bdo0pbs7uvehptdq8gpsa645gj.apps.googleusercontent.com",
+      "GOOGLE_CLIENT_SECRET": "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",
+      "GOOGLE_CREDENTIALS_PATH": "C:\\Users\\Hp\\Documents\\google-mcps\\google_credentials.json",
+      "GOOGLE_MAPS_API_KEY": "AIzaSyB5UXFEpTMqTC1-W8w330eVCgScl3fpLRk",
+      "BRAVE_API_KEY": "BSAbyAOvF7e6oYTnvUesQ3kfVXquNvL",
+      "SUPABASE_URL": "https://hrvxsaolaxnqltomqaud.supabase.co",
+      "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhydnhzYW9sYXhucWx0b21xYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNDU4MDEsImV4cCI6MjA2NjcyMTgwMX0.PdeDNbEX5c9VCYgWR35nV_Y8JYQXtkmYRXAA4rs68j0",
+      "NODE_ENV": "development",
+      "LOG_LEVEL": "info"
+    },
+    "working_directory": null
+  },
+  "brave-search": {
+    "command": "mcp-brave-search",
+    "args": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "env": {
+      "BRAVE_API_KEY": "BSAbyAOvF7e6oYTnvUesQ3kfVXquNvL"
+    },
+    "performance": {
+      "maxConcurrentSearches": 10,
+      "cacheEnabled": true,
+      "cacheMaxAge": 3600
+    },
+    "working_directory": null
+  },
+  "context7": {
+    "command": "mcp-context7",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "git-tools": {
+    "command": "mcp-git-tools",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "puppeteer": {
+    "command": "mcp-puppeteer",
+    "args": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "env": {},
+    "performance": {
+      "headless": true,
+      "defaultViewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "maxConcurrentPages": 5,
+      "timeout": 30000
+    },
+    "working_directory": null
+  },
+  "server-filesystem": {
+    "command": "mcp-server-filesystem",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "server-sequential-thinking": {
+    "command": "mcp-server-sequential-thinking",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "server-supabase": {
+    "command": "mcp-server-supabase",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "server-webresearch": {
+    "command": "mcp-server-webresearch",
+    "args": [],
+    "env": {},
+    "working_directory": null
+  },
+  "time": {
+    "command": "mcp-time",
+    "args": [],
+    "env": {},
+    "performance": {
+      "updateInterval": 1000,
+      "maxConcurrentRequests": 1
+    },
+    "working_directory": null
+  },
+  "calendar": {
+    "command": "npm run start-calendar",
+    "args": ["--max-old-space-size=4096"],
+    "env": {
+      "NODE_OPTIONS": "--max-http-header-size=16384"
+    },
+    "performance": {
+      "maxConcurrentRequests": 10,
+      "cacheEnabled": true,
+      "cacheMaxAge": 300,
+      "batchSize": 50
+    },
+    "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+  },
+  "gmail": {
+    "command": "npm run start-gmail",
+    "args": ["--max-old-space-size=4096"],
+    "env": {
+      "NODE_OPTIONS": "--max-http-header-size=16384"
+    },
+    "performance": {
+      "maxConcurrentRequests": 5,
+      "cacheEnabled": true,
+      "cacheMaxAge": 300,
+      "batchSize": 25,
+      "maxAttachmentSize": 10485760
+    },
+    "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+  },
+  "maps": {
+    "command": "npm run start-maps",
+    "args": ["--max-old-space-size=4096"],
+    "env": {
+      "NODE_OPTIONS": "--max-http-header-size=16384"
+    },
+    "performance": {
+      "maxConcurrentRequests": 20,
+      "cacheEnabled": true,
+      "cacheMaxAge": 3600,
+      "geocodingBatchSize": 50,
+      "placesSearchRadius": 5000
+    },
+    "working_directory": "C:\\Users\\Hp\\Documents\\google-mcps"
+  }
+}

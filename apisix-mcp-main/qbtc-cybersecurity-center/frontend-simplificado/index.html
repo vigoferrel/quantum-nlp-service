@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QBTC Quantum Security Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🛡️ QBTC QUANTUM SECURITY SYSTEM</h1>
+            <div class="quantum-badges">
+                <span class="quantum-badge">Superposición Activa</span>
+                <span class="quantum-badge">Entrelazamiento Cuántico</span>
+                <span class="quantum-badge">Error Correction</span>
+            </div>
+            <p class="status">
+                ESTADO: <span class="status-value">OPERATIVO</span> | 
+                COHERENCIA CUÁNTICA: <span class="coherence-value">ESTABLE</span>
+            </p>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid-container">
+            <!-- Quantum State -->
+            <div class="card">
+                <h2>🔐 Estado Cuántico</h2>
+                <div class="metric">
+                    <span>Estado:</span>
+                    <span class="value" id="quantum-state">COHERENTE</span>
+                </div>
+                <div class="metric">
+                    <span>Coherencia:</span>
+                    <span class="value" id="quantum-coherence">99.99%</span>
+                </div>
+                <div class="metric">
+                    <span>Error Rate:</span>
+                    <span class="value" id="error-rate">10^-6</span>
+                </div>
+                <div class="metric">
+                    <span>Qubits Activos:</span>
+                    <span class="value" id="active-qubits">64</span>
+                </div>
+            </div>
+
+            <!-- Security Metrics -->
+            <div class="card">
+                <h2>🛡️ Métricas de Seguridad</h2>
+                <div class="metric">
+                    <span>Amenazas Detectadas:</span>
+                    <span class="value" id="threats">0</span>
+                </div>
+                <div class="metric">
+                    <span>Ataques Bloqueados:</span>
+                    <span class="value" id="blocks">0</span>
+                </div>
+                <div class="metric">
+                    <span>Score Cuántico:</span>
+                    <span class="value" id="quantum-score">99.99%</span>
+                </div>
+                <div class="metric">
+                    <span>Nivel de Protección:</span>
+                    <span class="value" id="protection-level">MÁXIMO</span>
+                </div>
+            </div>
+
+            <!-- Quantum Engines -->
+            <div class="card">
+                <h2>⚡ Motores Cuánticos</h2>
+                <div class="metric">
+                    <span>Monitoreo:</span>
+                    <span class="value" id="monitoring">ACTIVO</span>
+                </div>
+                <div class="metric">
+                    <span>Análisis:</span>
+                    <span class="value" id="analysis">ESTABLE</span>
+                </div>
+                <div class="metric">
+                    <span>Respuesta:</span>
+                    <span class="value" id="response">PREPARADO</span>
+                </div>
+                <div class="metric">
+                    <span>Simulación:</span>
+                    <span class="value" id="simulation">COHERENTE</span>
+                </div>
+            </div>
+
+            <!-- System Performance -->
+            <div class="card">
+                <h2>📊 Performance</h2>
+                <div class="metric">
+                    <span>Procesamiento Cuántico:</span>
+                    <span class="value" id="quantum-processing">99.9%</span>
+                </div>
+                <div class="metric">
+                    <span>Fidelidad de Qubits:</span>
+                    <span class="value" id="qubit-fidelity">99.99%</span>
+                </div>
+                <div class="metric">
+                    <span>Memoria Cuántica:</span>
+                    <span class="value" id="quantum-memory">128Q</span>
+                </div>
+                <div class="metric">
+                    <span>Ancho de Banda:</span>
+                    <span class="value" id="quantum-bandwidth">1TQ/s</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="log-container">
+            <h2>📝 Log de Eventos</h2>
+            <div id="event-log" class="event-log"></div>
+        </div>
+
+        <!-- API Links -->
+        <div class="api-links">
+            <h3>🔗 APIs Disponibles</h3>
+            <div class="links-grid">
+                <a href="/api/status" class="api-link">Estado del Sistema</a>
+                <a href="/api/security" class="api-link">Métricas de Seguridad</a>
+                <a href="/api/quantum" class="api-link">Estado Cuántico</a>
+                <a href="/api/modules" class="api-link">Estado de Módulos</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
