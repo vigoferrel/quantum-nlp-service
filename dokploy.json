@@ -1,157 +1,70 @@
 {
-  "name": "vigoleonrocks",
-  "description": "Sistema de IA Cuántica VIGOLEONROCKS - Quantum NLP Service",
-  "version": "1.0.0",
-  "services": {
-    "app": {
-      "name": "vigoleonrocks-app",
-      "image": "ghcr.io/vigoferrel/quantum-nlp-service:latest",
-      "ports": [
-        {
-          "published": 5000,
-          "target": 5000,
-          "protocol": "tcp"
-        }
-      ],
-      "environment": {
-        "FLASK_ENV": "production",
-        "DATABASE_URL": "${DATABASE_URL}",
-        "REDIS_URL": "${REDIS_URL}",
-        "SECRET_KEY": "${SECRET_KEY}",
-        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
-      },
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "vigoleonrocks_data",
-          "target": "/app/data"
-        },
-        {
-          "type": "volume",
-          "source": "vigoleonrocks_logs",
-          "target": "/app/logs"
-        }
-      ],
-      "healthcheck": {
-        "test": ["CMD", "curl", "-f", "http://localhost:5000/api/status"],
-        "interval": "30s",
-        "timeout": "10s",
-        "retries": 3,
-        "start_period": "40s"
-      },
-      "restart": "unless-stopped",
-      "depends_on": ["postgres", "redis"]
-    },
-    "postgres": {
-      "name": "vigoleonrocks-postgres",
-      "image": "postgres:15-alpine",
-      "environment": {
-        "POSTGRES_DB": "vigoleonrocks",
-        "POSTGRES_USER": "vigoleonrocks",
-        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
-      },
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "postgres_data",
-          "target": "/var/lib/postgresql/data"
-        },
-        {
-          "type": "bind",
-          "source": "./init.sql",
-          "target": "/docker-entrypoint-initdb.d/init.sql"
-        }
-      ],
-      "ports": [
-        {
-          "published": 5432,
-          "target": 5432,
-          "protocol": "tcp"
-        }
-      ],
-      "healthcheck": {
-        "test": ["CMD-SHELL", "pg_isready -U vigoleonrocks"],
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 5
-      },
-      "restart": "unless-stopped"
-    },
-    "redis": {
-      "name": "vigoleonrocks-redis",
-      "image": "redis:7-alpine",
-      "ports": [
-        {
-          "published": 6379,
-          "target": 6379,
-          "protocol": "tcp"
-        }
-      ],
-      "volumes": [
-        {
-          "type": "volume",
-          "source": "redis_data",
-          "target": "/data"
-        }
-      ],
-      "healthcheck": {
-        "test": ["CMD", "redis-cli", "ping"],
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 5
-      },
-      "restart": "unless-stopped"
-    },
-    "nginx": {
-      "name": "vigoleonrocks-nginx",
-      "image": "nginx:alpine",
-      "ports": [
-        {
-          "published": 80,
-          "target": 80,
-          "protocol": "tcp"
-        },
-        {
-          "published": 443,
-          "target": 443,
-          "protocol": "tcp"
-        }
-      ],
-      "volumes": [
-        {
-          "type": "bind",
-          "source": "./nginx.conf",
-          "target": "/etc/nginx/nginx.conf"
-        }
-      ],
-      "depends_on": ["app"],
-      "restart": "unless-stopped"
-    }
-  },
-  "volumes": {
-    "postgres_data": {
-      "driver": "local"
-    },
-    "redis_data": {
-      "driver": "local"
-    },
-    "vigoleonrocks_data": {
-      "driver": "local"
-    },
-    "vigoleonrocks_logs": {
-      "driver": "local"
-    }
-  },
-  "networks": {
-    "vigoleonrocks_network": {
-      "driver": "bridge"
-    }
+  "name": "vigoleonrocks-quantum-nlp",
+  "description": "Sistema VIGOLEONROCKS - Quantum NLP Service con métricas del sistema",
+  "type": "application",
+  "build": {
+    "type": "dockerfile",
+    "dockerfile": "./Dockerfile"
   },
   "environment": {
-    "DATABASE_URL": "postgresql://vigoleonrocks:${POSTGRES_PASSWORD}@postgres:5432/vigoleonrocks",
-    "REDIS_URL": "redis://redis:6379",
-    "SECRET_KEY": "${SECRET_KEY}",
-    "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}",
-    "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
+    "NODE_ENV": "production",
+    "FLASK_ENV": "production",
+    "FLASK_DEBUG": "false",
+    "PORT": "5000",
+    "HOST": "0.0.0.0",
+    "API_TOKEN": "GBFPf5EzTC7VIlD8rOCm2YfSGM6TaV4uvonczg6h3dfad669",
+    "BACKGROUND_EXECUTION": "true",
+    "PROMETHEUS_ENABLED": "true",
+    "METRICS_RNG_ENABLED": "true",
+    "QUANTUM_PROCESSOR_ENABLED": "true",
+    "METRICS_RNG_SEED_SOURCE": "kernel",
+    "METRICS_RNG_ENTROPY_POOL_SIZE": "4096",
+    "METRICS_RNG_RESEED_INTERVAL": "3600",
+    "DEFAULT_LANGUAGE": "es",
+    "SUPPORTED_LANGUAGES": "es,en,pt,fr,de,it,zh,ja,ko,ru,ar,hi,nl",
+    "LOG_LEVEL": "INFO",
+    "LOG_FORMAT": "structured",
+    "HEALTH_CHECK_ENABLED": "true",
+    "HEALTH_CHECK_INTERVAL": "30",
+    "PROCESS_MONITORING": "true",
+    "DAEMON_MODE": "true"
+  },
+  "port": 5000,
+  "domains": [],
+  "volumes": [
+    {
+      "host": "/var/log/vigoleonrocks",
+      "container": "/var/log/vigoleonrocks"
+    },
+    {
+      "host": "/var/lib/vigoleonrocks",
+      "container": "/app/data"
+    }
+  ],
+  "healthcheck": {
+    "enabled": true,
+    "path": "/api/status",
+    "interval": 30,
+    "timeout": 10,
+    "retries": 3
+  },
+  "monitoring": {
+    "enabled": true,
+    "metrics_path": "/api/status",
+    "prometheus_port": 8000
+  },
+  "security": {
+    "non_root_user": true,
+    "read_only_root": false
+  },
+  "deployment": {
+    "strategy": "rolling",
+    "zero_downtime": true,
+    "auto_deploy": true,
+    "branch": "main"
+  },
+  "resources": {
+    "memory": "1G",
+    "cpu": "1000m"
   }
 }

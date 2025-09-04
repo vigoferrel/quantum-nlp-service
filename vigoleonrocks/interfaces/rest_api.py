@@ -8,7 +8,7 @@ import sys
 import os
 import json
 import logging
-import random
+import hashlib
 import time
 from datetime import datetime
 from pathlib import Path
@@ -24,6 +24,55 @@ app.config['SECRET_KEY'] = 'vigoleonrocks_human_2024'
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('VIGOLEONROCKS')
 
+class MetricsBasedRNG:
+    """Generador de números aleatorios basado en métricas del sistema (NO Math.random)"""
+    
+    def __init__(self):
+        self.entropy_pool = []
+        self._collect_system_metrics()
+    
+    def _collect_system_metrics(self):
+        """Recolecta métricas del sistema para generar entropía"""
+        try:
+            # Métricas de tiempo con microsegundos
+            current_time = str(time.time_ns())
+            
+            # Métricas de proceso
+            pid_metrics = str(os.getpid())
+            
+            # Métricas de memoria (usando información del sistema)
+            memory_info = str(hash(str(time.process_time_ns())))
+            
+            # Combinar métricas para crear semilla
+            combined_metrics = f"{current_time}{pid_metrics}{memory_info}"
+            
+            # Hash de las métricas para crear entropía
+            entropy_hash = hashlib.sha256(combined_metrics.encode()).hexdigest()
+            
+            # Convertir hash a números
+            for i in range(0, len(entropy_hash), 8):
+                chunk = entropy_hash[i:i+8]
+                self.entropy_pool.append(int(chunk, 16) % 1000)
+                
+        except Exception as e:
+            # Fallback usando tiempo
+            self.entropy_pool = [int(str(time.time_ns())[-3:])]
+    
+    def get_random_choice(self, choices):
+        """Selecciona un elemento aleatorio usando métricas del sistema"""
+        if not self.entropy_pool:
+            self._collect_system_metrics()
+        
+        # Usar métricas del sistema para seleccionar
+        entropy_value = self.entropy_pool.pop(0) if self.entropy_pool else int(str(time.time_ns())[-3:])
+        index = entropy_value % len(choices)
+        
+        # Recoletar más métricas si se agota el pool
+        if len(self.entropy_pool) < 5:
+            self._collect_system_metrics()
+        
+        return choices[index]
+
 class VIGOLEONROCKSServer:
     def __init__(self):
         """Inicializa el servidor VIGOLEONROCKS con respuestas humanas"""
@@ -32,6 +81,7 @@ class VIGOLEONROCKSServer:
         self.current_profile = 'human'  # Perfil actual
         self.quantum_states = 26
         self.interaction_history = []
+        self.metrics_rng = MetricsBasedRNG()  # Usar métricas del sistema, NO Math.random
         
         # Sistema de respuestas humanas naturales
         self.human_responses = self._load_human_responses()
@@ -556,13 +606,13 @@ class VIGOLEONROCKSServer:
         # Detectar tipo de consulta con más precisión - MULTILINGÜE GLOBAL
         greeting_words = ['hola', 'hello', 'hi', 'olá', 'ola', 'oi', 'bonjour', 'salut', 'hallo', 'ciao', '你好', 'こんにちは', '안녕하세요', 'привет', 'مرحبا', 'नमस्ते', 'hallo']
         if any(word in text_lower for word in greeting_words):
-            return random.choice(self.human_responses['greetings'][lang])
+            return self.metrics_rng.get_random_choice(self.human_responses['greetings'][lang])
 
         identity_phrases = [
             'quién eres', 'qué eres', 'who are you', 'what are you', 'quem é você', 'qui es-tu', 'was bist du', 'chi sei', '你是谁', 'あなたは誰', '누구세요', 'кто ты', 'من أنت', 'तुम कौन हो', 'wie ben je'
         ]
         if any(phrase in text_lower for phrase in identity_phrases):
-            return random.choice(self.human_responses['identity'][lang])
+            return self.metrics_rng.get_random_choice(self.human_responses['identity'][lang])
 
         capability_phrases = [
             'qué puedes', 'what can you', 'o que você pode', 'capacidades', 'capabilities', 'puedes hacer', 'can you do', 'funciones', 'functions', 'funcionalidades',

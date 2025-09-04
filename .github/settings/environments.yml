@@ -1,0 +1,65 @@
+# Configuración de ambientes para GitHub Actions
+# Este archivo documenta los ambientes necesarios en GitHub
+
+environments:
+  staging:
+    description: "Ambiente de staging para pruebas pre-producción"
+    url: "https://staging.vigoleonrocks.ai"
+    protection_rules:
+      required_reviewers: 0
+      wait_timer: 0
+      prevent_self_review: false
+    deployment_branch_policy:
+      protected_branches: false
+      custom_branch_policies: true
+      custom_branches: ["develop"]
+    secrets:
+      - name: STAGING_DATABASE_URL
+        description: "URL de la base de datos de staging"
+      - name: STAGING_REDIS_URL
+        description: "URL de Redis para staging"
+      - name: STAGING_SECRET_KEY
+        description: "Clave secreta para Flask en staging"
+
+  production:
+    description: "Ambiente de producción"
+    url: "https://vigoleonrocks.ai"
+    protection_rules:
+      required_reviewers: 2
+      wait_timer: 5
+      prevent_self_review: true
+    deployment_branch_policy:
+      protected_branches: true
+      custom_branch_policies: false
+    secrets:
+      - name: PRODUCTION_DATABASE_URL
+        description: "URL de la base de datos de producción"
+      - name: PRODUCTION_REDIS_URL
+        description: "URL de Redis para producción"
+      - name: PRODUCTION_SECRET_KEY
+        description: "Clave secreta para Flask en producción"
+      - name: SENTRY_DSN
+        description: "DSN de Sentry para monitoreo de errores"
+
+# Secrets a nivel de repositorio necesarios
+repository_secrets:
+  - name: CODECOV_TOKEN
+    description: "Token para subir reportes de cobertura a Codecov"
+  - name: DOCKER_REGISTRY_TOKEN
+    description: "Token para el registro de contenedores Docker"
+  - name: POSTGRES_TEST_PASSWORD
+    description: "Contraseña para la base de datos de pruebas"
+  - name: SLACK_WEBHOOK_URL
+    description: "URL del webhook de Slack para notificaciones (opcional)"
+
+# Variables de ambiente a nivel de repositorio
+repository_variables:
+  - name: PYTHON_VERSION
+    value: "3.8"
+    description: "Versión por defecto de Python"
+  - name: NODE_VERSION
+    value: "18"
+    description: "Versión de Node.js para el frontend"
+  - name: DEFAULT_COVERAGE_THRESHOLD
+    value: "70"
+    description: "Umbral mínimo de cobertura de código"

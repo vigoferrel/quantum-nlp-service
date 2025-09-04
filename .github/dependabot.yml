@@ -1,0 +1,76 @@
+version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Santiago"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "vigoleonrocks"
+    assignees:
+      - "vigoleonrocks"
+    commit-message:
+      prefix: "🔒 [Security]"
+      prefix-development: "🔧 [Dev]"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # Ignorar actualizaciones menores de testing frameworks estables
+      - dependency-name: "pytest"
+        update-types: ["version-update:semver-patch"]
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+      timezone: "America/Santiago"
+    reviewers:
+      - "vigoleonrocks"
+    assignees:
+      - "vigoleonrocks"
+    commit-message:
+      prefix: "🐳 [Docker]"
+    labels:
+      - "docker"
+      - "security"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "11:00"
+      timezone: "America/Santiago"
+    reviewers:
+      - "vigoleonrocks"
+    assignees:
+      - "vigoleonrocks"
+    commit-message:
+      prefix: "🚀 [Actions]"
+    labels:
+      - "github-actions"
+      - "ci-cd"
+
+  # Configuración de Docker Compose
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "📦 [Compose]"
+    labels:
+      - "docker-compose"

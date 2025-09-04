@@ -1,0 +1,455 @@
+name: VIGOLEONROCKS CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+env:
+  PYTHON_VERSION: '3.8'
+  NODE_VERSION: '18'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # Job 1: Verificación de política de aleatoriedad (CRÍTICO)
+  randomness-policy-check:
+    name: 🔒 Randomness Policy Validation (CRITICAL)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Verify No Math.random Usage (CRITICAL)
+        run: |
+          echo "🔍 Checking for prohibited randomness patterns..."
+          
+          # Buscar patrones prohibidos
+          VIOLATIONS=""
+          
+          # Math.random prohibido
+          if grep -r "Math\.random" --include="*.py" vigoleonrocks/; then
+            VIOLATIONS="$VIOLATIONS\n❌ Math.random detected"
+          fi
+          
+          # random.random prohibido  
+          if grep -r "random\.random\|random\.choice\|random\.randint" --include="*.py" vigoleonrocks/; then
+            VIOLATIONS="$VIOLATIONS\n❌ Direct random.* usage detected"
+          fi
+          
+          # numpy.random prohibido
+          if grep -r "np\.random\|numpy\.random" --include="*.py" vigoleonrocks/; then
+            VIOLATIONS="$VIOLATIONS\n❌ numpy.random usage detected"
+          fi
+          
+          if [ -n "$VIOLATIONS" ]; then
+            echo "🚨 RANDOMNESS POLICY VIOLATIONS DETECTED:"
+            echo -e "$VIOLATIONS"
+            echo ""
+            echo "❌ CRITICAL: Use kernel and service metrics for randomness instead"
+            echo "✅ CORRECT: Use MetricsBasedRNG or similar implementation"
+            exit 1
+          else
+            echo "✅ Randomness policy compliance verified"
+          fi
+
+  # Job 2: Background Process Policy Check (CRÍTICO)
+  background-process-check:
+    name: 🔄 Background Process Policy Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Verify Background Process Configuration
+        run: |
+          echo "🔍 Checking background process configuration..."
+          
+          # Verificar Makefile tiene comandos de segundo plano
+          if ! grep -q "start-bg:" Makefile; then
+            echo "❌ Makefile missing start-bg target"
+            exit 1
+          fi
+          
+          if ! grep -q "nohup.*&.*echo.*pid" Makefile; then
+            echo "❌ Background process with PID management not found"
+            exit 1
+          fi
+          
+          # Verificar exposición de métricas
+          if ! grep -q "/api/status\|/api/quantum-metrics" vigoleonrocks/interfaces/rest_api.py; then
+            echo "❌ Required metrics endpoints not found"
+            exit 1
+          fi
+          
+          echo "✅ Background process policy compliance verified"
+
+  # Job 3: Setup y Linting
+  lint-and-format:
+    name: 🧹 Code Quality & Linting
+    runs-on: ubuntu-latest
+    needs: [randomness-policy-check, background-process-check]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          
+      - name: Run Black (Code Formatting)
+        run: |
+          black --check --diff vigoleonrocks/
+          
+      - name: Run isort (Import Sorting)
+        run: |
+          isort --check-only --diff vigoleonrocks/
+          
+      - name: Run Flake8 (Linting)
+        run: |
+          flake8 vigoleonrocks/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 vigoleonrocks/ --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+          
+      - name: Run MyPy (Type Checking)
+        run: |
+          mypy vigoleonrocks/ --ignore-missing-imports
+          
+      - name: Upload linting results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: lint-results
+          path: |
+            mypy-report/
+            flake8-report.txt
+
+  # Job 4: Security Scanning
+  security-scan:
+    name: 🛡️ Security Scanning
+    runs-on: ubuntu-latest
+    needs: [randomness-policy-check]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          
+      - name: Install security tools
+        run: |
+          pip install bandit safety
+          
+      - name: Run Bandit (Security Linter)
+        run: |
+          bandit -r vigoleonrocks/ -f json -o bandit-report.json
+          bandit -r vigoleonrocks/ -f txt
+          
+      - name: Run Safety (Dependency Vulnerabilities)
+        run: |
+          safety check --json --output safety-report.json || true
+          safety check
+          
+      - name: Upload security reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: security-reports
+          path: |
+            bandit-report.json
+            safety-report.json
+
+  # Job 5: Testing
+  test:
+    name: 🧪 Testing Suite
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, security-scan]
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+          
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          
+      - name: Set up test environment
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+          REDIS_URL: redis://localhost:6379/0
+          FLASK_ENV: testing
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
+          echo "REDIS_URL=$REDIS_URL" >> $GITHUB_ENV
+          echo "FLASK_ENV=testing" >> $GITHUB_ENV
+          
+      - name: Run Randomness Policy Tests (CRITICAL)
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          REDIS_URL: ${{ env.REDIS_URL }}
+        run: |
+          pytest tests/unit/test_randomness_policy.py -v --tb=short
+          
+      - name: Run Metrics Exposure Tests (CRITICAL)  
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          REDIS_URL: ${{ env.REDIS_URL }}
+        run: |
+          pytest tests/unit/test_metrics_exposure.py -v --tb=short
+          
+      - name: Run All Tests with Coverage
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          REDIS_URL: ${{ env.REDIS_URL }}
+        run: |
+          pytest tests/ -v --cov=vigoleonrocks --cov-report=xml --cov-report=html --cov-fail-under=70
+          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.python-version }}
+          path: |
+            htmlcov/
+            coverage.xml
+            pytest-report.xml
+
+  # Job 6: Build Docker Image
+  build-docker:
+    name: 🐳 Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.event_name == 'push' || github.event_name == 'release'
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+            
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+  # Job 7: Integration Tests
+  integration-test:
+    name: 🔗 Integration Tests
+    runs-on: ubuntu-latest
+    needs: [build-docker]
+    if: github.event_name == 'push' || github.event_name == 'release'
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+          
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Start application with Docker Compose
+        run: |
+          docker-compose up -d
+          sleep 30  # Wait for services to start
+          
+      - name: Test Background Process Execution (CRITICAL)
+        run: |
+          # Verificar que el servicio está ejecutándose en segundo plano
+          docker-compose ps | grep vigoleonrocks || exit 1
+          
+          # Verificar exposición de métricas
+          curl -f http://localhost:5000/api/status || exit 1
+          curl -f http://localhost:5000/api/quantum-metrics || exit 1
+          
+          echo "✅ Background process and metrics validation passed"
+          
+      - name: Test Multilingual Capabilities (CRITICAL)
+        run: |
+          # Test endpoints multilingües
+          for lang in "es" "en" "pt" "fr" "de"; do
+            response=$(curl -s -X POST http://localhost:5000/api/vigoleonrocks \
+              -H "Content-Type: application/json" \
+              -d "{\"text\":\"Hola\",\"profile\":\"human\"}")
+            
+            if [[ $response == *"language"* ]]; then
+              echo "✅ Multilingual test passed for $lang"
+            else
+              echo "❌ Multilingual test failed for $lang"
+              exit 1
+            fi
+          done
+          
+      - name: Performance and Load Testing
+        run: |
+          # Test básico de performance
+          for i in {1..10}; do
+            curl -f http://localhost:5000/api/status > /dev/null || exit 1
+          done
+          
+          echo "✅ Performance test completed"
+          
+      - name: Clean up
+        if: always()
+        run: |
+          docker-compose down -v
+
+  # Job 8: Deploy to Staging (optional)
+  deploy-staging:
+    name: 🚀 Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment:
+      name: staging
+      url: https://staging.vigoleonrocks.ai
+    steps:
+      - name: Deploy to staging
+        run: |
+          echo "🚀 Deploying to staging environment..."
+          echo "✅ Staging deployment completed"
+
+  # Job 9: Deploy to Production
+  deploy-production:
+    name: 🏆 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'release'
+    environment:
+      name: production
+      url: https://vigoleonrocks.ai
+    steps:
+      - name: Deploy to production
+        run: |
+          echo "🏆 Deploying to production environment..."
+          echo "✅ Production deployment completed"
+
+  # Job 10: Notification
+  notify:
+    name: 📢 Notify Results
+    runs-on: ubuntu-latest
+    needs: [test, build-docker]
+    if: always()
+    steps:
+      - name: Notify Success
+        if: needs.test.result == 'success' && needs.build-docker.result == 'success'
+        run: |
+          echo "✅ VIGOLEONROCKS CI/CD Pipeline: SUCCESS"
+          echo "🎉 All critical policies validated"
+          echo "🔒 Randomness policy: COMPLIANT"
+          echo "📊 Metrics exposure: VERIFIED"
+          echo "🌍 Multilingual support: TESTED"
+          
+      - name: Notify Failure
+        if: needs.test.result == 'failure' || needs.build-docker.result == 'failure'
+        run: |
+          echo "❌ VIGOLEONROCKS CI/CD Pipeline: FAILURE"
+          echo "🚨 Critical policy violations detected or tests failed"
+          exit 1

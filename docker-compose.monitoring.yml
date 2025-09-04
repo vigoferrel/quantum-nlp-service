@@ -1,0 +1,195 @@
+version: '3.8'
+
+services:
+  # Prometheus - Recolección de métricas
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vigoleonrocks-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/alert_rules.yml:/etc/prometheus/alert_rules.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    networks:
+      - monitoring
+    depends_on:
+      - vigoleonrocks-exporter
+
+  # Grafana - Visualización de métricas
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vigoleonrocks-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./monitoring/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=vigoleonrocks_admin_2024
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/vigoleonrocks-overview.json
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+
+  # AlertManager - Gestión de alertas
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: vigoleonrocks-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9093'
+    networks:
+      - monitoring
+
+  # Node Exporter - Métricas del sistema
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: vigoleonrocks-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitoring
+
+  # cAdvisor - Métricas de contenedores
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: vigoleonrocks-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    privileged: true
+    devices:
+      - /dev/kmsg
+    networks:
+      - monitoring
+
+  # VIGOLEONROCKS Metrics Exporter
+  vigoleonrocks-exporter:
+    build:
+      context: .
+      dockerfile: Dockerfile.metrics-exporter
+    container_name: vigoleonrocks-metrics-exporter
+    ports:
+      - "9091:9091"
+    environment:
+      - VIGOLEONROCKS_API_URL=http://vigoleonrocks:5000
+      - EXPORTER_PORT=9091
+      - METRICS_INTERVAL=15
+      - LOG_LEVEL=INFO
+    networks:
+      - monitoring
+      - default
+    depends_on:
+      - vigoleonrocks
+
+  # Jaeger - Distributed tracing
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: vigoleonrocks-jaeger
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # HTTP collector
+      - "6831:6831/udp"  # UDP agent
+      - "6832:6832/udp"  # UDP agent
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - monitoring
+
+  # Loki - Log aggregation
+  loki:
+    image: grafana/loki:latest
+    container_name: vigoleonrocks-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+
+  # Promtail - Log collector
+  promtail:
+    image: grafana/promtail:latest
+    container_name: vigoleonrocks-promtail
+    volumes:
+      - ./monitoring/promtail.yml:/etc/promtail/config.yml
+      - ./logs:/var/log/vigoleonrocks:ro
+      - /var/log:/var/log:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitoring
+    depends_on:
+      - loki
+
+  # Redis for metrics caching
+  redis-metrics:
+    image: redis:7-alpine
+    container_name: vigoleonrocks-redis-metrics
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_metrics_data:/data
+      - ./monitoring/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
+    name: vigoleonrocks-monitoring
+  default:
+    external: true
+    name: quantum-nlp-service_default
+
+volumes:
+  prometheus_data:
+    driver: local
+    name: vigoleonrocks-prometheus-data
+  grafana_data:
+    driver: local
+    name: vigoleonrocks-grafana-data
+  alertmanager_data:
+    driver: local
+    name: vigoleonrocks-alertmanager-data
+  loki_data:
+    driver: local
+    name: vigoleonrocks-loki-data
+  redis_metrics_data:
+    driver: local
+    name: vigoleonrocks-redis-metrics-data

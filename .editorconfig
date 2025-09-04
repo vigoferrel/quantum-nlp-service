@@ -1,0 +1,75 @@
+# EditorConfig configuration for VIGOLEONROCKS project
+# Ensures consistent coding styles across different editors and IDEs
+
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# Python files
+[*.py]
+indent_size = 4
+max_line_length = 88
+quote_type = double
+
+# YAML files (including GitHub Actions)
+[*.{yml,yaml}]
+indent_size = 2
+max_line_length = 100
+
+# JSON files
+[*.json]
+indent_size = 2
+max_line_length = 100
+
+# JavaScript/TypeScript files
+[*.{js,ts,jsx,tsx}]
+indent_size = 2
+max_line_length = 100
+quote_type = single
+
+# HTML files
+[*.html]
+indent_size = 2
+max_line_length = 120
+
+# CSS/SCSS files
+[*.{css,scss,sass}]
+indent_size = 2
+max_line_length = 100
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = 80
+
+# Makefile
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# Docker files
+[Dockerfile*]
+indent_size = 4
+
+# Shell scripts
+[*.{sh,bash}]
+indent_size = 2
+
+# Configuration files
+[*.{toml,ini,cfg}]
+indent_size = 4
+
+# Requirements files
+[requirements*.txt]
+indent_size = 0
+max_line_length = 120
+
+# Git files
+[.git*]
+indent_size = 2

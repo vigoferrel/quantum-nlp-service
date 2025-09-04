@@ -1,0 +1,202 @@
+# Pre-commit hooks configuration for VIGOLEONROCKS
+# Ensures code quality and enforces critical project policies before commits
+
+repos:
+  # CRITICAL: Randomness Policy Enforcement (HIGHEST PRIORITY)
+  - repo: local
+    hooks:
+      - id: check-randomness-policy
+        name: 🔒 CRITICAL - Check Randomness Policy
+        entry: bash -c '
+          echo "🔍 Checking for prohibited randomness patterns (CRITICAL)..."
+          violations=""
+          
+          # Check for Math.random
+          if grep -r "Math\.random" --include="*.py" vigoleonrocks/ 2>/dev/null; then
+            violations="$violations\n❌ Math.random detected"
+          fi
+          
+          # Check for direct random usage
+          if grep -r "random\.random\|random\.choice\|random\.randint" --include="*.py" vigoleonrocks/ 2>/dev/null; then
+            violations="$violations\n❌ Direct random.* usage detected"
+          fi
+          
+          # Check for numpy.random
+          if grep -r "np\.random\|numpy\.random" --include="*.py" vigoleonrocks/ 2>/dev/null; then
+            violations="$violations\n❌ numpy.random usage detected"
+          fi
+          
+          if [ -n "$violations" ]; then
+            echo "🚨 RANDOMNESS POLICY VIOLATIONS DETECTED:"
+            echo -e "$violations"
+            echo ""
+            echo "❌ CRITICAL: Use kernel and service metrics for randomness instead"
+            echo "✅ CORRECT: Use MetricsBasedRNG or similar implementation"
+            exit 1
+          else
+            echo "✅ Randomness policy compliance verified"
+          fi
+        '
+        language: system
+        files: '\.py$'
+        always_run: true
+        pass_filenames: false
+        stages: [pre-commit, pre-push]
+
+  # Background Process Policy Check
+  - repo: local
+    hooks:
+      - id: check-background-policy
+        name: 🔄 Background Process Policy Check
+        entry: bash -c '
+          echo "🔍 Checking background process configuration..."
+          
+          # Check Makefile has background commands
+          if [ -f "Makefile" ] && ! grep -q "start-bg:" Makefile; then
+            echo "❌ Makefile missing start-bg target"
+            exit 1
+          fi
+          
+          if [ -f "Makefile" ] && ! grep -q "nohup.*&.*echo.*pid\|&.*echo.*pid" Makefile; then
+            echo "❌ Background process with PID management not found"
+            exit 1
+          fi
+          
+          echo "✅ Background process policy compliance verified"
+        '
+        language: system
+        always_run: true
+        pass_filenames: false
+
+  # Python Code Quality Tools
+  - repo: https://github.com/psf/black
+    rev: '23.12.1'
+    hooks:
+      - id: black
+        name: 🎨 Format Python code (Black)
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: '5.13.2'
+    hooks:
+      - id: isort
+        name: 📚 Sort imports (isort)
+        args: ["--profile", "black", "--check-only", "--diff"]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: '7.0.0'
+    hooks:
+      - id: flake8
+        name: 🔍 Lint Python (Flake8)
+        args:
+          - "--max-line-length=88"
+          - "--extend-ignore=E203,W503"
+          - "--per-file-ignores=__init__.py:F401"
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.8.0'
+    hooks:
+      - id: mypy
+        name: 🔬 Type check (MyPy)
+        args: ["--ignore-missing-imports", "--strict"]
+        additional_dependencies: [types-all]
+
+  # Security Scanning
+  - repo: https://github.com/pycqa/bandit
+    rev: '1.7.5'
+    hooks:
+      - id: bandit
+        name: 🛡️ Security scan (Bandit)
+        args: ["-r", "vigoleonrocks/", "-f", "screen"]
+        exclude: ^tests/
+
+  # General Code Quality
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 'v4.5.0'
+    hooks:
+      - id: trailing-whitespace
+        name: 🧹 Remove trailing whitespace
+      - id: end-of-file-fixer
+        name: 📝 Fix end of files
+      - id: check-yaml
+        name: 📄 Check YAML syntax
+      - id: check-json
+        name: 🔧 Check JSON syntax
+      - id: check-toml
+        name: ⚙️ Check TOML syntax
+      - id: check-merge-conflict
+        name: 🔀 Check merge conflicts
+      - id: debug-statements
+        name: 🐛 Check debug statements
+      - id: check-docstring-first
+        name: 📖 Check docstring first
+      - id: requirements-txt-fixer
+        name: 📦 Fix requirements.txt
+
+  # Docker and Container Quality
+  - repo: https://github.com/hadolint/hadolint
+    rev: 'v2.12.0'
+    hooks:
+      - id: hadolint-docker
+        name: 🐳 Lint Dockerfile (Hadolint)
+
+  # YAML/JSON Formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: 'v4.0.0-alpha.8'
+    hooks:
+      - id: prettier
+        name: 💅 Format YAML/JSON (Prettier)
+        types_or: [yaml, json, markdown]
+        exclude: ^(.github/workflows/.*\.yml|docker-compose.*\.yml)$
+
+  # Python Dependency Security
+  - repo: https://github.com/pyupio/safety
+    rev: '2.3.4'
+    hooks:
+      - id: safety
+        name: 🔐 Check dependencies (Safety)
+        args: ["--ignore", "70612"]  # Ignore specific non-critical issues
+
+  # Commit Message Validation
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: '3.13.0'
+    hooks:
+      - id: commitizen
+        name: 📝 Validate commit message
+        stages: [commit-msg]
+
+  # Additional Python Quality
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: 🧪 Run critical policy tests
+        entry: bash -c '
+          if [ -f "tests/unit/test_randomness_policy.py" ]; then
+            echo "🧪 Running critical randomness policy tests..."
+            python -m pytest tests/unit/test_randomness_policy.py -v --tb=short || exit 1
+          fi
+          
+          if [ -f "tests/unit/test_metrics_exposure.py" ]; then
+            echo "🧪 Running critical metrics exposure tests..."
+            python -m pytest tests/unit/test_metrics_exposure.py -v --tb=short || exit 1
+          fi
+        '
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+
+# Global configuration
+default_language_version:
+  python: python3.8
+
+ci:
+  autofix_commit_msg: |
+    🔧 [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '🔄 [pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

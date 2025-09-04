@@ -1,0 +1,51 @@
+# Dependencias de desarrollo para quantum-nlp-service
+# Testing framework y herramientas
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.1
+pytest-asyncio>=0.21.1
+pytest-xdist>=3.3.1  # Para tests paralelos
+
+# Calidad de código
+black>=23.7.0         # Formateo de código
+flake8>=6.0.0         # Linting
+mypy>=1.5.0          # Verificación de tipos
+isort>=5.12.0        # Ordenamiento de imports
+
+# Herramientas de análisis
+bandit>=1.7.5        # Análisis de seguridad
+safety>=2.3.5        # Vulnerabilidades en dependencias
+pre-commit>=3.3.3    # Git hooks
+
+# Testing específico para Flask
+pytest-flask>=1.2.0
+requests-mock>=1.11.0
+
+# Herramientas de desarrollo
+python-dotenv>=1.0.0  # Manejo de .env
+ipython>=8.0.0        # Shell mejorado
+ipdb>=0.13.13         # Debugger
+
+# Documentación
+sphinx>=7.1.0
+sphinx-rtd-theme>=1.3.0
+
+# Performance y profiling
+memory-profiler>=0.61.0
+line-profiler>=4.1.0
+
+# Monitoring y métricas
+prometheus-client>=0.17.1
+opentelemetry-api>=1.19.0
+opentelemetry-sdk>=1.19.0
+opentelemetry-instrumentation-flask>=0.40b0
+
+# Mocking y fixtures
+responses>=0.23.3
+factory-boy>=3.3.0
+faker>=19.0.0
+
+# Herramientas adicionales
+click>=8.1.0          # CLI tools
+rich>=13.5.0          # Output colorido
+typer>=0.9.0          # CLI framework
