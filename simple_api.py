@@ -91,6 +91,7 @@ class VIGOLEONROCKSServer:
         self.start_time = time.time()
         self.request_count = 0
         self.metrics_rng = MetricsBasedRNG()  # Usar métricas del sistema, NO Math.random
+        self.context_capacity = 500000  # UNIFIED STANDARD - LÍDER INDUSTRIAL 2025
         
         # Respuestas multilingües
         self.responses = {

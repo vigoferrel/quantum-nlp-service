@@ -13,7 +13,7 @@
   "created": 1704672000,
   "description": "Production-ready quantum-enhanced AI with verified 26-state processing, cultural intelligence across 12 languages, and unique metrics-based entropy system. No Math.random usage, archetypal analysis, and self-hosted deployment available. Competitive pricing at $5.0/M tokens.",
   
-  "context_length": 256000,
+"context_length": 500000,
   "architecture": {
     "modality": "text->text",
     "input_modalities": ["text"],
@@ -32,7 +32,7 @@
   },
   
   "top_provider": {
-    "context_length": 256000,
+    "context_length": 500000,
     "max_completion_tokens": 8192,
     "is_moderated": false
   },
@@ -64,7 +64,7 @@
 | Feature | VIGOLEONROCKS | GPT-5 | Advantage |
 |---------|---------------|-------|-----------|
 | **Pricing** | $5.0/M tokens | $5.63/M tokens | **10% cheaper** |
-| **Context** | 256K tokens | 400K tokens | Competitive |
+| **Context** | 500K tokens | 400K tokens | **+25% Superior** |
 | **Quantum States** | 26 verified | N/A | **Unique** |
 | **Cultural Intelligence** | 12 languages | Generic multilingual | **Specific** |
 | **Entropy System** | SHA256 + metrics | PRNG | **Crypto-grade** |

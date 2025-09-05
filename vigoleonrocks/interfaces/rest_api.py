@@ -18,7 +18,7 @@ from flask_cors import CORS
 # Configuración del servidor
 app = Flask(__name__)
 CORS(app)
-app.config['SECRET_KEY'] = 'vigoleonrocks_human_2024'
+app.config['SECRET_KEY'] = 'vigoleonrocks_human_2025'
 
 # Logging configurado
 logging.basicConfig(level=logging.INFO)
@@ -80,6 +80,7 @@ class VIGOLEONROCKSServer:
         self.request_count = 0
         self.current_profile = 'human'  # Perfil actual
         self.quantum_states = 26
+        self.context_capacity = 500000  # UNIFIED STANDARD - LÍDER INDUSTRIAL 2025
         self.interaction_history = []
         self.metrics_rng = MetricsBasedRNG()  # Usar métricas del sistema, NO Math.random
         

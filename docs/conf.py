@@ -12,9 +12,9 @@ sys.path.insert(0, str(project_root / 'vigoleonrocks'))
 
 # -- Project information -----------------------------------------------------
 project = 'VIGOLEONROCKS'
-copyright = '2024, VIGOLEONROCKS Team'
-author = 'VIGOLEONROCKS Team'
-release = '1.0.0'
+copyright = '2025, vigoferrel'
+author = 'vigoferrel'
+release = '2.1.0-supreme'
 
 # -- General configuration ---------------------------------------------------
 extensions = [
