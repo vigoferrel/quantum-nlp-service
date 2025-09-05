@@ -1,6 +1,6 @@
-# Contributing to Quantum NLP Service
+# Contributing to VIGOLEONROCKS
 
-Thank you for your interest in contributing to Quantum NLP Service! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to VIGOLEONROCKS! This document provides guidelines for contributing to the first quantum-enhanced AI with cultural intelligence, ready for OpenRouter integration.
 
 ## 🚀 Quick Start
 
@@ -12,20 +12,25 @@ Thank you for your interest in contributing to Quantum NLP Service! This documen
 6. **Commit** and **Push** your changes
 7. **Create** a Pull Request
 
-## 📋 Prerequisites
+## 📍 Prerequisites
 
 - Python 3.8 or higher
 - Git
-- OpenRouter API key (for testing)
-- Basic knowledge of LLM optimization
+- Understanding of quantum processing concepts
+- Knowledge of multilingual AI systems
+- Familiarity with cultural intelligence principles
+- OpenRouter API testing experience (optional)
 
 ## 🛠️ Development Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vigoferrel/quantum-nlp-service.git
+git clone https://github.com/vigoleonrocks/quantum-nlp-service.git
 cd quantum-nlp-service
+
+# Verify live production system
+curl http://72.60.61.49/api/quantum-metrics
 ```
 
 ### 2. Install Dependencies
