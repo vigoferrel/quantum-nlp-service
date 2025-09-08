@@ -1149,17 +1149,28 @@ def home():
 @app.route('/corporate')
 def corporate():
     try:
-        return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
+        return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
     except:
-        return send_from_directory('.', 'vigoleonrocks_corporate_ui.html')
+        try:
+            return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
+        except:
+            return send_from_directory('.', 'vigoleonrocks_corporate_ui.html')
 
 @app.route('/ui')
 def ui():
-    return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
+    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
 
 @app.route('/new')
 def new():
-    return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
+    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+
+@app.route('/quantum')
+def quantum_center():
+    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+
+@app.route('/command')
+def command_center():
+    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
 
 # API Endpoints
 @app.route('/api/status', methods=['GET'])
