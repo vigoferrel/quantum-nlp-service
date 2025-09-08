@@ -1,11 +1,14 @@
 {
-  "name": "vigoleonrocks-quantum-nlp",
-  "description": "Sistema VIGOLEONROCKS - Quantum NLP Service con métricas del sistema",
-  "type": "application",
-  "build": {
-    "type": "dockerfile",
-    "dockerfile": "./Dockerfile"
-  },
+  "name": "vigoleonrocks-quantum-stack",
+  "description": "VIGOLEONROCKS Complete Quantum Stack - Processor + API Gateway + Frontend",
+  "services": [
+    {
+      "name": "quantum-processor",
+      "type": "application",
+      "build": {
+        "type": "dockerfile",
+        "dockerfile": "./Dockerfile"
+      },
   "environment": {
     "NODE_ENV": "production",
     "FLASK_ENV": "production",

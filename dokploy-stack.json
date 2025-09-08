@@ -1,0 +1,98 @@
+{
+  "name": "vigoleonrocks-quantum-stack",
+  "description": "VIGOLEONROCKS Complete Quantum Stack - Ready for OpenRouter",
+  "services": [
+    {
+      "name": "quantum-processor",
+      "type": "application",
+      "repository": "https://github.com/vigoferrel/quantum-nlp-service.git",
+      "branch": "main",
+      "buildType": "dockerfile", 
+      "dockerfile": "Dockerfile.quantum",
+      "environment": {
+        "FLASK_ENV": "production",
+        "PORT": "5000",
+        "HOST": "0.0.0.0",
+        "QUANTUM_STATES": "26",
+        "CONTEXT_CAPACITY": "500000",
+        "BACKGROUND_EXECUTION": "true",
+        "METRICS_RNG_ENABLED": "true",
+        "PROMETHEUS_ENABLED": "true",
+        "SUPPORTED_LANGUAGES": "es,en,pt,fr,de,it,zh,ja,ko,ru,ar,hi,nl",
+        "LOG_LEVEL": "INFO"
+      },
+      "port": 5000,
+      "domains": [
+        "vigoleonrocks.srv984842.hstgr.cloud"
+      ],
+      "ssl": true,
+      "healthCheck": {
+        "enabled": true,
+        "path": "/api/status",
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3
+      },
+      "resources": {
+        "memory": "1Gi",
+        "cpu": "1000m"
+      },
+      "volumes": [
+        {
+          "hostPath": "/var/log/vigoleonrocks/quantum",
+          "mountPath": "/app/logs"
+        }
+      ]
+    },
+    {
+      "name": "api-gateway", 
+      "type": "application",
+      "repository": "https://github.com/vigoferrel/quantum-nlp-service.git",
+      "branch": "main",
+      "buildType": "dockerfile",
+      "dockerfile": "Dockerfile.gateway",
+      "environment": {
+        "GATEWAY_PORT": "8004",
+        "VIGOLEONROCKS_BACKEND": "http://quantum-processor:5000",
+        "OPENROUTER_API_BASE": "https://openrouter.ai/api/v1",
+        "LOG_LEVEL": "INFO"
+      },
+      "port": 8004,
+      "domains": [
+        "gateway.vigoleonrocks.srv984842.hstgr.cloud"
+      ],
+      "ssl": true,
+      "healthCheck": {
+        "enabled": true,
+        "path": "/health",
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3
+      },
+      "resources": {
+        "memory": "512Mi", 
+        "cpu": "500m"
+      },
+      "volumes": [
+        {
+          "hostPath": "/var/log/vigoleonrocks/gateway",
+          "mountPath": "/app/logs"
+        }
+      ],
+      "dependsOn": ["quantum-processor"]
+    }
+  ],
+  "deployment": {
+    "strategy": "recreate",
+    "autoRedeploy": true,
+    "zeroDowntime": false
+  },
+  "monitoring": {
+    "enabled": true,
+    "healthChecks": true,
+    "metrics": {
+      "prometheus": true,
+      "path": "/api/status"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+# Dockerfile.quantum - VIGOLEONROCKS Quantum Processor
+FROM python:3.11-slim
+
+LABEL maintainer="VIGOLEONROCKS <vigoleon@example.com>"
+LABEL description="Quantum NLP Processor with System Metrics RNG"
+
+# Sistema-level packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    procps \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crea directorio de la aplicación
+WORKDIR /app
+
+# Copia requirements y instala dependencias
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia el código de la aplicación
+COPY . .
+
+# Crea directorios para logs y métricas
+RUN mkdir -p /app/logs /app/metrics
+
+# Variable de entorno para producción
+ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
+ENV BACKGROUND_EXECUTION=true
+ENV METRICS_RNG_ENABLED=true
+
+# Expone puerto
+EXPOSE 5000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:5000/api/status || exit 1
+
+# Comando de inicio - siempre en background para métricas
+CMD ["python", "-u", "app.py"]

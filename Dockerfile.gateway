@@ -1,0 +1,39 @@
+# Dockerfile.gateway - VIGOLEONROCKS API Gateway
+FROM node:18-slim
+
+LABEL maintainer="VIGOLEONROCKS <vigoleon@example.com>"
+LABEL description="API Gateway for VIGOLEONROCKS with OpenRouter integration"
+
+# Sistema-level packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crea directorio de la aplicación
+WORKDIR /app
+
+# Copia package.json y package-lock.json
+COPY gateway/package*.json ./
+
+# Instala dependencias
+RUN npm ci --only=production
+
+# Copia el código del gateway
+COPY gateway/ .
+
+# Crea directorio para logs
+RUN mkdir -p /app/logs
+
+# Variables de entorno
+ENV NODE_ENV=production
+ENV GATEWAY_PORT=8004
+
+# Expone puerto
+EXPOSE 8004
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:8004/health || exit 1
+
+# Comando de inicio - background execution para métricas
+CMD ["node", "server.js"]

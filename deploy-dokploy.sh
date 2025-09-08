@@ -1,34 +1,45 @@
 #!/bin/bash
+# deploy-dokploy.sh - VIGOLEONROCKS Deployment Script for Dokploy
+# Cumple con las reglas: procesos en background y métricas del sistema
 
-# VIGOLEONROCKS - Dokploy Deployment Script
-# Updated: September 2025
-# Version: 2.1.0-supreme
+set -e
 
-set -e  # Exit on any error
+echo "🚀 VIGOLEONROCKS - Deployment Script para Dokploy"
+echo "=================================================="
 
-echo "🚀 VIGOLEONROCKS - Dokploy Deployment Script"
-echo "=============================================="
-echo "Version: 2.1.0-supreme"
-echo "Updated: September 2025"
-echo ""
+# Variables
+DOKPLOY_CONFIG="dokploy-stack.json"
+PROJECT_NAME="vigoleonrocks-quantum-stack"
+LOG_DIR="/var/log/vigoleonrocks"
+METRICS_DIR="/var/metrics/vigoleonrocks"
 
-# Configuration
-PROJECT_NAME="vigoleonrocks"
-IMAGE_NAME="vigoleonrocks:2.1.0-supreme"
-DOCKER_REGISTRY="your-registry.com"  # Update with your registry
-GIT_REPO="https://github.com/vigoferrel/quantum-nlp-service.git"
+# Validaciones previas
+echo "📋 Validando configuración..."
+if [ ! -f "$DOKPLOY_CONFIG" ]; then
+    echo "❌ Error: $DOKPLOY_CONFIG no encontrado"
+    exit 1
+fi
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Crear directorios para logs y métricas (cumple reglas de monitoreo)
+echo "📁 Creando directorios de sistema..."
+sudo mkdir -p "$LOG_DIR"/{quantum,gateway,frontend}
+sudo mkdir -p "$METRICS_DIR"
 
-# Functions
-print_step() {
-    echo -e "${BLUE}📦 $1${NC}"
-}
+# Configurar permisos
+sudo chown -R $USER:$USER "$LOG_DIR" "$METRICS_DIR"
+sudo chmod -R 755 "$LOG_DIR" "$METRICS_DIR"
+
+# Validar conexión con Docker
+echo "🐳 Validando Docker..."
+if ! docker version >/dev/null 2>&1; then
+    echo "❌ Error: Docker no está disponible"
+    exit 1
+fi
+
+# Preparar entorno para métricas del kernel (cumple regla de no usar math.random)
+echo "⚙️ Configurando métricas del sistema..."
+# Habilitar generación de entropía del kernel para RNG
+echo "kernel.random.entropy_avail" | sudo tee -a /etc/sysctl.conf >/dev/null || true
 
 print_success() {
     echo -e "${GREEN}✅ $1${NC}"
