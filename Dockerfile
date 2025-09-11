@@ -80,6 +80,6 @@ EXPOSE 5000 8000 9090
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:5000/api/status || exit 1
 
-# Comando por defecto - usar simple_api.py con todas las políticas aplicadas
+# Comando por defecto - usar flask_app.py con aplicación completa
 # Ejecutar en segundo plano con métricas para depuración (Política #1)
-CMD ["python", "simple_api.py", "--background", "--metrics", "--prometheus"]
+CMD ["python", "flask_app.py", "--background", "--metrics", "--prometheus"]
