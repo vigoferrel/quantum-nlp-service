@@ -34,7 +34,18 @@ from transformers import (
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-import clip
+
+# CLIP handling with graceful fallback
+try:
+    import clip
+    CLIP_AVAILABLE = True
+    _clip_status = "imported_successfully"
+except ImportError as e:
+    CLIP_AVAILABLE = False
+    _clip_status = f"import_error: {str(e)}"
+except Exception as e:
+    CLIP_AVAILABLE = False
+    _clip_status = f"general_error: {str(e)}"
 
 # Audio libraries
 try:
@@ -62,6 +73,15 @@ import json
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Log del estado de CLIP
+if CLIP_AVAILABLE:
+    logger.info("✅ CLIP importado exitosamente")
+else:
+    if "import_error" in _clip_status:
+        logger.warning(f"⚠️  CLIP no disponible: {_clip_status.split(': ', 1)[1]} - funcionalidad de embeddings multimodales limitada")
+    else:
+        logger.error(f"❌ Error al importar CLIP: {_clip_status.split(': ', 1)[1]} - usando fallback")
 
 @dataclass
 class ModelConfig:
@@ -108,6 +128,15 @@ class MultimodalAIManager:
         
         # Un nuevo diccionario para rastrear qué modelos ya se están cargando
         self._loading_models = {}
+        
+        # Estadísticas de uso y thread pool
+        self.usage_stats = {
+            'total_inferences': 0,
+            'models_loaded': 0,
+            'processing_times': {}
+        }
+        
+        self.executor = ThreadPoolExecutor(max_workers=4)
         
         logger.info("✅ MultimodalAIManager inicializado con carga diferida (lazy loading).")
 
@@ -180,7 +209,8 @@ class MultimodalAIManager:
                 model_id="openai/clip-vit-large-patch14",
                 task="multimodal_embeddings",
                 device=self.device,
-                precision="fp16" if self.device == "cuda" else "fp32"
+                precision="fp16" if self.device == "cuda" else "fp32",
+                enabled=CLIP_AVAILABLE  # Solo habilitado si CLIP está disponible
             ),
             
             # 📝 TEXT PROCESSING
@@ -290,8 +320,13 @@ class MultimodalAIManager:
             raise ImportError("Bibliotecas de audio no disponibles")
 
     async def _load_clip_model(self, model_key: str, config: ModelConfig, options: Dict):
-        """Carga modelo CLIP para embeddings multimodales"""
+        """Carga modelo CLIP para embeddings multimodales con fallback robusto"""
+        if not CLIP_AVAILABLE:
+            logger.error(f"❌ CLIP no disponible - no se puede cargar {model_key}")
+            raise ImportError("CLIP library not available - install with: pip install clip-by-openai")
+            
         try:
+            # Intento primario: CLIP nativo
             model, preprocess = clip.load(
                 "ViT-L/14", 
                 device=self.device,
@@ -299,15 +334,23 @@ class MultimodalAIManager:
             )
             self.models[model_key] = model
             self.processors[model_key] = preprocess
-            logger.info(f"🔗 CLIP cargado: {config.name}")
-        except Exception:
-            # Fallback a transformers
-            self.processors[model_key] = AutoProcessor.from_pretrained(
-                config.model_id, **options
-            )
-            self.models[model_key] = AutoModel.from_pretrained(
-                config.model_id, **options
-            ).to(self.device)
+            logger.info(f"🔗 CLIP nativo cargado: {config.name}")
+            
+        except Exception as e:
+            logger.warning(f"⚠️  Error cargando CLIP nativo: {e}. Intentando fallback...")
+            try:
+                # Fallback a transformers
+                self.processors[model_key] = AutoProcessor.from_pretrained(
+                    config.model_id, **options
+                )
+                self.models[model_key] = AutoModel.from_pretrained(
+                    config.model_id, **options
+                ).to(self.device)
+                logger.info(f"🔄 CLIP transformers cargado como fallback: {config.name}")
+                
+            except Exception as fallback_error:
+                logger.error(f"❌ Error en ambos intentos de CLIP: {e} | {fallback_error}")
+                raise fallback_error
 
     async def _load_vision_language_model(self, model_key: str, config: ModelConfig, options: Dict):
         """Carga modelos de visión-lenguaje avanzados"""
@@ -876,6 +919,50 @@ class MultimodalAIManager:
                 torch.cuda.empty_cache()
             
             logger.info(f"🗑️ Modelo descargado: {model_key}")
+
+    def get_system_status(self) -> Dict[str, Any]:
+        """Obtiene el estado completo del sistema multimodal con información de CLIP"""
+        status = {
+            "device": self.device,
+            "models_loaded": len(self.models),
+            "models_available": list(self.model_configs.keys()),
+            "models_enabled": [k for k, v in self.model_configs.items() if v.enabled],
+            "models_disabled": [k for k, v in self.model_configs.items() if not v.enabled],
+            "usage_stats": self.usage_stats.copy(),
+            "capabilities": {
+                "audio_processing": AUDIO_AVAILABLE,
+                "video_processing": VIDEO_AVAILABLE,
+                "clip_embeddings": CLIP_AVAILABLE,
+                "multimodal_analysis": True
+            }
+        }
+        
+        # Información específica de CLIP
+        if "clip_vit" in self.model_configs:
+            clip_config = self.model_configs["clip_vit"]
+            status["clip_status"] = {
+                "available": CLIP_AVAILABLE,
+                "enabled": clip_config.enabled,
+                "loaded": "clip_vit" in self.models,
+                "model_id": clip_config.model_id,
+                "precision": clip_config.precision
+            }
+            
+            if not CLIP_AVAILABLE:
+                status["clip_status"]["error"] = "CLIP library not available - install with: pip install clip-by-openai"
+        
+        # Información de memoria si está en GPU
+        if self.device == "cuda" and torch.cuda.is_available():
+            try:
+                status["gpu_memory"] = {
+                    "allocated_gb": torch.cuda.memory_allocated() / (1024**3),
+                    "reserved_gb": torch.cuda.memory_reserved() / (1024**3),
+                    "total_gb": torch.cuda.get_device_properties(0).total_memory / (1024**3)
+                }
+            except Exception as e:
+                status["gpu_memory"] = {"error": str(e)}
+        
+        return status
 
     async def cleanup(self):
         """Limpia todos los recursos"""

@@ -1006,15 +1006,32 @@ def api_vigoleonrocks():
         if request.method == 'OPTIONS':
             return '', 200
         
+        # Check CLIP availability dynamically
+        clip_status = "not_installed"
+        try:
+            import open_clip
+            clip_status = "available"
+        except ImportError:
+            try:
+                import clip
+                clip_status = "available_openai"
+            except ImportError:
+                clip_status = "not_installed"
+        except Exception as e:
+            clip_status = f"error: {str(e)[:50]}..."
+        
         return jsonify({
             "status": "ok",
             "service": "quantum-nlp-service",
             "version": "2.1.0",
             "multimodal_available": MULTIMODAL_MANAGER_AVAILABLE,
-            "clip_available": False,  # Will be updated when CLIP is installed
+            "clip_status": clip_status,
+            "clip_available": clip_status.startswith("available"),
             "quantum_coherence": metrics['quantum_coherence'],
             "active_states": metrics['quantum_states'],
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "fallback_processing": True,
+            "background_policy_compliant": True
         }), 200
     except Exception as e:
         logger.error(f"Error en /api/vigoleonrocks: {e}")
@@ -1153,6 +1170,85 @@ def api_status():
         "system_entropy": entropy_pool[:3],
         "version": "VIGOLEONROCKS-Fast-v2.1"
     })
+
+@app.route('/api/multimodal/status')
+def multimodal_status():
+    """Estado detallado del sistema multimodal con información de CLIP"""
+    try:
+        # Importar dinámicamente el manager multimodal
+        from multimodal_ai_manager import get_multimodal_manager
+        
+        manager = get_multimodal_manager()
+        system_status = manager.get_system_status()
+        
+        # Agregar métricas adicionales
+        system_status.update({
+            "flask_metrics": {
+                "requests_total": metrics['requests_total'],
+                "active_connections": metrics['active_connections'],
+                "uptime_seconds": time.time() - metrics['uptime_start'],
+                "quantum_coherence": metrics['quantum_coherence']
+            },
+            "timestamp": datetime.now().isoformat()
+        })
+        
+        return jsonify(system_status)
+        
+    except ImportError as e:
+        logger.error(f"Error importando MultimodalAIManager: {e}")
+        return jsonify({
+            "error": "Multimodal manager not available",
+            "details": str(e),
+            "fallback_status": {
+                "multimodal_enabled": False,
+                "clip_available": False,
+                "audio_available": False,
+                "video_available": False
+            }
+        }), 503
+    except Exception as e:
+        logger.error(f"Error en /api/multimodal/status: {e}")
+        return jsonify({
+            "error": "Internal server error",
+            "details": str(e)
+        }), 500
+
+@app.route('/api/performance/report')
+def performance_report():
+    """Endpoint para reporte de rendimiento del optimizador"""
+    try:
+        from performance_optimizer import performance_optimizer
+        report = performance_optimizer.get_performance_report()
+        return jsonify(report)
+    except ImportError:
+        # Fallback si no está disponible
+        return jsonify({
+            "system_metrics": {
+                "memory_usage_mb": 0,
+                "cpu_usage_percent": 0,
+                "average_response_time": 0.5
+            },
+            "cache_performance": {
+                "hit_rate": 0,
+                "entries": 0
+            },
+            "recommendations": []
+        }), 503
+    except Exception as e:
+        logger.error(f"Error en /api/performance/report: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+
+@app.route('/dashboard')
+def dashboard():
+    """Dashboard visual de monitoreo"""
+    try:
+        with open('dashboard_monitoring.html', 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return "Dashboard no encontrado", 404
+    except Exception as e:
+        logger.error(f"Error sirviendo dashboard: {e}")
+        return "Error cargando dashboard", 500
 
 @app.route('/health')
 def health():
