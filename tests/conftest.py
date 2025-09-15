@@ -113,3 +113,20 @@ def multilingual_responses():
             'error': 'Ocorreu um erro'
         }
     }
+
+@pytest.fixture
+def quantum_config():
+    """Configuración cuántica para testing"""
+    return {
+        'quantum_states': 26,
+        'coherence_threshold': 0.95,
+        'entanglement_enabled': True,
+        'supremacy_score': 0.998,
+        'resonance_frequency': 888.0,
+        'context_capacity': 500000,
+        'multiverse_access': True,
+        'quantum_tunneling': True,
+        'superposition_states': ['active', 'passive', 'neutral'],
+        'decoherence_time': 1000,
+        'error_correction_enabled': True
+    }

@@ -1,0 +1,73 @@
+# VIGOLEONROCKS - Requisitos Multimodales Avanzados 2025
+# Modelos de AI Multimodales de Última Generación
+
+# Core ML/DL Libraries
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+transformers>=4.35.0
+accelerate>=0.24.0
+bitsandbytes>=0.41.0  # Quantización eficiente
+optimum>=1.14.0  # Optimizaciones de Hugging Face
+
+# Vision Models & Processing
+timm>=0.9.10  # Tons of Image Models
+opencv-python>=4.8.0
+Pillow>=10.0.0
+torchmetrics>=1.2.0
+
+# Audio Processing
+whisper>=1.1.10  # OpenAI Whisper
+librosa>=0.10.1  # Audio analysis
+soundfile>=0.12.1
+pyaudio>=0.2.11  # Real-time audio
+pydub>=0.25.1  # Audio manipulation
+
+# Multimodal & Vision-Language Models
+sentence-transformers>=2.2.2  # Embeddings multimodales
+clip-by-openai>=1.0  # CLIP original
+open-clip-torch>=2.24.0  # CLIP mejorado
+
+# Scientific Computing
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Video Processing  
+av>=10.0.0  # PyAV para video
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+
+# Utilities
+tqdm>=4.66.0
+requests>=2.31.0
+aiohttp>=3.8.0
+aiofiles>=23.0.0
+
+# Model Optimization
+onnx>=1.14.0  # ONNX export
+onnxruntime>=1.16.0  # ONNX inference
+openvino>=2023.2.0  # Intel optimizations (opcional)
+
+# Text Processing (adicional)
+nltk>=3.8.0
+spacy>=3.7.0
+tokenizers>=0.14.0
+
+# Data Processing
+pandas>=2.1.0
+datasets>=2.14.0  # Hugging Face datasets
+
+# Monitoring & Logging
+wandb>=0.16.0  # Weights & Biases (opcional)
+tensorboard>=2.14.0
+
+# Development
+pytest>=7.4.0
+black>=23.9.0
+isort>=5.12.0
+
+# Sistema operativo específico (solo si es necesario)
+# torch-audio  # Para Windows específicamente

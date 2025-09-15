@@ -286,9 +286,8 @@ def test_global_randomness_policy_enforcement():
         if not metrics:
             raise ValueError("Métricas requeridas para aleatoriedad")
         
-        # Combinar métricas del sistema para seed
+        # Combinar métricas del sistema para seed (deterministic)
         metric_data = {
-            'timestamp': time.time(),
             'uptime': metrics.get('uptime', 0),
             'requests': metrics.get('request_count', 0),
             'quantum_states': metrics.get('quantum_states', 26),

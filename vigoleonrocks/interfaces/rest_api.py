@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('VIGOLEONROCKS')
 
 class MetricsBasedRNG:
-    """Generador de números aleatorios basado en métricas del sistema (NO Math.random)"""
+    """Generador de números aleatorios basado en métricas del sistema (seguro)"""
     
     def __init__(self):
         self.entropy_pool = []
@@ -76,13 +76,13 @@ class MetricsBasedRNG:
 class VIGOLEONROCKSServer:
     def __init__(self):
         """Inicializa el servidor VIGOLEONROCKS con respuestas humanas"""
-        self.start_time = time.time()
+        self.start_time = datetime.now()
         self.request_count = 0
         self.current_profile = 'human'  # Perfil actual
         self.quantum_states = 26
         self.context_capacity = 500000  # UNIFIED STANDARD - LÍDER INDUSTRIAL 2025
         self.interaction_history = []
-        self.metrics_rng = MetricsBasedRNG()  # Usar métricas del sistema, NO Math.random
+        self.metrics_rng = MetricsBasedRNG()  # Usar métricas del sistema (seguro)
         
         # Sistema de respuestas humanas naturales
         self.human_responses = self._load_human_responses()
@@ -552,7 +552,7 @@ class VIGOLEONROCKSServer:
 
         # Marcadores de idioma expandidos para 12 idiomas
         language_markers = {
-            'es': ['hola', 'gracias', 'por favor', 'qué', 'cómo', 'cuándo', 'dónde', 'por qué', 'quién', 'eres', 'muy', 'bien', 'mal', 'ahora', 'después', 'buenos', 'buenas'],
+            'es': ['hola', 'gracias', 'por favor', 'qué', 'que', 'cómo', 'como', 'cuándo', 'cuando', 'cuánto', 'cuanto', 'dónde', 'donde', 'por qué', 'porque', 'quién', 'quien', 'eres', 'muy', 'bien', 'mal', 'ahora', 'después', 'buenos', 'buenas', 'es', 'está', 'esta', 'son', 'soy', 'somos'],
             'en': ['hello', 'hi', 'thank', 'thanks', 'please', 'what', 'how', 'when', 'where', 'why', 'who', 'you', 'are', 'very', 'well', 'bad', 'now', 'after'],
             'pt': ['olá', 'ola', 'oi', 'obrigado', 'obrigada', 'por favor', 'o que', 'como', 'quando', 'onde', 'por que', 'quem', 'você', 'muito', 'bem', 'mal', 'agora', 'depois'],
             'fr': ['bonjour', 'salut', 'merci', 's\'il vous plaît', 'que', 'comment', 'quand', 'où', 'pourquoi', 'qui', 'vous', 'êtes', 'très', 'bien', 'mal', 'maintenant', 'après'],
@@ -620,11 +620,50 @@ class VIGOLEONROCKSServer:
             'que peux-tu', 'was kannst du', 'cosa puoi fare', '你能做什么', '何ができる', '무엇을 할 수 있나요', 'что ты можешь', 'ماذا يمكنك فعله', 'आप क्या कर सकते हैं', 'wat kun je'
         ]
         if any(phrase in text_lower for phrase in capability_phrases):
-            return random.choice(self.human_responses['capabilities'][lang])
+            return self.metrics_rng.get_random_choice(self.human_responses['capabilities'][lang])
 
         gratitude_words = ['gracias', 'thank', 'thanks', 'obrigado', 'merci', 'danke', 'grazie', '谢谢', 'ありがとう', '감사합니다', 'спасибо', 'شكرا', 'धन्यवाद', 'dank']
         if any(word in text_lower for word in gratitude_words):
-            return random.choice(self.human_responses['gratitude'][lang])
+            return self.metrics_rng.get_random_choice(self.human_responses['gratitude'][lang])
+        
+        # Detección de preguntas matemáticas simples
+        math_patterns = [
+            r'cu[aá]nto\s+es\s+(\d+)\s*[+\-*/]\s*(\d+)',
+            r'(\d+)\s*[+\-*/]\s*(\d+)\s*=?\s*\??',
+            r'what\s+is\s+(\d+)\s*[+\-*/]\s*(\d+)',
+            r'quanto\s+[eé]\s+(\d+)\s*[+\-*/]\s*(\d+)'
+        ]
+        
+        import re
+        for pattern in math_patterns:
+            match = re.search(pattern, text_lower)
+            if match:
+                try:
+                    if '+' in text:
+                        nums = re.findall(r'\d+', text)
+                        if len(nums) >= 2:
+                            result = int(nums[0]) + int(nums[1])
+                            return f"{nums[0]} + {nums[1]} = {result} 📊"
+                    elif '-' in text:
+                        nums = re.findall(r'\d+', text)
+                        if len(nums) >= 2:
+                            result = int(nums[0]) - int(nums[1])
+                            return f"{nums[0]} - {nums[1]} = {result} 📊"
+                    elif '*' in text or 'x' in text_lower:
+                        nums = re.findall(r'\d+', text)
+                        if len(nums) >= 2:
+                            result = int(nums[0]) * int(nums[1])
+                            return f"{nums[0]} × {nums[1]} = {result} 📊"
+                    elif '/' in text:
+                        nums = re.findall(r'\d+', text)
+                        if len(nums) >= 2 and int(nums[1]) != 0:
+                            result = int(nums[0]) / int(nums[1])
+                            return f"{nums[0]} ÷ {nums[1]} = {result} 📊"
+                except (ValueError, ZeroDivisionError):
+                    if lang == 'es':
+                        return "Lo siento, no pude calcular eso. ¿Podrías reformular la pregunta? 🤔"
+                    else:
+                        return "Sorry, I couldn't calculate that. Could you rephrase the question? 🤔"
         
         # Frases de "cómo estás" en todos los idiomas
         how_are_you_phrases = [
@@ -636,86 +675,86 @@ class VIGOLEONROCKSServer:
         if any(phrase in text_lower for phrase in how_are_you_phrases):
             # Respuestas específicas para "cómo estás" en todos los idiomas
             if lang == 'es':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "¡Muy bien, gracias! 😊 ¿Y tú?",
                     "¡Perfecto! ¿Cómo estás tú?",
                     "¡Excelente! ¿Qué tal tu día?"
                 ])
             elif lang == 'en':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Great, thanks! 😊 How about you?",
                     "Perfect! How are you?",
                     "Excellent! How's your day going?"
                 ])
             elif lang == 'pt':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Muito bem, obrigado! 😊 E você?",
                     "Perfeito! Como você está?",
                     "Excelente! Como está seu dia?"
                 ])
             elif lang == 'fr':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Très bien, merci ! 😊 Et vous ?",
                     "Parfait ! Comment allez-vous ?",
                     "Excellent ! Comment se passe votre journée ?"
                 ])
             elif lang == 'de':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Sehr gut, danke! 😊 Und Ihnen?",
                     "Perfekt! Wie geht es Ihnen?",
                     "Ausgezeichnet! Wie läuft Ihr Tag?"
                 ])
             elif lang == 'it':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Molto bene, grazie! 😊 E tu?",
                     "Perfetto! Come stai?",
                     "Eccellente! Com'è andata la tua giornata?"
                 ])
             elif lang == 'zh':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "很好，谢谢！😊 你呢？",
                     "完美！你怎么样？",
                     "太棒了！你的日子过得怎么样？"
                 ])
             elif lang == 'ja':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "とても良いです、ありがとう！😊 あなたは？",
                     "完璧です！お元気ですか？",
                     "素晴らしいです！今日はどんな一日でしたか？"
                 ])
             elif lang == 'ko':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "아주 좋아요, 감사합니다! 😊 당신은요?",
                     "완벽해요! 어떻게 지내세요?",
                     "훌륭해요! 오늘 하루는 어떠셨어요?"
                 ])
             elif lang == 'ru':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Очень хорошо, спасибо! 😊 А у тебя?",
                     "Отлично! Как дела?",
                     "Превосходно! Как прошел твой день?"
                 ])
             elif lang == 'ar':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "جيد جداً، شكراً! 😊 وأنت؟",
                     "ممتاز! كيف حالك؟",
                     "رائع! كيف كان يومك؟"
                 ])
             elif lang == 'hi':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "बहुत अच्छा, धन्यवाद! 😊 आप कैसे हैं?",
                     "सही है! आप कैसे हैं?",
                     "शानदार! आपका दिन कैसा था?"
                 ])
             elif lang == 'nl':
-                return random.choice([
+                return self.metrics_rng.get_random_choice([
                     "Heel goed, dank je! 😊 En jij?",
                     "Perfect! Hoe gaat het met je?",
                     "Uitstekend! Hoe was uw dag?"
                 ])
         
         else:
-            return random.choice(self.human_responses['fallback'][lang])
+            return self.metrics_rng.get_random_choice(self.human_responses['fallback'][lang])
 
     def process_query(self, text: str, profile: str = 'human', quantum_states: int = 26):
         """Procesa la consulta y genera respuesta humana"""
@@ -1149,24 +1188,27 @@ def home():
 @app.route('/corporate')
 def corporate():
     try:
-        return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+        return send_from_directory('.', 'test_corporate.html')
     except:
         try:
             return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
         except:
-            return send_from_directory('.', 'vigoleonrocks_corporate_ui.html')
+            try:
+                return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+            except:
+                return send_from_directory('.', 'vigoleonrocks_corporate_ui.html')
 
 @app.route('/ui')
 def ui():
-    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+    return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
 
 @app.route('/new')
 def new():
-    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+    return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
 
 @app.route('/quantum')
 def quantum_center():
-    return send_from_directory('.', 'vigoleonrocks_quantum_command_center.html')
+    return send_from_directory('.', 'vigoleonrocks_corporate_ui_enhanced.html')
 
 @app.route('/command')
 def command_center():
@@ -1177,7 +1219,7 @@ def command_center():
 def status():
     """Estado del sistema mejorado"""
     global server
-    uptime_seconds = time.time() - server.start_time
+    uptime_seconds = (datetime.now() - server.start_time).total_seconds()
     hours = int(uptime_seconds // 3600)
     minutes = int((uptime_seconds % 3600) // 60)
     seconds = int(uptime_seconds % 60)
@@ -1319,7 +1361,7 @@ def interaction_history():
     else:
         history = [h for h in server.interaction_history if h.get('profile') == filter_type]
     
-        return jsonify({
+    return jsonify({
         'filter': filter_type,
         'total_interactions': len(history),
         'interactions': history[-10:] if history else []  # Últimas 10
@@ -1352,18 +1394,25 @@ def set_quantum_states():
     })
 
 if __name__ == '__main__':
-    print("🚀 ===============================================")
-    print("   VIGOLEONROCKS - Python Server Starting")
-    print("   Sistema de IA Humana Unificado")
-    print("===============================================")
-    print("🧠 Respuestas: ✅ HUMANAS Y NATURALES")
-    print("⚡ Estados Cuánticos: 26 simultáneos")
-    print("🎯 Supremacy Score: 0.998")
-    print("🌍 Acceso: http://localhost:5000")
-    print("📡 APIs disponibles:")
-    print("   • GET  /                     - Sitio web principal")
-    print("   • GET  /api/status          - Estado del sistema")
-    print("   • POST /api/vigoleonrocks   - Procesamiento principal")
-    print("===============================================")
+    import sys
+    try:
+        print("🚀 ===============================================")
+        print("   VIGOLEONROCKS - Python Server Starting")
+        print("   Sistema de IA Humana Unificado")
+        print("===============================================")
+        print("🧠 Respuestas: ✅ HUMANAS Y NATURALES")
+        print("⚡ Estados Cuánticos: 26 simultáneos")
+        print("🎯 Supremacy Score: 0.998")
+        print("🌍 Acceso: http://localhost:5000")
+        print("📡 APIs disponibles:")
+        print("   • GET  /                     - Sitio web principal")
+        print("   • GET  /api/status          - Estado del sistema")
+        print("   • POST /api/vigoleonrocks   - Procesamiento principal")
+        print("===============================================")
+    except UnicodeEncodeError:
+        # Fallback for Windows background services
+        print("== VIGOLEONROCKS - Python Server Starting ==")
+        print("   Sistema de IA Humana Unificado")
+        print("== Server Running on http://localhost:5000 ==")
     
     app.run(host='0.0.0.0', port=5000, debug=False)

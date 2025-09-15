@@ -1,0 +1,22 @@
+# Dependencias ligeras para procesamiento multimodal real
+# Sin modelos pesados de ML, solo bibliotecas de análisis básico
+
+# Procesamiento de imágenes
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Procesamiento de audio (alternativas ligeras)
+pydub>=0.25.0
+mutagen>=1.46.0  # Para metadatos de audio
+
+# Utilidades adicionales
+python-magic-bin>=0.4.14  # Para detección de tipos de archivo en Windows
+
+# Opcional: Si se quiere librosa (más pesado pero más potente)
+# librosa>=0.10.0
+# soundfile>=0.12.0
+
+# Core dependencies ya existentes
+flask>=2.3.0
+flask-cors>=4.0.0
+psutil>=5.9.0

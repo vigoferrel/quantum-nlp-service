@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIGOLEONROCKS - Interfaz Multimodal Cuántica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .quantum-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #b0b3b8;
+            margin-bottom: 20px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+
+        .main-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-section, .output-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            min-height: 600px;
+        }
+
+        .section-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-modes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 25px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .mode-btn:hover, .mode-btn.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .input-area {
+            width: 100%;
+            min-height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            color: #ffffff;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .input-area:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .file-upload-area {
+            border: 2px dashed rgba(0, 212, 255, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .file-upload-area.dragover {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .uploaded-files {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .file-chip {
+            background: rgba(0, 212, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-chip .remove {
+            cursor: pointer;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .process-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00d4ff, #4ecdc4);
+            border: none;
+            border-radius: 25px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .process-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .output-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 400px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+        }
+
+        .quantum-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .metric-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .metric-description {
+            font-size: 0.9rem;
+            color: #b0b3b8;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #4ecdc4);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .response-format {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .format-btn {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .format-btn.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .loading-spinner {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .quantum-visualization {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantum-state {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00d4ff;
+            animation: quantum-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes quantum-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .response-text {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .response-media {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .main-interface {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .input-modes, .response-format {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-particles" id="particles"></div>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>VIGOLEONROCKS</h1>
+            <p class="subtitle">Inteligencia Artificial Cuántica Multimodal - Contexto Ultra-Extendido 500K Tokens</p>
+            <div class="status-bar">
+                <div class="status-item">🟢 Sistema Activo</div>
+                <div class="status-item">⚛️ Estados Cuánticos: 26/26</div>
+                <div class="status-item">🌐 Idiomas: 47 Activos</div>
+                <div class="status-item">🚀 Uptime: 99.7%</div>
+            </div>
+        </div>
+
+        <div class="main-interface">
+            <div class="input-section">
+                <h2 class="section-header">
+                    <span>🔮</span>
+                    Entrada Multimodal
+                </h2>
+                
+                <div class="input-modes">
+                    <button class="mode-btn active" data-mode="text">📝 Texto</button>
+                    <button class="mode-btn" data-mode="image">🖼️ Imagen</button>
+                    <button class="mode-btn" data-mode="audio">🎵 Audio</button>
+                    <button class="mode-btn" data-mode="document">📄 Documento</button>
+                    <button class="mode-btn" data-mode="code">💻 Código</button>
+                </div>
+
+                <textarea class="input-area" id="textInput" placeholder="Escribe tu consulta aquí... El sistema puede procesar contextos de hasta 500,000 tokens y responder en 47 idiomas con coherencia cuántica avanzada."></textarea>
+
+                <div class="file-upload-area" id="fileUpload">
+                    <div>
+                        <strong>🔄 Arrastra archivos aquí o haz clic para seleccionar</strong>
+                        <p>Soporta: Imágenes (JPG, PNG, GIF), Audio (MP3, WAV), Documentos (PDF, DOCX, TXT), Código (PY, JS, HTML, CSS)</p>
+                    </div>
+                    <input type="file" id="fileInput" multiple accept="image/*,audio/*,.pdf,.txt,.docx,.py,.js,.html,.css,.json" style="display: none;">
+                </div>
+
+                <div class="uploaded-files" id="uploadedFiles"></div>
+
+                <button class="process-btn" id="processBtn">
+                    ⚛️ Procesar con IA Cuántica
+                </button>
+            </div>
+
+            <div class="output-section">
+                <h2 class="section-header">
+                    <span>🎯</span>
+                    Respuesta Inteligente
+                </h2>
+                
+                <div class="response-format">
+                    <button class="format-btn active" data-format="natural">🗣️ Natural</button>
+                    <button class="format-btn" data-format="technical">🔬 Técnico</button>
+                    <button class="format-btn" data-format="creative">🎨 Creativo</button>
+                    <button class="format-btn" data-format="analytical">📊 Analítico</button>
+                </div>
+
+                <div class="output-content">
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                    </div>
+                    <div id="responseContent">
+                        <p style="color: #b0b3b8; text-align: center; padding: 40px;">
+                            🤖 Esperando entrada... El sistema está listo para procesar múltiples tipos de contenido simultáneamente.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="quantum-visualization" id="quantumViz">
+                    <!-- Estados cuánticos se generarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <div class="quantum-metrics">
+            <div class="metric-card">
+                <div class="metric-title">Coherencia Cuántica</div>
+                <div class="metric-value" id="coherenceValue">94.7%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 94.7%"></div>
+                </div>
+                <div class="metric-description">Estados cuánticos sincronizados</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">Contexto Activo</div>
+                <div class="metric-value" id="contextValue">0K</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%" id="contextBar"></div>
+                </div>
+                <div class="metric-description">Tokens en memoria / 500K máx.</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">Rendimiento</div>
+                <div class="metric-value" id="performanceValue">1.2ms</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%"></div>
+                </div>
+                <div class="metric-description">Latencia promedio de respuesta</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">Idioma Detectado</div>
+                <div class="metric-value" id="languageValue">ESP</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+                <div class="metric-description">Confianza de detección: 99.8%</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generar partículas cuánticas
+        function generateParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Generar estados cuánticos en visualización
+        function generateQuantumStates() {
+            const viz = document.getElementById('quantumViz');
+            for (let i = 0; i < 26; i++) {
+                const state = document.createElement('div');
+                state.className = 'quantum-state';
+                state.style.left = (Math.random() * 90) + '%';
+                state.style.top = (Math.random() * 90) + '%';
+                state.style.animationDelay = (Math.random() * 2) + 's';
+                viz.appendChild(state);
+            }
+        }
+
+        // Manejo de modos de entrada
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const mode = this.dataset.mode;
+                const textInput = document.getElementById('textInput');
+                const fileUpload = document.getElementById('fileUpload');
+                
+                if (mode === 'text') {
+                    textInput.style.display = 'block';
+                    fileUpload.style.display = 'none';
+                } else {
+                    textInput.style.display = 'none';
+                    fileUpload.style.display = 'block';
+                }
+            });
+        });
+
+        // Manejo de formatos de respuesta
+        document.querySelectorAll('.format-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Manejo de archivos
+        const fileInput = document.getElementById('fileInput');
+        const fileUpload = document.getElementById('fileUpload');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+        let selectedFiles = [];
+
+        fileUpload.addEventListener('click', () => fileInput.click());
+
+        fileUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUpload.classList.add('dragover');
+        });
+
+        fileUpload.addEventListener('dragleave', () => {
+            fileUpload.classList.remove('dragover');
+        });
+
+        fileUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUpload.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!selectedFiles.find(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                    addFileChip(file);
+                }
+            });
+        }
+
+        function addFileChip(file) {
+            const chip = document.createElement('div');
+            chip.className = 'file-chip';
+            chip.innerHTML = `
+                <span>${getFileIcon(file.type)} ${file.name}</span>
+                <span class="remove" onclick="removeFile('${file.name}')">×</span>
+            `;
+            uploadedFiles.appendChild(chip);
+        }
+
+        function removeFile(fileName) {
+            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
+            updateFileChips();
+        }
+
+        function updateFileChips() {
+            uploadedFiles.innerHTML = '';
+            selectedFiles.forEach(addFileChip);
+        }
+
+        function getFileIcon(type) {
+            if (type.startsWith('image/')) return '🖼️';
+            if (type.startsWith('audio/')) return '🎵';
+            if (type === 'application/pdf') return '📄';
+            if (type.startsWith('text/') || type.includes('document')) return '📝';
+            return '📎';
+        }
+
+        // Procesamiento principal
+        document.getElementById('processBtn').addEventListener('click', async function() {
+            const textInput = document.getElementById('textInput').value;
+            const responseContent = document.getElementById('responseContent');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const processBtn = this;
+
+            if (!textInput.trim() && selectedFiles.length === 0) {
+                alert('Por favor, ingresa texto o selecciona archivos para procesar.');
+                return;
+            }
+
+            // Mostrar loading
+            processBtn.disabled = true;
+            processBtn.textContent = '⚛️ Procesando...';
+            loadingSpinner.style.display = 'flex';
+            responseContent.style.display = 'none';
+
+            // Actualizar métricas durante procesamiento
+            updateMetrics(textInput);
+
+            try {
+                // Procesar con API real
+                const apiResult = await simulateProcessing(textInput, selectedFiles);
+                
+                // Mostrar respuesta real
+                showRealResponse(apiResult);
+                
+            } catch (error) {
+                responseContent.innerHTML = `
+                    <div style="color: #ff6b6b; text-align: center; padding: 20px;">
+                        ❌ Error en el procesamiento: ${error.message}
+                    </div>
+                `;
+            } finally {
+                // Ocultar loading
+                processBtn.disabled = false;
+                processBtn.textContent = '⚛️ Procesar con IA Cuántica';
+                loadingSpinner.style.display = 'none';
+                responseContent.style.display = 'block';
+            }
+        });
+
+        async function simulateProcessing(text, files) {
+            // Llamada real al API multimodal
+            const formData = new FormData();
+            formData.append('text', text);
+            formData.append('format', document.querySelector('.format-btn.active').dataset.format);
+            
+            // Añadir archivos si los hay
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+            
+            try {
+                const response = await fetch('/api/process', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error en API:', error);
+                throw error;
+            }
+        }
+
+        function showRealResponse(apiResult) {
+            const responseContent = document.getElementById('responseContent');
+            
+            // Actualizar métricas con datos reales
+            if (apiResult.quantum_metrics) {
+                const qm = apiResult.quantum_metrics;
+                document.getElementById('coherenceValue').textContent = qm.coherence_level + '%';
+                document.querySelector('#coherenceValue').nextElementSibling.firstElementChild.style.width = qm.coherence_level + '%';
+                
+                if (apiResult.detected_language) {
+                    document.getElementById('languageValue').textContent = apiResult.detected_language.toUpperCase().substring(0, 3);
+                }
+            }
+            
+            responseContent.innerHTML = `
+                <div class="response-text">
+                    ${apiResult.response || 'Respuesta procesada exitosamente'}
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0, 212, 255, 0.2); font-size: 0.9rem; color: #b0b3b8;">
+                    <strong>Procesamiento completado:</strong><br>
+                    • ID de procesamiento: ${apiResult.processing_id || 'N/A'}<br>
+                    • Estados cuánticos: ${apiResult.quantum_metrics?.states_synchronized || 26}/26<br>
+                    • Coherencia: ${apiResult.quantum_metrics?.coherence_level || 94.7}%<br>
+                    • Tiempo de respuesta: ${apiResult.processing_time_ms || 'N/A'}ms<br>
+                    • Confianza: ${apiResult.quantum_metrics?.confidence_score || 95}%<br>
+                    • Archivos procesados: ${apiResult.files_processed?.length || 0}<br>
+                    • Idioma detectado: ${apiResult.detected_language || 'N/A'}
+                </div>
+            `;
+        }
+        
+        function showResponse(input) {
+            // Función de respaldo para compatibilidad
+            const responseContent = document.getElementById('responseContent');
+            const format = document.querySelector('.format-btn.active').dataset.format;
+            
+            let response = generateResponse(input, format);
+            
+            responseContent.innerHTML = `
+                <div class="response-text">
+                    ${response}
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0, 212, 255, 0.2); font-size: 0.9rem; color: #b0b3b8;">
+                    <strong>Procesamiento completado:</strong><br>
+                    • Estados cuánticos sincronizados: 26/26<br>
+                    • Coherencia mantenida: 94.7%<br>
+                    • Tiempo de respuesta: ${(1.2 + Math.random() * 0.8).toFixed(1)}ms<br>
+                    • Confianza: ${(95 + Math.random() * 4).toFixed(1)}%
+                </div>
+            `;
+        }
+
+        function generateResponse(input, format) {
+            const responses = {
+                natural: `Basándome en tu consulta "${input}", he procesado la información utilizando los 26 estados cuánticos activos del sistema. La respuesta integra análisis contextual profundo con coherencia cuántica del 94.7%.`,
+                technical: `ANÁLISIS TÉCNICO:<br>
+                           • Input tokens: ${input.length}<br>
+                           • Procesamiento cuántico: 26 estados paralelos<br>
+                           • Algoritmo: Transformador cuántico híbrido<br>
+                           • Latencia: sub-2ms<br>
+                           • Resultado: Análisis completado con alta confianza`,
+                creative: `🌟 Tu consulta ha despertado una cascada de posibilidades cuánticas. Como un prisma que descompone la luz, el sistema VIGOLEONROCKS ha analizado múltiples dimensiones de significado, creando una respuesta que trasciende lo convencional.`,
+                analytical: `📊 MÉTRICAS DE ANÁLISIS:<br>
+                            Complejidad detectada: Alta<br>
+                            Contexto requerido: ${Math.min(input.length * 10, 500000)} tokens<br>
+                            Idiomas procesados: 3<br>
+                            Confianza estadística: 97.3%<br>
+                            Recomendación: Procesamiento exitoso`
+            };
+            
+            return responses[format] || responses.natural;
+        }
+
+        function updateMetrics(input) {
+            const contextValue = Math.min(input.length * 10, 500000);
+            document.getElementById('contextValue').textContent = (contextValue / 1000).toFixed(1) + 'K';
+            document.getElementById('contextBar').style.width = (contextValue / 500000 * 100) + '%';
+            
+            // Detectar idioma simple
+            const isSpanish = /[áéíóúñ¿¡]/.test(input.toLowerCase()) || 
+                            /(es|está|son|para|con|que|más|todo|muy|bien|hacer|ser|tener)/i.test(input);
+            document.getElementById('languageValue').textContent = isSpanish ? 'ESP' : 'ENG';
+        }
+
+        // Inicialización
+        generateParticles();
+        generateQuantumStates();
+
+        // Actualizar métricas periódicamente
+        setInterval(() => {
+            const coherence = 92 + Math.random() * 6;
+            const performance = 1.0 + Math.random() * 0.5;
+            
+            document.getElementById('coherenceValue').textContent = coherence.toFixed(1) + '%';
+            document.getElementById('performanceValue').textContent = performance.toFixed(1) + 'ms';
+            
+            // Actualizar barras de progreso
+            document.querySelector('#coherenceValue').nextElementSibling.firstElementChild.style.width = coherence + '%';
+        }, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+http:
+  routers:
+    vigoleonrocks-main:
+      rule: "Host(`vigoleonrocks.com`) || Host(`www.vigoleonrocks.com`)"
+      service: vigoleonrocks-service
+      entrypoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+        
+    vigoleonrocks-quantum:
+      rule: "(Host(`vigoleonrocks.com`) || Host(`www.vigoleonrocks.com`)) && Path(`/quantum`)"
+      service: quantum-service
+      entrypoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+      priority: 2
+        
+  services:
+    vigoleonrocks-service:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:5000"
+          
+    quantum-service:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:8080"

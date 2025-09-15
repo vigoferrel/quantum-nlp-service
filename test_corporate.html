@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIGOLEONROCKS - Test Corporate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .status {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .api-test {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-3px);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-family: monospace;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 VIGOLEONROCKS</h1>
+        <div class="status">
+            <h2>✅ Corporate Interface Test</h2>
+            <p>El endpoint /corporate está funcionando correctamente</p>
+        </div>
+
+        <div class="api-test">
+            <h3>🧪 API Test</h3>
+            <button onclick="testAPI()">Test API en Español</button>
+            <button onclick="testAPIEnglish()">Test API in English</button>
+            <button onclick="testStatus()">Test Status</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="api-test">
+            <h3>📖 Uso Correcto de la API</h3>
+            <p><strong>❌ Incorrecto:</strong> GET /api/vigoleonrocks (405 Method Not Allowed)</p>
+            <p><strong>✅ Correcto:</strong> POST /api/vigoleonrocks con JSON</p>
+            <code style="background:rgba(0,0,0,0.3);padding:10px;display:block;margin:10px 0;">
+fetch('/api/vigoleonrocks', {<br>
+&nbsp;&nbsp;method: 'POST',<br>
+&nbsp;&nbsp;headers: { 'Content-Type': 'application/json' },<br>
+&nbsp;&nbsp;body: JSON.stringify({ text: 'Hola' })<br>
+})
+            </code>
+        </div>
+
+        <div class="api-test">
+            <h3>🌐 Enlaces Disponibles</h3>
+            <a href="/" style="color: #4ecdc4;">Página Principal</a> | 
+            <a href="/api/status" style="color: #4ecdc4;">API Status</a> | 
+            <a href="/api/quantum-metrics" style="color: #4ecdc4;">Quantum Metrics</a>
+        </div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('/api/vigoleonrocks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify({ text: 'Hola, ¿cómo estás?' })
+                });
+                const data = await response.json();
+                result.innerHTML = `<strong>✅ Test Español:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+            }
+        }
+
+        async function testAPIEnglish() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('/api/vigoleonrocks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify({ text: 'Hello, how are you?' })
+                });
+                const data = await response.json();
+                result.innerHTML = `<strong>✅ Test English:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+            }
+        }
+
+        async function testStatus() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                result.innerHTML = `<strong>✅ Status:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

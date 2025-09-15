@@ -1,0 +1,32 @@
+http:
+  routers:
+    vigoleonrocks-http:
+      rule: "Host(`vigoleonrocks.com`) || Host(`www.vigoleonrocks.com`)"
+      service: vigoleonrocks-service
+      entrypoints:
+        - web
+      middlewares:
+        - https-redirect
+        
+    vigoleonrocks-https:
+      rule: "Host(`vigoleonrocks.com`) || Host(`www.vigoleonrocks.com`)"
+      service: vigoleonrocks-service  
+      entrypoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+        
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+        
+  services:
+    vigoleonrocks-service:
+      loadBalancer:
+        servers:
+          - url: "http://172.20.0.2:5000"
+        healthCheck:
+          path: "/"
+          interval: "30s"

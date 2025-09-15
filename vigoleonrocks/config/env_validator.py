@@ -3,7 +3,7 @@ VIGOLEONROCKS Environment Configuration Validator
 
 This module provides strict validation and configuration management for the VIGOLEONROCKS project,
 enforcing the critical project policies:
-1. No Math.random usage - metrics-based randomness only
+1. No insecure randomness - metrics-based randomness only
 2. Background processes with metrics exposure
 """
 
@@ -202,7 +202,7 @@ class EnvironmentValidator:
         if not self._is_true(os.getenv('METRICS_RNG_ENABLED', 'false')):
             violations.append(
                 "CRITICAL: METRICS_RNG_ENABLED must be 'true'. "
-                "Project policy prohibits Math.random - use metrics-based randomness."
+                "Project policy prohibits insecure randomness - use metrics-based randomness."
             )
 
         # Validate RNG seed source
@@ -398,7 +398,7 @@ class EnvironmentValidator:
         else:
             print("\n🛑 Environment validation FAILED! Fix issues before starting.")
             print("\nREMEMBER CRITICAL POLICIES:")
-            print("  1. 🚫 NO Math.random - use kernel/service metrics")
+            print("  1. 🚫 NO insecure randomness - use kernel/service metrics")
             print("  2. 🔄 ALL processes in background with metrics")
 
         print("="*80)

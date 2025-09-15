@@ -1,0 +1,15 @@
+http:
+  routers:
+    vigoleonrocks:
+      rule: "Host(`vigoleonrocks.com`) || Host(`www.vigoleonrocks.com`)"
+      service: vigoleonrocks-service
+      entrypoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+        
+  services:
+    vigoleonrocks-service:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:5000"

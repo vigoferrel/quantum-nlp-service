@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VIGOLEONROCKS - Dashboard Estratégico Multimodal con IA Cuántica">
+    <title>VIGOLEONROCKS - Dashboard Estratégico Multimodal</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --dark-bg: #1a1a2e;
+            --darker-bg: #16213e;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --text-light: #ffffff;
+            --text-secondary: #b8b8d4;
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            gap: 0;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .input-panel, .output-panel {
+            background: var(--darker-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .top-bar {
+            background: var(--dark-bg);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .top-bar-grid {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .top-bar-item {
+            text-align: center;
+        }
+
+        .top-bar-item .value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        .top-bar-item .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-accent);
+            color: white;
+            border-color: var(--primary-accent);
+        }
+
+        .chat-area,
+        .upload-area {
+            /* Estilos existentes */
+        }
+
+        .response-area {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .bottom-bar {
+            background: var(--dark-bg);
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .bottom-bar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .chat-header {
+            padding: 1rem 2rem;
+            background: var(--darker-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+            background: var(--card-bg);
+        }
+
+        .message.system {
+            align-self: center;
+            background: var(--warning-color);
+            color: var(--dark-bg);
+            font-size: 0.875rem;
+            text-align: center;
+            max-width: 60%;
+        }
+
+        .message-content {
+            word-wrap: break-word;
+        }
+
+        .message-timestamp {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 1rem 2rem;
+            background: var(--darker-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .message-input {
+            width: 100%;
+            min-height: 2.5rem;
+            max-height: 8rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            background: var(--card-bg);
+            color: var(--text-light);
+            resize: none;
+            font-family: inherit;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .send-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--darker-bg);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Media Upload Section */
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .upload-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .media-preview {
+            margin-top: 1rem;
+            max-width: 100%;
+        }
+
+        .preview-image {
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* Video preview eliminado - Solo soportamos imágenes y audio */
+
+        .preview-audio {
+            width: 100%;
+        }
+
+        /* Audio Recording */
+        .audio-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .record-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .record-button.recording {
+            background: var(--warning-color);
+            animation: recording-pulse 1s infinite;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .record-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .recording-info {
+            display: none;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .vu-meter {
+            width: 100%;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .vu-bar {
+            height: 100%;
+            background: var(--success-color);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Capabilities Info */
+        .capabilities-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .capability-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-status {
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .capability-status.supported {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .capability-status.unsupported {
+            background: var(--error-color);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr auto;
+            }
+
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                max-height: 40vh;
+            }
+
+            .messages-container {
+                padding: 1rem;
+            }
+
+            .input-area {
+                padding: 1rem;
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background: var(--border-color);
+            border-radius: 0.25rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--primary-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background: var(--card-bg);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            border: none;
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles */
+        button:focus, input:focus, textarea:focus {
+            outline: 3px solid rgba(102, 126, 234, 0.6);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Estratégico VIGOLEONROCKS -->
+    <div class="dashboard-container">
+        
+        <!-- Barra Superior con Métricas Clave -->
+        <header class="top-bar">
+            <div class="dashboard-title">
+                <h1>VIGOLEONROCKS</h1>
+                <span class="dashboard-subtitle">Dashboard Estratégico Multimodal con IA Cuántica</span>
+            </div>
+            <div class="key-metrics">
+                <div class="metric-card">
+                    <span class="metric-label">Coherencia Cuántica</span>
+                    <span class="metric-value" id="quantum-coherence">87.3%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Contexto Activo</span>
+                    <span class="metric-value" id="active-context">42 dims</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Rendimiento</span>
+                    <span class="metric-value" id="performance">94.2%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Confianza</span>
+                    <span class="metric-value" id="confidence">96.8%</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Panel Principal -->
+        <main class="main-panel">
+            
+            <!-- Panel de Entrada -->
+            <section class="input-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Entrada Multimodal</h2>
+                    
+                    <!-- Pestañas de Lentes Analíticos -->
+                    <div class="lens-tabs">
+                        <button class="lens-tab active" data-lens="strategic">🎯 Estratégico</button>
+                        <button class="lens-tab" data-lens="operational">⚙️ Operacional</button>
+                        <button class="lens-tab" data-lens="financial">💰 Financiero</button>
+                        <button class="lens-tab" data-lens="innovation">💡 Innovación</button>
+                        <button class="lens-tab" data-lens="quantum">🔬 Cuántico</button>
+                    </div>
+                </div>
+
+                <!-- Área de Input Principal -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea 
+                            id="queryInput" 
+                            class="query-input" 
+                            placeholder="Describe tu consulta estratégica, sube archivos o solicita análisis multimodal..."
+                            rows="4"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button id="analyzeButton" class="action-button primary">
+                                <span>📊</span> Analizar
+                            </button>
+                            <button id="clearButton" class="action-button secondary">
+                                <span>🗑️</span> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Área de Carga de Medios -->
+                <div class="media-upload-section">
+                    <h3>Entrada Multimodal</h3>
+                    <div class="upload-grid">
+                        
+                        <!-- Upload de Imágenes -->
+                        <div class="upload-card">
+                            <div class="upload-area" id="imageUpload">
+                                <div class="upload-icon">📸</div>
+                                <div class="upload-text">Imágenes</div>
+                                <div class="upload-subtitle">JPG, PNG, WebP</div>
+                            </div>
+                            <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                            <div class="upload-preview" id="imagePreview"></div>
+                        </div>
+
+                        <!-- Upload de Audio -->
+                        <div class="upload-card">
+                            <div class="upload-area" id="audioUpload">
+                                <div class="upload-icon">🎵</div>
+                                <div class="upload-text">Audio</div>
+                                <div class="upload-subtitle">MP3, WAV, OGG</div>
+                            </div>
+                            <input type="file" id="audioInput" accept="audio/*" hidden>
+                            <div class="upload-preview" id="audioPreview"></div>
+                            <div class="audio-controls" id="audioControls" style="display: none;">
+                                <button id="recordButton" class="record-button">
+                                    <span id="recordIcon">🎤</span>
+                                    <span id="recordText">Grabar</span>
+                                </button>
+                                <div id="recordingInfo" class="recording-info" style="display: none;">
+                                    <span>Grabando... </span><span id="recordTime">00:00</span>
+                                    <div class="vu-meter">
+                                        <div class="vu-bar" id="vuBar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upload de Documentos -->
+                        <div class="upload-card">
+                            <div class="upload-area" id="documentUpload">
+                                <div class="upload-icon">📄</div>
+                                <div class="upload-text">Documentos</div>
+                                <div class="upload-subtitle">PDF, TXT, DOC</div>
+                            </div>
+                            <input type="file" id="documentInput" accept=".pdf,.txt,.doc,.docx" hidden>
+                            <div class="upload-preview" id="documentPreview"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel de Salida -->
+            <section class="output-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Análisis Estratégico</h2>
+                    <div class="output-controls">
+                        <button class="control-button" id="exportButton">
+                            <span>📤</span> Exportar
+                        </button>
+                        <button class="control-button" id="shareButton">
+                            <span>🔗</span> Compartir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Área de Respuesta -->
+                <div class="response-area" id="responseArea">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">🚀</div>
+                        <h3>Bienvenido al Dashboard Estratégico VIGOLEONROCKS</h3>
+                        <p>Sistema de inteligencia artificial cuántica multimodal para análisis estratégico avanzado.</p>
+                        <ul>
+                            <li>📊 <strong>Análisis Estratégico:</strong> KPIs, métricas y tendencias</li>
+                            <li>⚙️ <strong>Inteligencia Operacional:</strong> Procesos y optimización</li>
+                            <li>💰 <strong>Insights Financieros:</strong> ROI, presupuestos y forecast</li>
+                            <li>💡 <strong>Innovación:</strong> Oportunidades y disrupciones</li>
+                            <li>🔬 <strong>Análisis Cuántico:</strong> Patrones profundos y correlaciones</li>
+                        </ul>
+                        <p><em>Selecciona un lente analítico y comienza tu consulta estratégica.</em></p>
+                    </div>
+                </div>
+
+                <!-- Progress Indicators -->
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-item">
+                        <span>Procesando entrada multimodal...</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="processingProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Barra Inferior con Métricas Detalladas -->
+        <footer class="bottom-bar">
+            <div class="detailed-metrics">
+                <div class="metric-group">
+                    <span class="metric-group-title">Sistema</span>
+                    <div class="metric-items">
+                        <span class="metric-item">CPU: <span id="cpu-usage">12%</span></span>
+                        <span class="metric-item">RAM: <span id="ram-usage">34%</span></span>
+                        <span class="metric-item">Latencia: <span id="latency">45ms</span></span>
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <span class="metric-group-title">AI/Cuántico</span>
+                    <div class="metric-items">
+                        <span class="metric-item">Modelos: <span id="active-models">7/12</span></span>
+                        <span class="metric-item">Vectores: <span id="vector-space">26D</span></span>
+                        <span class="metric-item">Entropía: <span id="entropy">2.34</span></span>
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <span class="metric-group-title">Operacional</span>
+                    <div class="metric-items">
+                        <span class="metric-item">Consultas: <span id="queries-count">1,247</span></span>
+                        <span class="metric-item">Aciertos: <span id="hit-rate">96.8%</span></span>
+                        <span class="metric-item">Uptime: <span id="uptime">99.9%</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Connection -->
+            <div class="connection-status">
+                <div class="status-indicator active">
+                    <div class="status-dot"></div>
+                    <span>Conectado | VIGOLEONROCKS v2.1</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Usar crypto para generar IDs seguros (sin Math.random)
+        function generateSecureId() {
+            const array = new Uint32Array(4);
+            crypto.getRandomValues(array);
+            return Array.from(array, dec => dec.toString(16).padStart(8, '0')).join('-');
+        }
+
+        // Chat functionality
+        class VigoleonrocksChat {
+            constructor() {
+                this.messagesContainer = document.getElementById('messages');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.typingIndicator = document.getElementById('typing');
+                
+                this.setupEventListeners();
+                this.checkDeviceCapabilities();
+                this.setupMediaUpload();
+                this.setupAudioRecording();
+            }
+
+            setupEventListeners() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+
+                // Auto-resize textarea
+                this.messageInput.addEventListener('input', () => {
+                    this.messageInput.style.height = 'auto';
+                    this.messageInput.style.height = this.messageInput.scrollHeight + 'px';
+                });
+            }
+
+            async sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                this.addMessage('user', message);
+                this.messageInput.value = '';
+                this.messageInput.style.height = 'auto';
+                this.setSendButtonState(false);
+                this.showTyping(true);
+
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Request-ID': generateSecureId()
+                        },
+                        body: JSON.stringify({ 
+                            message: message,
+                            timestamp: Date.now()
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.addMessage('assistant', data.response || 'Respuesta procesada correctamente');
+                    } else {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                    this.addMessage('system', 'Error al enviar el mensaje. Intenta de nuevo.');
+                } finally {
+                    this.showTyping(false);
+                    this.setSendButtonState(true);
+                }
+            }
+
+            addMessage(type, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = content;
+
+                const timestampDiv = document.createElement('div');
+                timestampDiv.className = 'message-timestamp';
+                timestampDiv.textContent = new Date().toLocaleTimeString();
+
+                messageDiv.appendChild(contentDiv);
+                messageDiv.appendChild(timestampDiv);
+
+                this.messagesContainer.appendChild(messageDiv);
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+
+                // Announce new messages to screen readers
+                if (type === 'assistant') {
+                    const announcement = document.createElement('div');
+                    announcement.className = 'sr-only';
+                    announcement.setAttribute('aria-live', 'assertive');
+                    announcement.textContent = `Nuevo mensaje del asistente: ${content}`;
+                    document.body.appendChild(announcement);
+                    setTimeout(() => document.body.removeChild(announcement), 1000);
+                }
+            }
+
+            showTyping(show) {
+                this.typingIndicator.style.display = show ? 'flex' : 'none';
+                if (show) {
+                    this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+                }
+            }
+
+            setSendButtonState(enabled) {
+                this.sendButton.disabled = !enabled;
+                this.sendButton.textContent = enabled ? 'Enviar' : 'Enviando...';
+            }
+
+            // Check device capabilities using MediaCapabilities API
+            async checkDeviceCapabilities() {
+                const statusElements = {
+                    mediaRecorder: document.getElementById('mediaRecorderStatus'),
+                    webCodecs: document.getElementById('webCodecsStatus'),
+                    mediaCapabilities: document.getElementById('mediaCapabilitiesStatus')
+                };
+
+                // MediaRecorder support
+                if ('MediaRecorder' in window) {
+                    statusElements.mediaRecorder.textContent = 'Soportado';
+                    statusElements.mediaRecorder.className = 'capability-status supported';
+                } else {
+                    statusElements.mediaRecorder.textContent = 'No soportado';
+                    statusElements.mediaRecorder.className = 'capability-status unsupported';
+                }
+
+                // WebCodecs support (experimental)
+                if ('VideoEncoder' in window && 'VideoDecoder' in window) {
+                    statusElements.webCodecs.textContent = 'Soportado';
+                    statusElements.webCodecs.className = 'capability-status supported';
+                } else {
+                    statusElements.webCodecs.textContent = 'No soportado';
+                    statusElements.webCodecs.className = 'capability-status unsupported';
+                }
+
+                // MediaCapabilities support
+                if ('mediaCapabilities' in navigator) {
+                    statusElements.mediaCapabilities.textContent = 'Soportado';
+                    statusElements.mediaCapabilities.className = 'capability-status supported';
+                    
+                    // Test encoding capabilities
+                    await this.testEncodingCapabilities();
+                } else {
+                    statusElements.mediaCapabilities.textContent = 'No soportado';
+                    statusElements.mediaCapabilities.className = 'capability-status unsupported';
+                }
+            }
+
+            async testEncodingCapabilities() {
+                try {
+                    // Solo testeamos capacidades de audio
+                    const audioConfig = {
+                        type: 'record',
+                        audio: {
+                            contentType: 'audio/webm; codecs=opus',
+                            channels: 2,
+                            bitrate: 128000,
+                            samplerate: 48000
+                        }
+                    };
+
+                    const audioInfo = await navigator.mediaCapabilities.encodingInfo(audioConfig);
+                    console.log('Audio capabilities:', audioInfo);
+
+                    // Store optimal format for later use
+                    this.optimalAudioFormat = audioInfo.supported ? 'webm' : 'wav';
+
+                } catch (error) {
+                    console.warn('Error testing encoding capabilities:', error);
+                }
+            }
+
+            setupMediaUpload() {
+                // Image upload
+                const imageUpload = document.getElementById('imageUpload');
+                const imageInput = document.getElementById('imageInput');
+                const imagePreview = document.getElementById('imagePreview');
+
+                imageUpload.addEventListener('click', () => imageInput.click());
+                imageUpload.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        imageInput.click();
+                    }
+                });
+
+                imageInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) this.handleImageUpload(file);
+                });
+
+                // Drag and drop
+                imageUpload.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    imageUpload.classList.add('dragover');
+                });
+
+                imageUpload.addEventListener('dragleave', () => {
+                    imageUpload.classList.remove('dragover');
+                });
+
+                imageUpload.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    imageUpload.classList.remove('dragover');
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        this.handleImageUpload(file);
+                    }
+                });
+
+                // Video upload eliminado - Solo soportamos imágenes y audio
+            }
+
+            async handleImageUpload(file) {
+                const maxSize = 20 * 1024 * 1024; // 20MB
+                if (file.size > maxSize) {
+                    this.addMessage('system', 'La imagen es demasiado grande. Máximo 20MB.');
+                    return;
+                }
+
+                const preview = document.getElementById('imagePreview');
+                const progress = document.getElementById('imageProgress');
+                const progressBar = document.getElementById('imageProgressBar');
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.innerHTML = `<img src="${e.target.result}" class="preview-image" alt="Imagen seleccionada">`;
+                };
+                reader.readAsDataURL(file);
+
+                // Upload
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('upload_id', generateSecureId());
+
+                progress.style.display = 'block';
+
+                try {
+                    const response = await fetch('/api/upload/image', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Request-ID': generateSecureId()
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.addMessage('user', `Imagen subida: ${file.name}`);
+                        this.addMessage('assistant', 'Imagen procesada correctamente. ¿Te gustaría que la analice?');
+                    } else {
+                        throw new Error('Error al subir la imagen');
+                    }
+                } catch (error) {
+                    console.error('Error uploading image:', error);
+                    this.addMessage('system', 'Error al subir la imagen. Intenta de nuevo.');
+                } finally {
+                    progress.style.display = 'none';
+                    progressBar.style.width = '0%';
+                }
+            }
+
+            // handleVideoUpload eliminado - Solo soportamos imágenes y audio
+
+            setupAudioRecording() {
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+                this.recordingStartTime = 0;
+                this.recordingTimer = null;
+
+                const recordButton = document.getElementById('recordButton');
+                const recordingInfo = document.getElementById('recordingInfo');
+                const vuBar = document.getElementById('vuBar');
+
+                recordButton.addEventListener('click', () => {
+                    if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                        this.stopRecording();
+                    } else {
+                        this.startRecording();
+                    }
+                });
+            }
+
+            async startRecording() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            sampleRate: 48000
+                        } 
+                    });
+
+                    // Use optimal audio format based on MediaCapabilities
+                    const mimeType = this.optimalAudioFormat === 'webm' ? 
+                        'audio/webm; codecs=opus' : 
+                        'audio/wav';
+
+                    this.mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: MediaRecorder.isTypeSupported(mimeType) ? mimeType : 'audio/webm'
+                    });
+
+                    this.audioChunks = [];
+
+                    this.mediaRecorder.ondataavailable = (event) => {
+                        this.audioChunks.push(event.data);
+                    };
+
+                    this.mediaRecorder.onstop = () => {
+                        this.processRecording();
+                    };
+
+                    this.mediaRecorder.start();
+                    this.updateRecordingUI(true);
+                    this.startVUMeter(stream);
+
+                } catch (error) {
+                    console.error('Error starting recording:', error);
+                    this.addMessage('system', 'Error al acceder al micrófono. Verifica los permisos.');
+                }
+            }
+
+            stopRecording() {
+                if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                    this.mediaRecorder.stop();
+                    this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                    this.updateRecordingUI(false);
+                }
+            }
+
+            updateRecordingUI(recording) {
+                const recordButton = document.getElementById('recordButton');
+                const recordIcon = document.getElementById('recordIcon');
+                const recordText = document.getElementById('recordText');
+                const recordingInfo = document.getElementById('recordingInfo');
+
+                if (recording) {
+                    recordButton.classList.add('recording');
+                    recordIcon.textContent = '⏸️';
+                    recordText.textContent = 'Detener';
+                    recordingInfo.style.display = 'block';
+                    this.startRecordingTimer();
+                } else {
+                    recordButton.classList.remove('recording');
+                    recordIcon.textContent = '🎤';
+                    recordText.textContent = 'Grabar Audio';
+                    recordingInfo.style.display = 'none';
+                    this.stopRecordingTimer();
+                }
+            }
+
+            startRecordingTimer() {
+                this.recordingStartTime = Date.now();
+                this.recordingTimer = setInterval(() => {
+                    const elapsed = Math.floor((Date.now() - this.recordingStartTime) / 1000);
+                    const minutes = Math.floor(elapsed / 60);
+                    const seconds = elapsed % 60;
+                    document.getElementById('recordTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+
+            stopRecordingTimer() {
+                if (this.recordingTimer) {
+                    clearInterval(this.recordingTimer);
+                    this.recordingTimer = null;
+                }
+            }
+
+            startVUMeter(stream) {
+                const audioContext = new AudioContext();
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(stream);
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+                microphone.connect(analyser);
+                analyser.fftSize = 256;
+
+                const updateVU = () => {
+                    if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                        analyser.getByteFrequencyData(dataArray);
+                        const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+                        const percentage = (average / 255) * 100;
+                        document.getElementById('vuBar').style.width = `${percentage}%`;
+                        requestAnimationFrame(updateVU);
+                    }
+                };
+
+                updateVU();
+            }
+
+            async processRecording() {
+                const audioBlob = new Blob(this.audioChunks, { 
+                    type: this.mediaRecorder.mimeType || 'audio/webm' 
+                });
+                
+                // Show preview
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const preview = document.getElementById('audioPreview');
+                preview.innerHTML = `<audio src="${audioUrl}" class="preview-audio" controls></audio>`;
+
+                // Upload
+                const formData = new FormData();
+                formData.append('audio', audioBlob, `recording-${Date.now()}.webm`);
+                formData.append('upload_id', generateSecureId());
+
+                const progress = document.getElementById('audioProgress');
+                const progressBar = document.getElementById('audioProgressBar');
+                progress.style.display = 'block';
+
+                try {
+                    const response = await fetch('/api/upload/audio', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Request-ID': generateSecureId()
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.addMessage('user', 'Audio grabado y enviado');
+                        this.addMessage('assistant', 'Audio procesado correctamente. ¿Te gustaría que lo transcriba?');
+                    } else {
+                        throw new Error('Error al procesar el audio');
+                    }
+                } catch (error) {
+                    console.error('Error uploading audio:', error);
+                    this.addMessage('system', 'Error al procesar el audio. Intenta de nuevo.');
+                } finally {
+                    progress.style.display = 'none';
+                    progressBar.style.width = '0%';
+                }
+            }
+        }
+
+        // Initialize the chat when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.vigoleonrocksChat = new VigoleonrocksChat();
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = {
+                        url: window.location.pathname,
+                        loadTime: Math.round(performance.now()),
+                        deviceMemory: navigator.deviceMemory || 'unknown',
+                        hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
+                        connection: navigator.connection ? navigator.connection.effectiveType : 'unknown',
+                        timestamp: Date.now()
+                    };
+                    
+                    if ('sendBeacon' in navigator) {
+                        navigator.sendBeacon('/m/fe', JSON.stringify(perfData));
+                    }
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>
