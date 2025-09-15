@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 VIGOLEONROCKS - Dashboard Multimodal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0A0B0D 0%, #1C1D21 50%, #2A2D37 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: rgba(28, 29, 33, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10B981;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric-card {
+            background: rgba(28, 29, 33, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .metric-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3B82F6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-subtitle {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            background: rgba(28, 29, 33, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            min-height: 300px;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .model-card {
+            background: rgba(28, 29, 33, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .model-card.enabled {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .model-card.disabled {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.05);
+            opacity: 0.6;
+        }
+        
+        .model-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .model-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .status-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-enabled { background: #10B981; }
+        .status-disabled { background: #EF4444; }
+        .status-loading { background: #F59E0B; }
+        
+        .recommendations {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .recommendations h3 {
+            color: #F59E0B;
+            margin-bottom: 1rem;
+        }
+        
+        .recommendations ul {
+            list-style: none;
+        }
+        
+        .recommendations li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .recommendations li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .control-button {
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .control-button:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .control-button.active {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .loading-spinner {
+            border: 2px solid rgba(59, 130, 246, 0.1);
+            border-left: 2px solid #3B82F6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🚀 VIGOLEONROCKS Dashboard</div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="system-status">Sistema Operacional</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="controls">
+            <button class="control-button active" onclick="setUpdateInterval(5000, this)">Tiempo Real (5s)</button>
+            <button class="control-button" onclick="setUpdateInterval(30000, this)">Normal (30s)</button>
+            <button class="control-button" onclick="setUpdateInterval(60000, this)">Lento (1m)</button>
+            <button class="control-button" onclick="refreshData()">🔄 Actualizar</button>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>🧠</span>
+                    <span>Modelos Cargados</span>
+                </div>
+                <div class="metric-value" id="models-loaded">-</div>
+                <div class="metric-subtitle">Modelos activos en memoria</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>🔗</span>
+                    <span>CLIP Status</span>
+                </div>
+                <div class="metric-value" id="clip-status">-</div>
+                <div class="metric-subtitle">Estado del modelo CLIP</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>💾</span>
+                    <span>Cache Hit Rate</span>
+                </div>
+                <div class="metric-value" id="cache-hit-rate">-</div>
+                <div class="metric-subtitle">Eficiencia del cache</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="cache-progress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>⚡</span>
+                    <span>Tiempo Promedio</span>
+                </div>
+                <div class="metric-value" id="avg-response-time">-</div>
+                <div class="metric-subtitle">Tiempo de respuesta</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>💻</span>
+                    <span>Memoria</span>
+                </div>
+                <div class="metric-value" id="memory-usage">-</div>
+                <div class="metric-subtitle">Uso de memoria del sistema</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="memory-progress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">
+                    <span>🔥</span>
+                    <span>CPU</span>
+                </div>
+                <div class="metric-value" id="cpu-usage">-</div>
+                <div class="metric-subtitle">Uso del procesador</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="cpu-progress" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>📊 Modelos Multimodales</h3>
+            <div class="models-grid" id="models-grid">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+        
+        <div class="recommendations" id="recommendations" style="display: none;">
+            <h3>💡 Recomendaciones de Optimización</h3>
+            <ul id="recommendations-list"></ul>
+        </div>
+    </div>
+    
+    <script>
+        let updateInterval;
+        let isUpdating = false;
+        
+        // Configuración inicial
+        setUpdateInterval(5000);
+        
+        // Función para establecer intervalo de actualización
+        function setUpdateInterval(interval, targetButton) {
+            if (updateInterval) clearInterval(updateInterval);
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.control-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Si se pasó un botón específico, marcarlo como activo
+            if (targetButton) {
+                targetButton.classList.add('active');
+            } else {
+                // Si no, encontrar el botón correspondiente al intervalo
+                const buttons = document.querySelectorAll('.control-button');
+                if (interval === 5000 && buttons[0]) buttons[0].classList.add('active');
+                else if (interval === 30000 && buttons[1]) buttons[1].classList.add('active');
+                else if (interval === 60000 && buttons[2]) buttons[2].classList.add('active');
+            }
+            
+            // Establecer nuevo intervalo
+            updateInterval = setInterval(refreshData, interval);
+            refreshData(); // Actualizar inmediatamente
+        }
+        
+        // Función principal para actualizar datos
+        async function refreshData() {
+            if (isUpdating) return;
+            isUpdating = true;
+            
+            try {
+                // Actualizar estado del sistema
+                await updateSystemStatus();
+                
+                // Actualizar métricas de rendimiento
+                await updatePerformanceMetrics();
+                
+                // Actualizar estado de modelos
+                await updateModelsStatus();
+                
+                // Actualizar recomendaciones
+                await updateRecommendations();
+                
+            } catch (error) {
+                console.error('Error actualizando dashboard:', error);
+                document.getElementById('system-status').textContent = 'Error de Conexión';
+                document.querySelector('.status-dot').style.background = '#EF4444';
+            }
+            
+            isUpdating = false;
+        }
+        
+        // Actualizar estado general del sistema
+        async function updateSystemStatus() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                if (data.status === 'operational') {
+                    document.getElementById('system-status').textContent = 'Sistema Operacional';
+                    document.querySelector('.status-dot').style.background = '#10B981';
+                } else {
+                    document.getElementById('system-status').textContent = 'Sistema con Problemas';
+                    document.querySelector('.status-dot').style.background = '#F59E0B';
+                }
+                
+                // Actualizar métricas básicas
+                document.getElementById('models-loaded').textContent = data.requests_served || 0;
+                
+            } catch (error) {
+                console.error('Error fetching system status:', error);
+            }
+        }
+        
+        // Actualizar métricas de rendimiento
+        async function updatePerformanceMetrics() {
+            try {
+                // Intentar obtener métricas del optimizador de rendimiento
+                const response = await fetch('/api/performance/report');
+                let data;
+                
+                if (response.ok) {
+                    data = await response.json();
+                } else {
+                    // Fallback a métricas básicas
+                    const fallbackResponse = await fetch('/api/quantum-metrics');
+                    const fallbackData = await fallbackResponse.json();
+                    
+                    data = {
+                        system_metrics: {
+                            memory_usage_mb: 0,
+                            cpu_usage_percent: 0,
+                            average_response_time: 0.5
+                        },
+                        cache_performance: {
+                            hit_rate: 0,
+                            entries: 0
+                        }
+                    };
+                }
+                
+                // Actualizar métricas en la UI
+                const memoryMB = data.system_metrics?.memory_usage_mb || 0;
+                const memoryGB = (memoryMB / 1024).toFixed(1);
+                document.getElementById('memory-usage').textContent = `${memoryGB} GB`;
+                
+                const memoryPercent = Math.min((memoryMB / 8192) * 100, 100); // Asumiendo 8GB máx
+                document.getElementById('memory-progress').style.width = `${memoryPercent}%`;
+                
+                const cpuPercent = data.system_metrics?.cpu_usage_percent || 0;
+                document.getElementById('cpu-usage').textContent = `${cpuPercent.toFixed(1)}%`;
+                document.getElementById('cpu-progress').style.width = `${cpuPercent}%`;
+                
+                const hitRate = data.cache_performance?.hit_rate || 0;
+                document.getElementById('cache-hit-rate').textContent = `${(hitRate * 100).toFixed(1)}%`;
+                document.getElementById('cache-progress').style.width = `${hitRate * 100}%`;
+                
+                const responseTime = data.system_metrics?.average_response_time || 0;
+                document.getElementById('avg-response-time').textContent = `${responseTime.toFixed(2)}s`;
+                
+            } catch (error) {
+                console.error('Error fetching performance metrics:', error);
+            }
+        }
+        
+        // Actualizar estado de modelos multimodales
+        async function updateModelsStatus() {
+            try {
+                const response = await fetch('/api/multimodal/status');
+                let data;
+                
+                if (response.ok) {
+                    data = await response.json();
+                } else {
+                    // Fallback data
+                    data = {
+                        models_enabled: ['moondream2', 'clip_vit', 'blip2'],
+                        models_disabled: ['qwen2_vl'],
+                        clip_status: { enabled: false, available: false }
+                    };
+                }
+                
+                // Actualizar conteo de modelos cargados
+                document.getElementById('models-loaded').textContent = data.models_loaded || data.models_enabled?.length || 0;
+                
+                // Actualizar estado de CLIP
+                const clipStatus = data.clip_status || {};
+                let clipDisplay = clipStatus.enabled ? '✅ Habilitado' : '❌ Deshabilitado';
+                if (clipStatus.loaded) clipDisplay = '🚀 Cargado';
+                document.getElementById('clip-status').textContent = clipDisplay;
+                
+                // Actualizar grid de modelos
+                updateModelsGrid(data);
+                
+            } catch (error) {
+                console.error('Error fetching multimodal status:', error);
+            }
+        }
+        
+        // Actualizar grid visual de modelos
+        function updateModelsGrid(data) {
+            const modelsGrid = document.getElementById('models-grid');
+            
+            const allModels = [
+                { name: 'Moondream2', key: 'moondream2', icon: '🌙' },
+                { name: 'Florence-2', key: 'florence2', icon: '🏛️' },
+                { name: 'CLIP ViT', key: 'clip_vit', icon: '🔗' },
+                { name: 'BLIP-2', key: 'blip2', icon: '📝' },
+                { name: 'Whisper', key: 'whisper_large', icon: '🎤' },
+                { name: 'Qwen2-VL', key: 'qwen2_vl', icon: '🧠' }
+            ];
+            
+            const enabledModels = data.models_enabled || [];
+            const disabledModels = data.models_disabled || [];
+            
+            modelsGrid.innerHTML = allModels.map(model => {
+                const isEnabled = enabledModels.includes(model.key);
+                const isLoaded = data.models_loaded && data.models_loaded > 0;
+                
+                let status, statusClass, statusIcon;
+                if (isEnabled) {
+                    status = isLoaded ? 'Cargado' : 'Habilitado';
+                    statusClass = 'enabled';
+                    statusIcon = 'status-enabled';
+                } else {
+                    status = 'Deshabilitado';
+                    statusClass = 'disabled';
+                    statusIcon = 'status-disabled';
+                }
+                
+                return `
+                    <div class="model-card ${statusClass}">
+                        <div class="model-name">${model.icon} ${model.name}</div>
+                        <div class="model-status">
+                            <div class="status-icon ${statusIcon}"></div>
+                            <span>${status}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Actualizar recomendaciones
+        async function updateRecommendations() {
+            try {
+                const response = await fetch('/api/performance/report');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const recommendations = data.recommendations || [];
+                    
+                    const recommendationsDiv = document.getElementById('recommendations');
+                    const recommendationsList = document.getElementById('recommendations-list');
+                    
+                    if (recommendations.length > 0) {
+                        recommendationsList.innerHTML = recommendations.map(rec => 
+                            `<li>${rec}</li>`
+                        ).join('');
+                        recommendationsDiv.style.display = 'block';
+                    } else {
+                        recommendationsDiv.style.display = 'none';
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+            }
+        }
+        
+        // Manejar errores de red
+        window.addEventListener('online', () => {
+            document.getElementById('system-status').textContent = 'Reconectado';
+            refreshData();
+        });
+        
+        window.addEventListener('offline', () => {
+            document.getElementById('system-status').textContent = 'Sin Conexión';
+            document.querySelector('.status-dot').style.background = '#EF4444';
+        });
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Dashboard VIGOLEONROCKS inicializado');
+            refreshData();
+        });
+    </script>
+</body>
+</html>
