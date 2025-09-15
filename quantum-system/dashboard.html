@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema ELO-Akáshico Cuántico - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff41;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid #00ff41;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .control-panel {
+            border: 1px solid #00ff41;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+        }
+        
+        .control-panel h3 {
+            margin-bottom: 15px;
+            color: #00ffff;
+            text-decoration: underline;
+        }
+        
+        .btn {
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 15px #00ff41;
+        }
+        
+        .btn.active {
+            background: #00ff41;
+            color: #000;
+        }
+        
+        .matrix-container {
+            margin-bottom: 30px;
+            border: 2px solid #00ff41;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+        }
+        
+        .matrix-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #00ffff;
+        }
+        
+        .matrix-17x17 {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 2px;
+            font-size: 10px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        
+        .matrix-cell {
+            border: 1px solid #333;
+            padding: 5px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .matrix-header {
+            background: rgba(0, 255, 65, 0.2);
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        .matrix-btc {
+            background: rgba(255, 165, 0, 0.3);
+            color: #ffa500;
+        }
+        
+        .logs {
+            border: 2px solid #00ff41;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        .logs h3 {
+            margin-bottom: 15px;
+            color: #00ffff;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .log-info { color: #00ff41; }
+        .log-warn { color: #ffff00; }
+        .log-error { color: #ff4444; }
+        .log-debug { color: #888; }
+        
+        .status-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            border: 1px solid #00ff41;
+            padding: 15px;
+            text-align: center;
+            background: rgba(0, 255, 65, 0.05);
+        }
+        
+        .status-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .status-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SISTEMA ELO-AKÁSHICO CUÁNTICO</h1>
+            <p>Matriz 17x17 | BTC Ancla Gravitacional | Precisión Satoshi-Level</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-panel">
+                <h3>Control del Sistema</h3>
+                <button class="btn" onclick="iniciarSistema()">INICIAR MOTOR CUÁNTICO</button>
+                <button class="btn" onclick="detenerSistema()">DETENER SISTEMA</button>
+                <button class="btn" onclick="reiniciarMatriz()">REINICIAR MATRIZ</button>
+            </div>
+            
+            <div class="control-panel">
+                <h3>Algoritmos Activos</h3>
+                <button class="btn" onclick="toggleAlgoritmo('correlacion')">Correlación BTC</button>
+                <button class="btn" onclick="toggleAlgoritmo('momentum')">Momentum Multi-temporal</button>
+                <button class="btn" onclick="toggleAlgoritmo('entropia')">Control de Caos</button>
+                <button class="btn" onclick="toggleAlgoritmo('resonancia')">Resonancia</button>
+            </div>
+            
+            <div class="control-panel">
+                <h3>Estados Cuánticos</h3>
+                <button class="btn" onclick="toggleAlgoritmo('schrodinger')">Schrödinger</button>
+                <button class="btn" onclick="toggleAlgoritmo('edge')">Edge Fotónico-Akáshico</button>
+                <button class="btn" onclick="toggleAlgoritmo('riesgo')">Gestión de Riesgo</button>
+                <button class="btn" onclick="propagarEntanglement()">Propagar Entanglement</button>
+            </div>
+            
+            <div class="control-panel">
+                <h3>Datos de Mercado</h3>
+                <button class="btn" onclick="conectarBinance()">Conectar Binance API</button>
+                <button class="btn" onclick="simularDatos()">Simular Datos</button>
+                <button class="btn" onclick="exportarMatriz()">Exportar Matriz</button>
+            </div>
+        </div>
+        
+        <div class="status-indicators">
+            <div class="status-card">
+                <div class="status-value pulse" id="sistema-status">INACTIVO</div>
+                <div class="status-label">Estado del Sistema</div>
+            </div>
+            <div class="status-card">
+                <div class="status-value" id="btc-price">$0.00</div>
+                <div class="status-label">Precio BTC (Ancla)</div>
+            </div>
+            <div class="status-card">
+                <div class="status-value" id="correlaciones-activas">0</div>
+                <div class="status-label">Correlaciones Activas</div>
+            </div>
+            <div class="status-card">
+                <div class="status-value" id="entropia-nivel">0.00</div>
+                <div class="status-label">Nivel de Entropía</div>
+            </div>
+            <div class="status-card">
+                <div class="status-value" id="estados-cuanticos">0</div>
+                <div class="status-label">Estados Cuánticos</div>
+            </div>
+            <div class="status-card">
+                <div class="status-value" id="operaciones-activas">0</div>
+                <div class="status-label">Operaciones Activas</div>
+            </div>
+        </div>
+        
+        <div class="matrix-container">
+            <div class="matrix-title">MATRIZ CUÁNTICA 17x17 - TIEMPO REAL</div>
+            <div class="matrix-17x17" id="matriz-display">
+                <!-- La matriz se genera dinámicamente -->
+            </div>
+        </div>
+        
+        <div class="logs">
+            <h3>LOG DEL SISTEMA (Tiempo Real)</h3>
+            <div id="log-container">
+                <div class="log-entry log-info">[SISTEMA] Esperando inicialización...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="elo-akashico.js"></script>
+    <script>
+        let sistemaActivo = false;
+        let algoritmosActivos = {};
+        
+        // Inicializar matriz visual
+        function inicializarMatrizVisual() {
+            const matrizDisplay = document.getElementById('matriz-display');
+            matrizDisplay.innerHTML = '';
+            
+            // Headers de columnas
+            matrizDisplay.appendChild(createCell('', 'matrix-header'));
+            METRICAS.forEach(metrica => {
+                matrizDisplay.appendChild(createCell(metrica.substring(0, 8), 'matrix-header'));
+            });
+            
+            // Filas de activos
+            ACTIVOS_CRYPTO.forEach((activo, i) => {
+                // Header de fila
+                const cellClass = activo === 'BTC' ? 'matrix-header matrix-btc' : 'matrix-header';
+                matrizDisplay.appendChild(createCell(activo, cellClass));
+                
+                // Celdas de datos
+                for (let j = 0; j < 17; j++) {
+                    const value = MATRIZ_CUANTICA[i][j].toFixed(4);
+                    const cellClass = activo === 'BTC' ? 'matrix-cell matrix-btc' : 'matrix-cell';
+                    matrizDisplay.appendChild(createCell(value, cellClass));
+                }
+            });
+        }
+        
+        function createCell(content, className) {
+            const cell = document.createElement('div');
+            cell.className = className;
+            cell.textContent = content;
+            return cell;
+        }
+        
+        function agregarLog(mensaje, tipo = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const timestamp = new Date().toISOString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${tipo}`;
+            logEntry.textContent = `[${timestamp}] ${mensaje}`;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Mantener solo los últimos 50 logs
+            while (logContainer.children.length > 50) {
+                logContainer.removeChild(logContainer.firstChild);
+            }
+        }
+        
+        function iniciarSistema() {
+            if (!sistemaActivo) {
+                sistemaActivo = true;
+                document.getElementById('sistema-status').textContent = 'ACTIVO';
+                document.getElementById('sistema-status').style.color = '#00ff41';
+                agregarLog('Sistema ELO-Akáshico iniciado exitosamente', 'info');
+                
+                // Iniciar el motor cuántico
+                if (typeof INICIAR_MOTOR_CUANTICO === 'function') {
+                    INICIAR_MOTOR_CUANTICO();
+                }
+                
+                // Actualizar matriz visual cada segundo
+                setInterval(actualizarMatrizVisual, 1000);
+                setInterval(actualizarEstadisticas, 1000);
+            }
+        }
+        
+        function detenerSistema() {
+            sistemaActivo = false;
+            document.getElementById('sistema-status').textContent = 'DETENIDO';
+            document.getElementById('sistema-status').style.color = '#ff4444';
+            agregarLog('Sistema detenido por el usuario', 'warn');
+        }
+        
+        function reiniciarMatriz() {
+            if (typeof INICIALIZAR_SISTEMA_CUANTICO === 'function') {
+                INICIALIZAR_SISTEMA_CUANTICO();
+                inicializarMatrizVisual();
+                agregarLog('Matriz 17x17 reinicializada', 'info');
+            }
+        }
+        
+        function toggleAlgoritmo(algoritmo) {
+            algoritmosActivos[algoritmo] = !algoritmosActivos[algoritmo];
+            const btn = event.target;
+            btn.classList.toggle('active');
+            
+            const estado = algoritmosActivos[algoritmo] ? 'ACTIVADO' : 'DESACTIVADO';
+            agregarLog(`Algoritmo ${algoritmo.toUpperCase()} ${estado}`, 'info');
+        }
+        
+        function propagarEntanglement() {
+            const cambio_btc = (Math.random() - 0.5) * 0.1; // Simular cambio BTC
+            if (typeof PROPAGAR_ENTANGLEMENT_BTC === 'function') {
+                PROPAGAR_ENTANGLEMENT_BTC(cambio_btc);
+                agregarLog(`Propagación cuántica ejecutada: BTC cambió ${(cambio_btc * 100).toFixed(2)}%`, 'info');
+            }
+        }
+        
+        function conectarBinance() {
+            agregarLog('Conectando a Binance API...', 'info');
+            // Aquí iría la integración real con Binance
+            setTimeout(() => {
+                agregarLog('Conexión a Binance establecida (SIMULADO)', 'info');
+            }, 2000);
+        }
+        
+        function simularDatos() {
+            // Simular datos de mercado
+            const btcPrice = 45000 + (Math.random() - 0.5) * 5000;
+            document.getElementById('btc-price').textContent = `$${btcPrice.toFixed(2)}`;
+            
+            agregarLog(`Datos simulados generados: BTC=$${btcPrice.toFixed(2)}`, 'debug');
+        }
+        
+        function exportarMatriz() {
+            const matrizData = JSON.stringify(MATRIZ_CUANTICA, null, 2);
+            const blob = new Blob([matrizData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `matriz-cuantica-${Date.now()}.json`;
+            a.click();
+            
+            agregarLog('Matriz exportada exitosamente', 'info');
+        }
+        
+        function actualizarMatrizVisual() {
+            if (sistemaActivo) {
+                // Simular actualizaciones de la matriz
+                for (let i = 0; i < 17; i++) {
+                    for (let j = 0; j < 17; j++) {
+                        MATRIZ_CUANTICA[i][j] += (Math.random() - 0.5) * 0.01;
+                    }
+                }
+                inicializarMatrizVisual();
+            }
+        }
+        
+        function actualizarEstadisticas() {
+            if (sistemaActivo) {
+                // Simular estadísticas en tiempo real
+                document.getElementById('correlaciones-activas').textContent = Math.floor(Math.random() * 17);
+                document.getElementById('entropia-nivel').textContent = (Math.random() * 5).toFixed(2);
+                document.getElementById('estados-cuanticos').textContent = Math.floor(Math.random() * 8);
+                document.getElementById('operaciones-activas').textContent = Math.floor(Math.random() * 25);
+            }
+        }
+        
+        // Inicializar al cargar la página
+        window.addEventListener('load', () => {
+            inicializarMatrizVisual();
+            agregarLog('Dashboard inicializado - Listo para operar', 'info');
+        });
+        
+        // Override console.log para mostrar en el dashboard
+        const originalConsoleLog = console.log;
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            const mensaje = args.join(' ');
+            
+            let tipo = 'debug';
+            if (mensaje.includes('[ERROR]')) tipo = 'error';
+            else if (mensaje.includes('[WARN]')) tipo = 'warn';
+            else if (mensaje.includes('[INFO]')) tipo = 'info';
+            
+            agregarLog(mensaje, tipo);
+        };
+    </script>
+</body>
+</html>

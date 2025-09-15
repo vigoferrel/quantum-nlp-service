@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Fund Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 60px 1fr 80px;
+            height: 100vh;
+            grid-template-areas:
+                "sidebar header"
+                "sidebar main"
+                "player player";
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: white;
+            width: 350px;
+            placeholder-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .user-profile {
+            background: #1db954;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: #000000;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #1db954, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 12px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .nav-item.active {
+            background: rgba(29, 185, 84, 0.2);
+            color: #1db954;
+        }
+
+        .fund-list {
+            margin-top: 1rem;
+        }
+
+        .fund-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .fund-item:hover {
+            color: #ffffff;
+        }
+
+        .fund-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .fund-anchor { background: linear-gradient(45deg, #FF6B6B, #FF8E8E); }
+        .fund-momentum { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .fund-arbitrage { background: linear-gradient(45deg, #45B7D1, #96C93D); }
+        .fund-discovery { background: linear-gradient(45deg, #F093FB, #F5576C); }
+        .fund-macro { background: linear-gradient(45deg, #FBD3E9, #BB377D); }
+
+        /* Main Content */
+        .main-content {
+            grid-area: main;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(29, 185, 84, 0.3), rgba(0, 212, 255, 0.2));
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .play-button {
+            background: #1db954;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(29, 185, 84, 0.3);
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px rgba(29, 185, 84, 0.4);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .fund-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .fund-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fund-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .fund-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .fund-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .fund-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .fund-card-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .fund-card-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .fund-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #1db954;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.2rem;
+        }
+
+        .performance-chart {
+            height: 60px;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 8px;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 70%;
+            background: linear-gradient(to top, #1db954, rgba(29, 185, 84, 0.3));
+            width: 100%;
+            clip-path: polygon(0% 100%, 10% 85%, 20% 90%, 30% 75%, 40% 80%, 50% 65%, 60% 70%, 70% 55%, 80% 60%, 90% 45%, 100% 50%, 100% 100%);
+        }
+
+        /* Player Bar */
+        .player-bar {
+            grid-area: player;
+            background: #181818;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .current-fund {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 280px;
+        }
+
+        .current-fund-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .current-fund-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .current-fund-info p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .control-button.play {
+            background: #ffffff;
+            color: #000000;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #1db954;
+            border-radius: 2px;
+            width: 35%;
+            position: relative;
+        }
+
+        .progress-handle {
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-bar:hover .progress-handle {
+            opacity: 1;
+        }
+
+        .time {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 40px;
+        }
+
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 200px;
+            justify-content: flex-end;
+        }
+
+        .volume-bar {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .volume-fill {
+            height: 100%;
+            background: #1db954;
+            border-radius: 2px;
+            width: 60%;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Market Status */
+        .market-status {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .status-positive { color: #1db954; }
+        .status-negative { color: #f04747; }
+        .status-neutral { color: #ffa500; }
+
+        /* Animation keyframes */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .live-indicator {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="nav-button">‹</button>
+                <button class="nav-button">›</button>
+                <input type="text" class="search-bar" placeholder="Buscar fondos, métricas, estrategias...">
+            </div>
+            <div class="user-profile">QF</div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">Quantum Funds</div>
+            
+            <nav class="nav-section">
+                <div class="nav-item active">
+                    <span>🏠</span> Inicio
+                </div>
+                <div class="nav-item">
+                    <span>📊</span> Portfolio
+                </div>
+                <div class="nav-item">
+                    <span>📈</span> Analytics
+                </div>
+                <div class="nav-item">
+                    <span>⚡</span> Trading
+                </div>
+                <div class="nav-item">
+                    <span>🔔</span> Alertas
+                </div>
+            </nav>
+
+            <div class="fund-list">
+                <h4 style="color: rgba(255,255,255,0.7); margin-bottom: 1rem; font-size: 0.9rem;">TUS FONDOS</h4>
+                
+                <div class="fund-item">
+                    <div class="fund-icon fund-anchor">QA</div>
+                    <div>
+                        <div>Quantum Anchor</div>
+                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Conservative</div>
+                    </div>
+                </div>
+                
+                <div class="fund-item">
+                    <div class="fund-icon fund-momentum">QM</div>
+                    <div>
+                        <div>Quantum Momentum</div>
+                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Dynamic</div>
+                    </div>
+                </div>
+                
+                <div class="fund-item">
+                    <div class="fund-icon fund-arbitrage">QR</div>
+                    <div>
+                        <div>Quantum Arbitrage</div>
+                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Market Neutral</div>
+                    </div>
+                </div>
+                
+                <div class="fund-item">
+                    <div class="fund-icon fund-discovery">QD</div>
+                    <div>
+                        <div>Quantum Discovery</div>
+                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">High Growth</div>
+                    </div>
+                </div>
+                
+                <div class="fund-item">
+                    <div class="fund-icon fund-macro">QG</div>
+                    <div>
+                        <div>Quantum Macro</div>
+                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Global Strategy</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Portfolio Cuántico Activo</h1>
+                    <p class="hero-subtitle">5 fondos sincronizados generando alpha en el ecosistema crypto más avanzado</p>
+                    <button class="play-button">▶</button>
+                </div>
+            </div>
+
+            <!-- Market Status -->
+            <div class="market-status">
+                <div class="status-item">
+                    <div class="status-value status-positive live-indicator">+12.4%</div>
+                    <div class="status-label">Portfolio Total</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value status-neutral">RISK-ON</div>
+                    <div class="status-label">Market Regime</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value status-positive">47.3%</div>
+                    <div class="status-label">BTC Dominance</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value status-positive">2.8</div>
+                    <div class="status-label">Sharpe Ratio</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Fondos Activos</h2>
+            
+            <div class="fund-grid">
+                <div class="fund-card" style="--gradient: linear-gradient(45deg, #FF6B6B, #FF8E8E);">
+                    <div class="fund-card-header">
+                        <div class="fund-card-icon fund-anchor">QA</div>
+                        <div class="fund-card-info">
+                            <h3>Quantum Anchor</h3>
+                            <p>Conservative Bitcoin-Centric</p>
+                        </div>
+                    </div>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+8.7%</div>
+                            <div class="stat-label">30D Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.85</div>
+                            <div class="stat-label">Sharpe</div>
+                        </div>
+                    </div>
+                    <div class="performance-chart">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+
+                <div class="fund-card" style="--gradient: linear-gradient(45deg, #4ECDC4, #44A08D);">
+                    <div class="fund-card-header">
+                        <div class="fund-card-icon fund-momentum">QM</div>
+                        <div class="fund-card-info">
+                            <h3>Quantum Momentum</h3>
+                            <p>Dynamic Multi-Timeframe</p>
+                        </div>
+                    </div>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+24.1%</div>
+                            <div class="stat-label">30D Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2.31</div>
+                            <div class="stat-label">Sharpe</div>
+                        </div>
+                    </div>
+                    <div class="performance-chart">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+
+                <div class="fund-card" style="--gradient: linear-gradient(45deg, #45B7D1, #96C93D);">
+                    <div class="fund-card-header">
+                        <div class="fund-card-icon fund-arbitrage">QR</div>
+                        <div class="fund-card-info">
+                            <h3>Quantum Arbitrage</h3>
+                            <p>Market-Neutral Strategy</p>
+                        </div>
+                    </div>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+5.2%</div>
+                            <div class="stat-label">30D Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2.67</div>
+                            <div class="stat-label">Sharpe</div>
+                        </div>
+                    </div>
+                    <div class="performance-chart">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+
+                <div class="fund-card" style="--gradient: linear-gradient(45deg, #F093FB, #F5576C);">
+                    <div class="fund-card-header">
+                        <div class="fund-card-icon fund-discovery">QD</div>
+                        <div class="fund-card-info">
+                            <h3>Quantum Discovery</h3>
+                            <p>High-Conviction Emerging</p>
+                        </div>
+                    </div>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+47.8%</div>
+                            <div class="stat-label">30D Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.92</div>
+                            <div class="stat-label">Sharpe</div>
+                        </div>
+                    </div>
+                    <div class="performance-chart">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+
+                <div class="fund-card" style="--gradient: linear-gradient(45deg, #FBD3E9, #BB377D);">
+                    <div class="fund-card-header">
+                        <div class="fund-card-icon fund-macro">QG</div>
+                        <div class="fund-card-info">
+                            <h3>Quantum Macro</h3>
+                            <p>Global Cross-Asset</p>
+                        </div>
+                    </div>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+15.6%</div>
+                            <div class="stat-label">30D Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2.18</div>
+                            <div class="stat-label">Sharpe</div>
+                        </div>
+                    </div>
+                    <div class="performance-chart">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Estrategias Recomendadas</h2>
+            
+            <div class="fund-grid">
+                <div class="fund-card">
+                    <h3>Portfolio Conservador</h3>
+                    <p style="color: rgba(255,255,255,0.7); margin: 1rem 0;">60% Anchor + 25% Arbitrage + 15% Macro</p>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+9.8%</div>
+                            <div class="stat-label">Expected Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">18%</div>
+                            <div class="stat-label">Max Drawdown</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fund-card">
+                    <h3>Portfolio Balanceado</h3>
+                    <p style="color: rgba(255,255,255,0.7); margin: 1rem 0;">30% Anchor + 30% Momentum + 25% Macro + 15% Discovery</p>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+18.7%</div>
+                            <div class="stat-label">Expected Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">28%</div>
+                            <div class="stat-label">Max Drawdown</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fund-card">
+                    <h3>Portfolio Agresivo</h3>
+                    <p style="color: rgba(255,255,255,0.7); margin: 1rem 0;">40% Momentum + 30% Discovery + 20% Macro + 10% Anchor</p>
+                    <div class="fund-stats">
+                        <div class="stat">
+                            <div class="stat-value">+32.4%</div>
+                            <div class="stat-label">Expected Return</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">42%</div>
+                            <div class="stat-label">Max Drawdown</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Player Bar -->
+        <div class="player-bar">
+            <div class="current-fund">
+                <div class="current-fund-icon">QA</div>
+                <div class="current-fund-info">
+                    <h4>Quantum Anchor Strategy</h4>
+                    <p>Rebalancing in progress • BTC +2.3%</p>
+                </div>
+            </div>
+
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-button">⏮</button>
+                    <button class="control-button">⏸</button>
+                    <button class="control-button play">▶</button>
+                    <button class="control-button">⏸</button>
+                    <button class="control-button">⏭</button>
+                </div>
+                <div class="progress-container">
+                    <span class="time">2:47</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill">
+                            <div class="progress-handle"></div>
+                        </div>
+                    </div>
+                    <span class="time">8:00</span>
+                </div>
+            </div>
+
+            <div class="volume-controls">
+                <button class="control-button">🔇</button>
+                <div class="volume-bar">
+                    <div class="volume-fill"></div>
+                </div>
+                <button class="control-button">📊</button>
+                <button class="control-button">⚙️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Estado del sistema
+        let isPlaying = false;
+        let currentFund = 'QA';
+        let funds = {
+            'QA': { name: 'Quantum Anchor', status: 'Conservative', return: 8.7, sharpe: 1.85 },
+            'QM': { name: 'Quantum Momentum', status: 'Dynamic', return: 24.1, sharpe: 2.31 },
+            'QR': { name: 'Quantum Arbitrage', status: 'Market Neutral', return: 5.2, sharpe: 2.67 },
+            'QD': { name: 'Quantum Discovery', status: 'High Growth', return: 47.8, sharpe: 1.92 },
+            'QG': { name: 'Quantum Macro', status: 'Global Strategy', return: 15.6, sharpe: 2.18 }
+        };
+
+        // Simulación de datos en tiempo real
+        function updateMarketData() {
+            // Actualizar valores del portfolio total
+            const portfolioReturn = document.querySelector('.status-value.status-positive');
+            const currentValue = parseFloat(portfolioReturn.textContent.replace('%', ''));
+            const newValue = currentValue + (Math.random() - 0.5) * 0.2;
+            portfolioReturn.textContent = `${newValue >= 0 ? '+' : ''}${newValue.toFixed(1)}%`;
+            
+            // Actualizar dominancia de BTC
+            const btcDominance = document.querySelectorAll('.status-value')[2];
+            const currentDom = parseFloat(btcDominance.textContent.replace('%', ''));
+            const newDom = currentDom + (Math.random() - 0.5) * 0.1;
+            btcDominance.textContent = `${newDom.toFixed(1)}%`;
+
+            // Actualizar retornos de fondos
+            document.querySelectorAll('.fund-card').forEach((card, index) => {
+                const statValue = card.querySelector('.stat-value');
+                const currentReturn = parseFloat(statValue.textContent.replace('%', ''));
+                const volatility = index === 3 ? 2.0 : index === 1 ? 1.5 : 0.5; // Discovery más volátil
+                const newReturn = currentReturn + (Math.random() - 0.5) * volatility;
+                statValue.textContent = `${newReturn >= 0 ? '+' : ''}${newReturn.toFixed(1)}%`;
+            });
+        }
+
+        // Funciones de control del player
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const playButton = document.querySelector('.control-button.play');
+            playButton.innerHTML = isPlaying ? '⏸' : '▶';
+            
+            if (isPlaying) {
+                startRebalancing();
+            } else {
+                stopRebalancing();
+            }
+        }
+
+        function startRebalancing() {
+            const currentFundInfo = document.querySelector('.current-fund-info p');
+            currentFundInfo.innerHTML = 'Rebalancing active • Auto-trading enabled';
+            
+            // Simular progreso de rebalancing
+            const progressFill = document.querySelector('.progress-fill');
+            let progress = 35;
+            
+            const rebalanceInterval = setInterval(() => {
+                if (!isPlaying) {
+                    clearInterval(rebalanceInterval);
+                    return;
+                }
+                
+                progress += Math.random() * 2;
+                if (progress > 100) progress = 0;
+                
+                progressFill.style.width = `${progress}%`;
+                
+                // Actualizar tiempo
+                const minutes = Math.floor(progress / 12.5);
+                const seconds = Math.floor((progress % 12.5) * 4.8);
+                document.querySelector('.time').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+            }, 1000);
+        }
+
+        function stopRebalancing() {
+            const currentFundInfo = document.querySelector('.current-fund-info p');
+            currentFundInfo.innerHTML = 'Strategy paused • Manual mode';
+        }
+
+        function switchFund(fundId) {
+            currentFund = fundId;
+            const fund = funds[fundId];
+            
+            // Actualizar información del fund actual
+            const currentFundIcon = document.querySelector('.current-fund-icon');
+            const currentFundInfo = document.querySelector('.current-fund-info h4');
+            const currentFundStatus = document.querySelector('.current-fund-info p');
+            
+            currentFundIcon.textContent = fundId;
+            currentFundIcon.className = `current-fund-icon fund-${fundId.toLowerCase()}`;
+            currentFundInfo.textContent = fund.name;
+            currentFundStatus.innerHTML = `${fund.status} • Return: ${fund.return >= 0 ? '+' : ''}${fund.return}%`;
+            
+            // Actualizar navegación activa
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.fund-item').forEach(item => item.classList.remove('active'));
+        }
+
+        // Funciones de búsqueda
+        function setupSearch() {
+            const searchBar = document.querySelector('.search-bar');
+            
+            searchBar.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                
+                if (query === '') {
+                    showAllFunds();
+                    return;
+                }
+                
+                // Filtrar fondos por nombre o características
+                document.querySelectorAll('.fund-card').forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(query) || description.includes(query)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.3s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function showAllFunds() {
+            document.querySelectorAll('.fund-card').forEach(card => {
+                card.style.display = 'block';
+            });
+        }
+
+        // Animaciones y efectos visuales
+        function setupAnimations() {
+            // Efecto hover en tarjetas de fondos
+            document.querySelectorAll('.fund-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Animación de las líneas de performance
+            function animateCharts() {
+                document.querySelectorAll('.chart-line').forEach(line => {
+                    const randomPath = generateRandomPath();
+                    line.style.clipPath = randomPath;
+                });
+            }
+
+            function generateRandomPath() {
+                let path = '0% 100%';
+                for (let i = 10; i <= 100; i += 10) {
+                    const height = 30 + Math.random() * 60;
+                    path += `, ${i}% ${100 - height}%`;
+                }
+                path += ', 100% 100%';
+                return `polygon(${path})`;
+            }
+
+            // Actualizar gráficos cada 3 segundos
+            setInterval(animateCharts, 3000);
+        }
+
+        // Gestión de alertas y notificaciones
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#1db954' : type === 'warning' ? '#ffa500' : '#45B7D1'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Simulación de eventos del mercado
+        function simulateMarketEvents() {
+            const events = [
+                { message: 'BTC breakout detected • Momentum strategy activated', type: 'success' },
+                { message: 'High volatility detected • Risk management engaged', type: 'warning' },
+                { message: 'Arbitrage opportunity found • Executing trades', type: 'info' },
+                { message: 'New protocol discovered • Discovery fund investigating', type: 'success' },
+                { message: 'Macro regime shift detected • Adjusting allocations', type: 'warning' }
+            ];
+            
+            setInterval(() => {
+                if (Math.random() < 0.3) { // 30% chance cada intervalo
+                    const event = events[Math.floor(Math.random() * events.length)];
+                    showNotification(event.message, event.type);
+                }
+            }, 15000); // Cada 15 segundos
+        }
+
+        // Funciones de navegación
+        function setupNavigation() {
+            // Navegación de sección
+            document.querySelectorAll('.nav-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Simular cambio de vista
+                    const sections = ['Inicio', 'Portfolio', 'Analytics', 'Trading', 'Alertas'];
+                    showNotification(`Navegando a ${sections[index]}`, 'info');
+                });
+            });
+
+            // Navegación de fondos
+            document.querySelectorAll('.fund-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const fundIcon = item.querySelector('.fund-icon');
+                    const fundId = fundIcon.textContent;
+                    switchFund(fundId);
+                    
+                    document.querySelectorAll('.fund-item').forEach(f => f.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+        }
+
+        // Control de volumen y configuración
+        function setupVolumeControls() {
+            const volumeBar = document.querySelector('.volume-bar');
+            const volumeFill = document.querySelector('.volume-fill');
+            
+            volumeBar.addEventListener('click', (e) => {
+                const rect = volumeBar.getBoundingClientRect();
+                const percentage = (e.clientX - rect.left) / rect.width * 100;
+                volumeFill.style.width = `${percentage}%`;
+                
+                // Simular cambio de frecuencia de updates
+                if (percentage > 80) {
+                    showNotification('High frequency mode • Real-time updates', 'success');
+                } else if (percentage < 20) {
+                    showNotification('Low frequency mode • Battery saving', 'info');
+                }
+            });
+        }
+
+        // Funciones de la barra de progreso
+        function setupProgressBar() {
+            const progressBar = document.querySelector('.progress-bar');
+            const progressFill = document.querySelector('.progress-fill');
+            
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const percentage = (e.clientX - rect.left) / rect.width * 100;
+                progressFill.style.width = `${percentage}%`;
+                
+                // Actualizar tiempo
+                const totalMinutes = 8;
+                const currentMinutes = Math.floor(percentage / 100 * totalMinutes);
+                const currentSeconds = Math.floor((percentage / 100 * totalMinutes % 1) * 60);
+                document.querySelector('.time').textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+            });
+        }
+
+        // Inicialización del sistema
+        function initializeSystem() {
+            console.log('🚀 Quantum Fund Suite Initialized');
+            
+            // Configurar event listeners
+            setupSearch();
+            setupAnimations();
+            setupNavigation();
+            setupVolumeControls();
+            setupProgressBar();
+            
+            // Configurar controles del player
+            document.querySelector('.control-button.play').addEventListener('click', togglePlay);
+            
+            // Iniciar simulaciones
+            simulateMarketEvents();
+            
+            // Actualizar datos cada 5 segundos
+            setInterval(updateMarketData, 5000);
+            
+            // Mostrar notificación de bienvenida
+            setTimeout(() => {
+                showNotification('Quantum Fund Suite online • All systems operational', 'success');
+            }, 1000);
+            
+            // CSS para animaciones adicionales
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: scale(0.9); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                
+                .fund-item.active {
+                    background: rgba(29, 185, 84, 0.2);
+                    color: #1db954;
+                    border-radius: 8px;
+                    padding-left: 1rem;
+                }
+                
+                .fund-card:hover .chart-line {
+                    animation: pulse 1s ease infinite;
+                }
+                
+                .status-item:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    transform: translateY(-2px);
+                    transition: all 0.3s ease;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initializeSystem);
+        
+        // Manejo de errores global
+        window.addEventListener('error', (e) => {
+            console.error('System error:', e.error);
+            showNotification('System error detected • Failsafe mode activated', 'warning');
+        });
+        
+        // Funciones de debug para desarrollo
+        window.QuantumFunds = {
+            switchFund,
+            updateMarketData,
+            showNotification,
+            togglePlay,
+            currentState: () => ({ isPlaying, currentFund, funds })
+        };
+    </script>
+</body>
+</html>
+                    
