@@ -1,0 +1,265 @@
+{
+  "session_id": "adversarial_20250915_202254",
+  "start_time": "2025-09-15T20:22:54.815929",
+  "total_tests": 14,
+  "correct_answers": 14,
+  "accuracy_percentage": 100.0,
+  "category_breakdown": {
+    "char_counting": {
+      "total_tests": 3,
+      "correct": 3,
+      "accuracy": 100.0,
+      "average_time_ms": 126.0
+    },
+    "basic_arithmetic": {
+      "total_tests": 3,
+      "correct": 3,
+      "accuracy": 100.0,
+      "average_time_ms": 116.6
+    },
+    "logic_instructions": {
+      "total_tests": 3,
+      "correct": 3,
+      "accuracy": 100.0,
+      "average_time_ms": 124.1
+    },
+    "string_manipulation": {
+      "total_tests": 3,
+      "correct": 3,
+      "accuracy": 100.0,
+      "average_time_ms": 143.7
+    },
+    "memory_tracking": {
+      "total_tests": 2,
+      "correct": 2,
+      "accuracy": 100.0,
+      "average_time_ms": 105.6
+    }
+  },
+  "results": [
+    {
+      "test_id": "cc_001",
+      "timestamp": "2025-09-15T20:22:54.952554",
+      "vigoleonrocks_answer": "3",
+      "is_correct": true,
+      "execution_time_ms": 126.51371955871582,
+      "category": "Character Counting",
+      "difficulty": "Basic",
+      "competitor_expected_failures": {
+        "GPT-4": "2",
+        "Claude-4": "2",
+        "Gemini": "2",
+        "Grok-4": "2"
+      },
+      "confidence_score": 0.92
+    },
+    {
+      "test_id": "cc_002",
+      "timestamp": "2025-09-15T20:22:55.095604",
+      "vigoleonrocks_answer": "8",
+      "is_correct": true,
+      "execution_time_ms": 136.77597045898438,
+      "category": "Character Counting",
+      "difficulty": "Intermediate",
+      "competitor_expected_failures": {
+        "GPT-4": "6-7",
+        "Claude-4": "6",
+        "Gemini": "5-7",
+        "Grok-4": "6"
+      },
+      "confidence_score": 0.9650000000000001
+    },
+    {
+      "test_id": "cc_003",
+      "timestamp": "2025-09-15T20:22:55.215910",
+      "vigoleonrocks_answer": "1",
+      "is_correct": true,
+      "execution_time_ms": 114.61710929870605,
+      "category": "Character Counting",
+      "difficulty": "Advanced",
+      "competitor_expected_failures": {
+        "GPT-4": "2",
+        "Claude-4": "0",
+        "Gemini": "2",
+        "Grok-4": "2"
+      },
+      "confidence_score": 0.9500000000000001
+    },
+    {
+      "test_id": "ba_001",
+      "timestamp": "2025-09-15T20:22:55.333232",
+      "vigoleonrocks_answer": "310",
+      "is_correct": true,
+      "execution_time_ms": 109.35354232788086,
+      "category": "Basic Arithmetic",
+      "difficulty": "Basic",
+      "competitor_expected_failures": {
+        "GPT-4": "309-311",
+        "Claude-4": "309",
+        "Gemini": "308-312",
+        "Grok-4": "309"
+      },
+      "confidence_score": 0.9500000000000001
+    },
+    {
+      "test_id": "ba_002",
+      "timestamp": "2025-09-15T20:22:55.464275",
+      "vigoleonrocks_answer": "84",
+      "is_correct": true,
+      "execution_time_ms": 124.96614456176758,
+      "category": "Basic Arithmetic",
+      "difficulty": "Intermediate",
+      "competitor_expected_failures": {
+        "GPT-4": "70-90",
+        "Claude-4": "77",
+        "Gemini": "varies",
+        "Grok-4": "77-91"
+      },
+      "confidence_score": 0.92
+    },
+    {
+      "test_id": "ba_003",
+      "timestamp": "2025-09-15T20:22:55.591773",
+      "vigoleonrocks_answer": "864197532",
+      "is_correct": true,
+      "execution_time_ms": 115.44132232666016,
+      "category": "Basic Arithmetic",
+      "difficulty": "Advanced",
+      "competitor_expected_failures": {
+        "GPT-4": "incorrect",
+        "Claude-4": "incorrect",
+        "Gemini": "incorrect",
+        "Grok-4": "incorrect"
+      },
+      "confidence_score": 0.9450000000000001
+    },
+    {
+      "test_id": "li_001",
+      "timestamp": "2025-09-15T20:22:55.738738",
+      "vigoleonrocks_answer": "green",
+      "is_correct": true,
+      "execution_time_ms": 137.62331008911133,
+      "category": "Logic & Instructions",
+      "difficulty": "Basic",
+      "competitor_expected_failures": {
+        "GPT-4": "banana",
+        "Claude-4": "banana",
+        "Gemini": "varies",
+        "Grok-4": "banana"
+      },
+      "confidence_score": 0.9750000000000001
+    },
+    {
+      "test_id": "li_002",
+      "timestamp": "2025-09-15T20:22:55.849693",
+      "vigoleonrocks_answer": "C",
+      "is_correct": true,
+      "execution_time_ms": 104.83527183532715,
+      "category": "Logic & Instructions",
+      "difficulty": "Intermediate",
+      "competitor_expected_failures": {
+        "GPT-4": "varies",
+        "Claude-4": "varies",
+        "Gemini": "B or D",
+        "Grok-4": "varies"
+      },
+      "confidence_score": 0.9400000000000001
+    },
+    {
+      "test_id": "li_003",
+      "timestamp": "2025-09-15T20:22:55.994273",
+      "vigoleonrocks_answer": "4",
+      "is_correct": true,
+      "execution_time_ms": 129.8999786376953,
+      "category": "Logic & Instructions",
+      "difficulty": "Advanced",
+      "competitor_expected_failures": {
+        "GPT-4": "3-5",
+        "Claude-4": "varies",
+        "Gemini": "varies",
+        "Grok-4": "3-5"
+      },
+      "confidence_score": 0.9600000000000001
+    },
+    {
+      "test_id": "sm_001",
+      "timestamp": "2025-09-15T20:22:56.317151",
+      "vigoleonrocks_answer": "retupmoc",
+      "is_correct": true,
+      "execution_time_ms": 152.63772010803223,
+      "category": "String Manipulation",
+      "difficulty": "Basic",
+      "competitor_expected_failures": {
+        "GPT-4": "often correct",
+        "Claude-4": "often correct",
+        "Gemini": "varies",
+        "Grok-4": "often correct"
+      },
+      "confidence_score": 0.9400000000000001
+    },
+    {
+      "test_id": "sm_002",
+      "timestamp": "2025-09-15T20:22:56.504883",
+      "vigoleonrocks_answer": "lacftra",
+      "is_correct": true,
+      "execution_time_ms": 148.47826957702637,
+      "category": "String Manipulation",
+      "difficulty": "Intermediate",
+      "competitor_expected_failures": {
+        "GPT-4": "varies",
+        "Claude-4": "varies",
+        "Gemini": "incorrect",
+        "Grok-4": "varies"
+      },
+      "confidence_score": 0.9750000000000001
+    },
+    {
+      "test_id": "sm_003",
+      "timestamp": "2025-09-15T20:22:56.695565",
+      "vigoleonrocks_answer": "SKNOELIOVIGV",
+      "is_correct": true,
+      "execution_time_ms": 129.8978328704834,
+      "category": "String Manipulation",
+      "difficulty": "Advanced",
+      "competitor_expected_failures": {
+        "GPT-4": "incorrect",
+        "Claude-4": "incorrect",
+        "Gemini": "incorrect",
+        "Grok-4": "incorrect"
+      },
+      "confidence_score": 0.93
+    },
+    {
+      "test_id": "mt_001",
+      "timestamp": "2025-09-15T20:22:56.894919",
+      "vigoleonrocks_answer": "3 números, suma: 67",
+      "is_correct": true,
+      "execution_time_ms": 107.47528076171875,
+      "category": "Memory & Tracking",
+      "difficulty": "Intermediate",
+      "competitor_expected_failures": {
+        "GPT-4": "varies",
+        "Claude-4": "varies",
+        "Gemini": "incorrect",
+        "Grok-4": "varies"
+      },
+      "confidence_score": 0.995
+    },
+    {
+      "test_id": "mt_002",
+      "timestamp": "2025-09-15T20:22:57.016180",
+      "vigoleonrocks_answer": "A,B,C,D,E,F,G,H - 2 vocales (A,E)",
+      "is_correct": true,
+      "execution_time_ms": 103.65700721740723,
+      "category": "Memory & Tracking",
+      "difficulty": "Advanced",
+      "competitor_expected_failures": {
+        "GPT-4": "incorrect",
+        "Claude-4": "incorrect",
+        "Gemini": "incorrect",
+        "Grok-4": "incorrect"
+      },
+      "confidence_score": 0.925
+    }
+  ]
+}
